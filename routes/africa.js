@@ -1,47 +1,31 @@
 const express = require('express');
 const africa = express.Router();
 require('dotenv').config()
-const BROWSER = process.env.BROWSER;
 const puppeteer = require('puppeteer');
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 var colors = require('colors');
-///
+const vars = require('./store/storeVars')
+    ///
 process.setMaxListeners(Infinity);
 //
 let add = [];
 let data = [];
 async function main(uri) {
-
     try {
 
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
+        const browser = await puppeteer.launch({
+            args: vars.argsArr,
+            defaultViewport: null,
+            headless: vars.bool,
+            executablePath: vars.exPath
+        });
         const page = await browser.newPage();
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
         await page.waitFor(125000);
         await page.waitForSelector('article');
-
         const emAll = await page.$$('article.just-in__article');
 
         for (const each of emAll) {
             try {
-
                 const time = await each.$('time');
                 const ab = await each.$('a');
                 const date = (time != null || undefined) ? await page.evaluate(i => i.textContent, time) : null;
@@ -66,7 +50,6 @@ async function main(uri) {
 
         for (const item of items) {
             try {
-
                 //
                 const timeStamp = await item.$('.boxPlay--duration');
                 const e = await item.$('img');
@@ -114,7 +97,6 @@ africa.get('/africa', (req, res) => {
             "page url": source
         },
         "africa": add,
-
         "trending": data
     });
 })

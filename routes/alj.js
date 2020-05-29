@@ -2,9 +2,8 @@ const express = require('express');
 require('dotenv').config()
 const aljRouta = express.Router();
 const puppeteer = require('puppeteer');
-const BROWSER = process.env.BROWSER;
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-//
+const vars = require('./store/storeVars')
+    //
 process.setMaxListeners(Infinity);
 ///
 let add_news = [];
@@ -16,30 +15,15 @@ async function main(uri_docs, uri_africa, uri_news, uri_trending) {
 
     try {
 
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
-
+        const browser = await puppeteer.launch({
+            args: vars.argsArr,
+            defaultViewport: null,
+            headless: vars.bool,
+            executablePath: vars.exPath
+        });
         const page_docs = await browser.newPage();
         page_docs.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
-
         await page_docs.goto(uri_docs, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_docs.waitForSelector('div.owl-wrapper');
         ////LOOP ONE
         const items_docs = await page_docs.$$('#ID0R > div.owl-wrapper-outer > div.owl-wrapper > div.owl-item');
@@ -73,8 +57,6 @@ async function main(uri_docs, uri_africa, uri_news, uri_trending) {
 
         for (const el of emAll_docs) {
             try {
-
-
                 const tag = await el.$('h4.heading-section');
                 const anchor = await el.$('a.play');
                 const para = await el.$('p');
