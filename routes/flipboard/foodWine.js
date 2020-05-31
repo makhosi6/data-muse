@@ -3,15 +3,19 @@ const foodWine = express.Router();
 const puppet = require('../store/puppetFlipBoard');
 //
 process.setMaxListeners(Infinity);
+//
+let sources = {
+        news: "https://flipboard.com/@foodandwine",
+        recipe: "https://flipboard.com/@foodandwine/recipes-n1s9kfsoz"
+
+    }
+    //
+const Puppet = puppet.Scrapper;
 //one
-const PuppetOne = puppet.Scrapper;
-let source_news = "https://flipboard.com/@foodandwine";
-const dataOne = new PuppetOne(source_news);
+const dataOne = new Puppet(sources.news);
 dataOne.puppet();
 //two
-const PuppetTwo = puppet.Scrapper;
-let source_recipe = "https://flipboard.com/@foodandwine/recipes-n1s9kfsoz";
-const dataTwo = new PuppetTwo(source_recipe);
+const dataTwo = new Puppet(sources.recipe);
 dataTwo.puppet();
 
 /////////////

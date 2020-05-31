@@ -10,7 +10,7 @@ class Scrapper {
             try {
                 const browser = await puppeteer.launch({
                     args: vars.argsArr,
-                    headless: false,
+                    headless: vars.bool,
                     defaultViewport: null,
                     executablePath: vars.exPath
                 });
@@ -65,16 +65,16 @@ class Scrapper {
                         });
 
                     } catch (error) {
-                        console.trace(`From ${this.uri} loop: ${error.name}`);
+                        console.trace('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`);
                     }
                 }
                 this.data = arrr;
-                console.log('\x1b[33m%s\x1b[0m', `Done: ${this.uri}`);
+                console.log('\x1b[43m%s\x1b[0m', `Done: ${this.uri}`);
                 browser.close();
             } catch (error) {
-                console.trace(`From ${this.uri} Main: ${error.name}`);
+                console.trace('\x1b[41m%s\x1b[0m', `From ${this.uri} Main: ${error.name}`);
             }
-            console.log(this.data)
+
             return this.data;
         }
     }

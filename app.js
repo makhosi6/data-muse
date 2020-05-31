@@ -85,11 +85,11 @@ app.use('/api/v1/', arr);
 const env = process.env.NODE_ENV;
 const PORT = process.env.PORT;
 //Fiv nat-geo uri
-app.listen(PORT, console.log('\x1b[33m%s\x1b[0m', `Running in ${env} mode on port ${PORT}. And ${arr.length} routes went live on ${Date()}`));
+app.listen(PORT, console.log('\x1b[42m%s\x1b[0m', `Running in ${env} mode on port ${PORT}. And ${arr.length} routes went live on ${Date()}`));
 
 /*
 git add .
-git commit -m "Updates  10/05/2020"
+git commit -m "Updates 10/05/2020"
 git pull
 git push
 

@@ -8,7 +8,7 @@ const Puppet = puppet.Scrapper;
 let source = "https://flipboard.com/@espn";
 const data = new Puppet(source);
 
-let fin = data.puppet();
+data.puppet();
 /////////////
 espn.get('/espn', (req, res) => {
     res.send({

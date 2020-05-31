@@ -4,35 +4,35 @@ const vars = require('../store/storeVars');
 const puppet = require('../store/puppetFlipBoard');
 //
 process.setMaxListeners(Infinity);
+//
+let sources = {
+        animals: "https://flipboard.com/@nationalgeographic/animals-et7cccbnz",
+        news: "https://flipboard.com/@nationalgeographic/news-7mqhsd63z",
+        photo: "https://flipboard.com/@nationalgeographic/photography-krv08c4hz",
+        enviro: "https://flipboard.com/@nationalgeographic/environment-6rpgsr1kz",
+        travel: "https://flipboard.com/@nationalgeographic/travel-es7qj2fiz",
+        science: "https://flipboard.com/@nationalgeographic/science-b8caucnjz"
+
+    }
+    //
+const Puppet = puppet.Scrapper;
 //one
-const PuppetOne = puppet.Scrapper;
-let source_animals = "https://flipboard.com/@nationalgeographic/animals-et7cccbnz";
-const dataOne = new PuppetOne(source_animals);
+const dataOne = new Puppet(sources.animals);
 dataOne.puppet();
 //two
-const PuppetTwo = puppet.Scrapper;
-let source_news = "https://flipboard.com/@nationalgeographic/news-7mqhsd63z";
-const dataTwo = new PuppetTwo(source_news);
+const dataTwo = new Puppet(sources.news);
 dataTwo.puppet();
 //three
-const PuppetThree = puppet.Scrapper;
-let source_photo = "https://flipboard.com/@nationalgeographic/photography-krv08c4hz";
-const dataThree = new PuppetThree(source_photo);
+const dataThree = new Puppet(sources.photo);
 dataThree.puppet();
 //four
-const PuppetFour = puppet.Scrapper;
-let source_enviro = "https://flipboard.com/@nationalgeographic/environment-6rpgsr1kz";
-const dataFour = new PuppetFour(source_enviro);
+const dataFour = new Puppet(sources.enviro);
 dataFour.puppet();
 //five
-const PuppetFive = puppet.Scrapper;
-let source_science = "https://flipboard.com/@nationalgeographic/science-b8caucnjz";
-const dataFive = new PuppetFive(source_science);
+const dataFive = new Puppet(sources.science);
 dataFive.puppet();
 //six
-const PuppetSix = puppet.Scrapper;
-let source_travel = "https://flipboard.com/@nationalgeographic/travel-es7qj2fiz";
-const dataSix = new PuppetSix(source_travel);
+const dataSix = new Puppet(sources.travel);
 dataSix.puppet();
 
 natGeoAnimals.get('/flipboard/natgeo', (req, res) => {
