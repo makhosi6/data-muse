@@ -2,9 +2,8 @@ const express = require('express');
 const kickOff = express.Router();
 const puppeteer = require('puppeteer');
 require('dotenv').config()
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-const BROWSER = process.env.BROWSER;
-///
+const vars = require('./store/storeVars')
+    ///
 process.setMaxListeners(Infinity);
 //
 let add = [];
@@ -15,28 +14,15 @@ async function main(uri) {
 
     try {
 
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
+        const browser = await puppeteer.launch({
+            args: vars.argsArr,
+            defaultViewport: null,
+            headless: vars.bool,
+            executablePath: vars.exPath
+        });
 
         const page = await browser.newPage();
-        page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
-
+        page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
 
         await page.waitForSelector('.pod');
@@ -73,7 +59,6 @@ async function main(uri) {
         }
 
         const obj = await page.$$('.tab-section');
-
         //
         for (const one of obj) {
             try {
@@ -87,7 +72,6 @@ async function main(uri) {
                         // const btn = await each.$eval('a.button', a => a.innerText);
                         let a = btn.split('More ');
                         let b = a[1];
-
                         data.push({
                             "category": b,
                             "url": link,
@@ -95,7 +79,6 @@ async function main(uri) {
                         })
                     } catch (error) {
                         console.log(`From ${uri} loop: ${error}`.bgMagenta);
-
                     }
                 }
             } catch (error) {
@@ -109,7 +92,6 @@ async function main(uri) {
                 const link = await one.$eval('.pod__title > a', a => a.href);
                 const headline = await one.$eval('.pod__title > a', a => a.innerText);
                 // const btn = await each.$eval('a.button', a => a.innerText);
-
                 trends.push({
                     "url": link,
                     "headline": headline,
@@ -121,18 +103,11 @@ async function main(uri) {
         }
 
         //
-
-
-
         const page_list = await browser.newPage();
-        page_list.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
-
+        page_list.setUserAgent(vars.userAgent);
         await page_list.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_list.waitForSelector('table');
-        //
         await page_list.waitFor(12300);
-        ///
         const items_list = await page_list.$$('table  > tbody > tr');
         const moreLink = await page_list.$('.col-xs-12.league-more-btn.is-desktop > a');
         const moreBtn = await page_list.evaluate(div => div.href, moreLink);
@@ -148,13 +123,11 @@ async function main(uri) {
                 const pl = await item.$('td:nth-child(4)');
                 const gd = await item.$('td:nth-child(10)');
                 const pts = await item.$('td:nth-child(11)');
-                //
                 const teamNum = await page_list.evaluate(div => div.innerText, num);
                 const teamImg = await page_list.evaluate(div => div.dataset.src, teamlogo);
                 const teamPl = await page_list.evaluate(div => div.innerText, pl);
                 const teamGd = await page_list.evaluate(div => div.innerText, gd);
                 const teamPts = await page_list.evaluate(div => div.innerText, pts);
-                //
                 const teamName = await page_list.evaluate(el => el.textContent, team);
 
                 add_list.push({
@@ -167,19 +140,14 @@ async function main(uri) {
                     "teamName": teamName
                 })
             } catch (error) {
-                console.log(`From ${uri} loop_list: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`);
                 continue;
             }
         }
-
-
-        //
-        console.log(`Done: ${uri}`.bgYellow);
-
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
         browser.close();
-
     } catch (error) {
-        console.log(`From ${uri} Main: ${error}`.bgRed);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error.name}`);
     }
 }
 let source = "https://www.kickoff.com/";

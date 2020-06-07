@@ -1,8 +1,7 @@
 const express = require('express');
 const timesLiveBusi = express.Router();
 const puppeteer = require('puppeteer');
-const BROWSER = process.env.BROWSER;
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const vars = require('./store/storeVars');
 ///
 process.setMaxListeners(Infinity);
 //
@@ -12,33 +11,20 @@ let add_sport = [];
 
 async function main(uri_business, uri_news, uri_sport) {
     try {
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
+        const browser = await puppeteer.launch({
+            args: vars.argsArr,
+            defaultViewport: null,
+            headless: vars.bool,
+            executablePath: vars.exPath
+        });
 
         const page_business = await browser.newPage();
-        page_business.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.149 Safari/537.36');
+        page_business.setUserAgent(vars.userAgent);
         await page_business.goto(uri_business, { waitUntil: 'networkidle2', timeout: 0 });
         await page_business.waitForSelector('.article');
         const items_business = await page_business.$$('.generic-block');
         await page_business.waitFor(125000);
         //
-
         console.log(items_business.length);
         for (const item of items_business) {
             try {
@@ -71,14 +57,14 @@ async function main(uri_business, uri_news, uri_sport) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.log(`From ${uri_business} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_business} loop: ${error.name}`);
                 continue;
 
             }
         }
         //
         const page_news = await browser.newPage();
-        page_news.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_news.setUserAgent(vars.userAgent);
         await page_news.goto(uri_news, { waitUntil: 'networkidle2', timeout: 0 });
         await page_news.waitForSelector('.article');
         const items_news = await page_news.$$('.horizontal-block > .article');
@@ -112,14 +98,14 @@ async function main(uri_business, uri_news, uri_sport) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.log(`From ${uri_news} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_news} loop: ${error.name}`);
                 continue;
 
             }
         }
         //
         const page_sport = await browser.newPage();
-        page_sport.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_sport.setUserAgent(vars.userAgent);
 
         await page_sport.goto(uri_sport, { waitUntil: 'networkidle2', timeout: 0 });
 
@@ -154,19 +140,17 @@ async function main(uri_business, uri_news, uri_sport) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.log(`From ${uri_sport} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_sport} loop: ${error.name}`);
                 continue;
-
             }
+
         }
         //
 
-        //
-        console.log(`Done: ${uri_business}`.bgYellow);
-
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_sport}`);
         browser.close();
     } catch (error) {
-        console.log(`From ${uri_news} Main: ${error}`.bgRed);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_sport} Main: ${error.name}`);
     }
 }
 let source_business = "https://www.timeslive.co.za/sunday-times/business/";

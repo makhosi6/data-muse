@@ -2,17 +2,16 @@ const express = require('express');
 require('dotenv').config()
 const aljRouta = express.Router();
 const puppeteer = require('puppeteer');
-const vars = require('./store/storeVars')
-    //
+const vars = require('./store/storeVars');
+const puppet = require('./store/puppetAlj');
+//
 process.setMaxListeners(Infinity);
 ///
-let add_news = [];
+
 let add_docs = [];
-let add_africa = [];
 let add_trending = [];
 
-async function main(uri_docs, uri_africa, uri_news, uri_trending) {
-
+async function main(uri_docs, uri_trending) {
     try {
 
         const browser = await puppeteer.launch({
@@ -22,7 +21,7 @@ async function main(uri_docs, uri_africa, uri_news, uri_trending) {
             executablePath: vars.exPath
         });
         const page_docs = await browser.newPage();
-        page_docs.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_docs.setUserAgent(vars.userAgent);
         await page_docs.goto(uri_docs, { waitUntil: 'networkidle2', timeout: 0 });
         await page_docs.waitForSelector('div.owl-wrapper');
         ////LOOP ONE
@@ -114,106 +113,19 @@ async function main(uri_docs, uri_africa, uri_news, uri_trending) {
                 })
 
             } catch (error) {
-                console.log(`From ${uri_docs} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_docs} loop: ${error.name}`);
                 continue;
             }
             // page
         }
         //
 
-
-        const page_africa = await browser.newPage();
-        page_africa.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
-        await page_africa.goto(uri_africa, { waitUntil: 'networkidle2', timeout: 0 });
-        await page_africa.waitForSelector('#btn_showmore_b1_418');
-        await page_africa.waitFor(9000);
-        await page_africa.click('#btn_showmore_b1_418');
-        await page_africa.waitForSelector('#btn_showmore_b1_418');
-        await page_africa.waitFor(9000);
-        await page_africa.click('#btn_showmore_b1_418');
-        await page_africa.waitForSelector('#btn_showmore_b1_418');
-        await page_africa.waitFor(9000);
-        const items_africa = await page_africa.$$('.topics-sec-item');
-        await page_africa.waitFor(5000);
+        //africa
         //
-        for (const item of items_africa) {
-            //
-            try {
-                let media = await item.$('div.col-sm-5.topics-sec-item-img > a:nth-child(2)');
-                const thumbnail = (media != null || undefined) ? await media.$eval('img', img => img.dataset.src) : null;
-                const headline = await item.$eval('h2', h2 => h2.innerText);
-                const topic = await item.$eval('a.topics-sec-item-label', a => a.innerText);
-                const date = await item.$eval('time#PubTime', time => time.innerText);
-                const lede = await item.$eval('p.topics-sec-item-p', p => p.innerText);
-                const time = await item.$('.cardsvideoduration');
-                const timeStamp = (time != null || undefined) ? await item.$eval("div.cardsvideoduration", div => div.innerText) : null;
-
-                let isVid = (timeStamp !== null) ? true : false;
-                let url = await item.$eval('a', a => a.href);
-                ///////
-
-                add_africa.push({
-                    "url": url,
-                    "lede": lede,
-                    "headline": headline,
-                    "thumbnail": "https://www.aljazeera.com" + thumbnail,
-                    "category": topic,
-                    "isVid": isVid,
-                    "time stamp": timeStamp,
-                    "date": date,
-                })
-            } catch (error) {
-                console.log(`From ${uri_africa} loop: ${error}`.bgMagenta);
-                continue;
-            }
-        }
+        //news
 
         //
-
-        const page_news = await browser.newPage();
-        page_news.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
-        await page_news.goto(uri_news, { waitUntil: 'networkidle2', timeout: 0 });
-        await page_news.waitForSelector('#btn_showmore_b1_418');
-        await page_news.waitFor(9000);
-        await page_news.click('#btn_showmore_b1_418');
-        await page_news.waitForSelector('#btn_showmore_b1_418');
-        await page_news.waitFor(9000);
-        await page_news.click('#btn_showmore_b1_418');
-        await page_news.waitForSelector('#btn_showmore_b1_418');
-        await page_news.waitFor(9000);
-        const items_news = await page_news.$$('.topics-sec-item');
-        await page_news.waitFor(5000);
         //
-        for (const item of items_news) {
-            //
-            try {
-                let media = await item.$('div.col-sm-5.topics-sec-item-img > a:nth-child(2)');
-                const thumbnail = (media != null || undefined) ? await media.$eval('img', img => img.dataset.src) : null;
-                const headline = await item.$eval('h2', h2 => h2.innerText);
-                const topic = await item.$eval('a.topics-sec-item-label', a => a.innerText);
-                const date = await item.$eval('time#PubTime', time => time.innerText);
-                const lede = await item.$eval('p.topics-sec-item-p', p => p.innerText);
-                const time = await item.$('.cardsvideoduration');
-                const timeStamp = (time != null || undefined) ? await item.$eval("div.cardsvideoduration", div => div.innerText) : null;
-                let isVid = (timeStamp !== null) ? true : false;
-                let url = await item.$eval('a', a => a.href);
-                ///////
-
-                add_news.push({
-                    "url": url,
-                    "lede": lede,
-                    "headline": headline,
-                    "thumbnail": "https://www.aljazeera.com" + thumbnail,
-                    "category": topic,
-                    "isVid": isVid,
-                    "time stamp": timeStamp,
-                    "date": date,
-                })
-            } catch (error) {
-                console.log(`From ${uri_news} loop: ${error}`.bgMagenta);
-                continue;
-            }
-        }
         //
 
         const page_trending = await browser.newPage();
@@ -236,30 +148,49 @@ async function main(uri_docs, uri_africa, uri_news, uri_trending) {
                     "headline": headlineText
                 })
             } catch (error) {
-                console.log(`From ${uri_trending} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_trending} loop: ${error.name}`);
                 continue;
             }
+
         }
+        //
 
-        console.log(`Done: ${uri_docs}`.bgYellow);
-
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_trending}`);
         browser.close();
     } catch (error) {
-        console.log(`From ${uri_docs} Main: ${error}`.bgRed);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error.name}`);
     }
 }
-let source_docs = "https://www.aljazeera.com/documentaries/";
-let source_africa = "https://www.aljazeera.com/topics/regions/africa.html";
-let source_trending = "https://www.aljazeera.com/";
-let source_news = "https://www.aljazeera.com/topics/regions/africa.html";
+
+let source = {
+        docs: "https://www.aljazeera.com/documentaries/",
+        africa: "https://www.aljazeera.com/topics/regions/africa.html",
+        trending: "https://www.aljazeera.com/",
+        news: "https://www.aljazeera.com/topics/regions/africa.html",
+    }
+    //
+
+const Puppet = puppet.Scrapper;
+const dataAfrica = new Puppet(source.africa);
+dataAfrica.puppet();
+const dataNews = new Puppet(source.news);
+dataNews.puppet();
+
+const you = (sec) => {
+    setTimeout(() => {
+        console.log("done");
+    }, sec);
+}
+
+you(3000);
 //
-main(source_docs, source_africa, source_news, source_trending);
+main(source.docs /* source_africa, source_news */ , source.trending);
 /////////////
 aljRouta.get('/alj', (req, res) => {
     res.send({
         "aljDocs": add_docs,
-        "aljAfrica": add_africa,
-        "aljNews": add_news,
+        "aljAfrica": dataAfrica,
+        "aljNews": dataNews,
         "aljTrending": add_trending
     });
 })

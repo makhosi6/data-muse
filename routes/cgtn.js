@@ -2,8 +2,7 @@ const express = require('express');
 const cgtnNews = express.Router();
 const puppeteer = require('puppeteer');
 require('dotenv').config()
-const BROWSER = process.env.BROWSER;
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const vars = require('./store/storeVars');
 ///
 process.setMaxListeners(Infinity);
 //
@@ -11,26 +10,14 @@ let add_cgtn = [];
 
 async function main(uri_cgtn) {
     try {
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
+        const browser = await puppeteer.launch({
+            args: vars.argsArr,
+            defaultViewport: null,
+            headless: vars.bool,
+            executablePath: vars.exPath
+        });
         const page_cgtn = await browser.newPage();
-        page_cgtn.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_cgtn.setUserAgent(vars.userAgent);
         await page_cgtn.goto(uri_cgtn, { waitUntil: 'networkidle2', timeout: 0 });
         await page_cgtn.waitForSelector('.cg-newsWrapper');
         await page_cgtn.waitFor(12300);
@@ -64,15 +51,17 @@ async function main(uri_cgtn) {
                     "headline": c,
                 })
             } catch (error) {
-                console.log(`From ${uri_cgtn} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_cgtn} loop: ${error.name}`);
                 continue;
             }
-        }
-        console.log(`Done: ${uri_cgtn}`.bgYellow);
-        browser.close();
 
+        }
+        //
+
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_cgtn}`);
+        browser.close();
     } catch (error) {
-        console.log(`From ${uri_cgtn} Main: ${error}`.bgRed);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_cgtn} Main: ${error.name}`);
     }
 }
 let source_cgtn = "https://www.cgtn.com/";

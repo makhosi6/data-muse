@@ -39,7 +39,7 @@ async function main(uri) {
                     "headline": headline.replace(/(\r\n|\n|\r)/gm, "").trim(),
                 })
             } catch (error) {
-                console.log(`From ${uri} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`);
 
             }
         }
@@ -75,16 +75,17 @@ async function main(uri) {
                     "headline": headline.trim()
                 })
             } catch (error) {
-                console.log(`From ${uri} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`);
                 continue;
-
             }
-        }
-        console.log(`Done: ${uri}`.bgYellow)
 
+        }
+        //
+
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
         browser.close();
     } catch (error) {
-        console.log(`From ${uri} Main: ${error}`.bgRed);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error.name}`);
     }
 }
 let source = "https://www.africanews.com/";

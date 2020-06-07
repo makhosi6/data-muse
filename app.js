@@ -98,7 +98,10 @@ git push
         "npm": "6.13.4"
     },
 
-
+[[[[[
+TO SCRAPP
+https://theconversation.com/
+]]]]]
 let db = "mongodb+srv://<username>:<password>@cluster0-kwyfa.mongodb.net/test?retryWrites=true&w=majority";
 
 let dbTrue = "mongodb+srv://makhosi:<password>@cluster0-kwyfa.mongodb.net/test?retryWrites=true&w=majority";

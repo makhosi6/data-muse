@@ -1,9 +1,8 @@
 const express = require('express');
 const mgNews = express.Router();
 const puppeteer = require('puppeteer');
-require('dotenv').config()
-const BROWSER = process.env.BROWSER;
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+require('dotenv').config();
+const vars = require('./store/storeVars');
 ///
 process.setMaxListeners(Infinity);
 //
@@ -12,27 +11,14 @@ let add = [];
 async function main(uri) {
 
     try {
-
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
+        const browser = await puppeteer.launch({
+            args: vars.argsArr,
+            defaultViewport: null,
+            headless: vars.bool,
+            executablePath: vars.exPath
+        });
         const page = await browser.newPage();
-        page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page.setUserAgent(vars.userAgent);
 
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
 
@@ -77,15 +63,17 @@ async function main(uri) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.log(`From ${uri} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`);
                 continue;
             }
-        }
-        console.log(`Done: ${uri}`.bgYellow);
 
+        }
+        //
+
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
         browser.close();
     } catch (error) {
-        console.log(`From ${uri} loop: ${error}`.bgRed);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error.name}`);
     }
 }
 let source = "https://mg.co.za/";

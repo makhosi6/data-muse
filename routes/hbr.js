@@ -2,9 +2,9 @@ const express = require('express');
 require('dotenv').config()
 const hbr = express.Router();
 const puppeteer = require('puppeteer');
-const BROWSER = process.env.BROWSER;
 process.setMaxListeners(Infinity);
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+let vars = require('./store/storeVars');
+
 // 
 //
 let add_news = [];
@@ -13,29 +13,16 @@ let add_study = [];
 let add_video = [];
 async function main(url_news, uri_mostPopula, uri_study, uri_video) {
     try {
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
+        const browser = await puppeteer.launch({
+            args: vars.argsArr,
+            defaultViewport: null,
+            headless: vars.bool,
+            executablePath: vars.exPath
+        });
 
         const page_news = await browser.newPage();
-        page_news.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_news.setUserAgent(vars.userAgent);
         await page_news.goto(url_news, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_news.waitForSelector('.stream-item');
         await page_news.waitFor(13000);
         const items_news = await page_news.$$('.stream-item.overflow-hidden');
@@ -78,14 +65,14 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.log(`From ${url_news} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${url_news} loop: ${error.name}`);
                 continue;
             }
         }
         //
 
         const page_mostPopula = await browser.newPage();
-        page_mostPopula.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_mostPopula.setUserAgent(vars.userAgent);
         await page_mostPopula.goto(uri_mostPopula, { waitUntil: 'networkidle2', timeout: 0 });
         await page_mostPopula.waitFor(53000);
         await page_mostPopula.waitForXPath('//*[@id="main"]/div[5]');
@@ -135,14 +122,14 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.log(`From ${uri_mostPopula} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_mostPopula} loop: ${error.name}`);
                 continue;
             }
         }
 
         ///
         const page_study = await browser.newPage();
-        page_study.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_study.setUserAgent(vars.userAgent);
         await page_study.goto(uri_study, { waitUntil: 'networkidle2', timeout: 0 });
         await page_study.waitForSelector('.stream-entry');
         await page_study.waitFor(3000);
@@ -199,14 +186,14 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.log(`From ${uri_study} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_study} loop: ${error.name}`);
                 continue;
             }
         }
         //
 
         const page_video = await browser.newPage();
-        page_video.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_video.setUserAgent(vars.userAgent);
         await page_video.setViewport({
             width: 1920,
             height: 1080
@@ -251,16 +238,14 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.log(`From ${uri_video} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error.name}`);
                 continue;
             }
         }
-        ////
-        console.log(`Done: ${url_news}`.bgYellow);
-
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_video}`);
         browser.close();
     } catch (error) {
-        console.log(`From ${uri_study} Main: ${error}`.bgRed);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_video} Main: ${error.name}`);
     }
 
 }

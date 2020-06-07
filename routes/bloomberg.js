@@ -2,9 +2,8 @@ const express = require('express');
 const blomNews = express.Router();
 const puppeteer = require('puppeteer');
 require('dotenv').config()
-const BROWSER = process.env.BROWSER;
+const vars = require('./store/storeVars');
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
 ///
 process.setMaxListeners(Infinity);
 //
@@ -13,36 +12,18 @@ let add = [];
 async function main(uri) {
 
     try {
-
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
+        const browser = await puppeteer.launch({
+            args: vars.argsArr,
+            headless: vars.bool,
+            defaultViewport: null,
+            executablePath: vars.exPath
+        });
         const page = await browser.newPage();
-        page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
-
+        page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page.waitForSelector('.story-package-module__story.mod-story');
-
         let myVar = setInterval(() => scrollPageToBottom(page), 100);
-        //
         await page.waitFor(12300);
-        //
         const items = await page.$$('.story-package-module__story.mod-story');
         //
         for (const item of items) {
@@ -69,19 +50,20 @@ async function main(uri) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.log(`From ${uri} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`);
                 continue;
             }
-        }
-        console.log(`Done: ${uri}`.bgYellow);
-        clearInterval(myVar);
-        browser.close();
 
+        }
+        //
+
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
+        browser.close();
     } catch (error) {
-        console.log(`From ${uri} Main: ${error}`.bgRed);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error.name}`);
     }
 }
-let source = "https://www.bloomberg.com/africa"
+let source = "https://www.bloomberg.com/africa";
 main(source);
 /////
 blomNews.get('/bloomberg', (req, res) => {

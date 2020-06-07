@@ -1,9 +1,8 @@
 const express = require('express');
 const international = express.Router();
 require('dotenv').config()
-const BROWSER = process.env.BROWSER;
 const puppeteer = require('puppeteer');
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const vars = require('./store/storeVars')
 
 ///
 process.setMaxListeners(Infinity);
@@ -15,27 +14,15 @@ async function main(uri_inter, uri_local) {
 
     try {
 
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
+        const browser = await puppeteer.launch({
+            args: vars.argsArr,
+            defaultViewport: null,
+            headless: vars.bool,
+            executablePath: vars.exPath
+        });
 
         const page_inter = await browser.newPage();
-        page_inter.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_inter.setUserAgent(vars.u);
 
         await page_inter.goto(uri_inter, { waitUntil: 'networkidle2', timeout: 0 });
 
@@ -66,7 +53,7 @@ async function main(uri_inter, uri_local) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.log(`From ${uri_inter} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error.name}`);
                 continue;
 
             }
@@ -75,7 +62,7 @@ async function main(uri_inter, uri_local) {
 
 
         const page_local = await browser.newPage();
-        page_local.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_local.setUserAgent(vars.userAgent);
 
         await page_local.goto(uri_local, { waitUntil: 'networkidle2', timeout: 0 });
 
@@ -106,18 +93,17 @@ async function main(uri_inter, uri_local) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.log(`From ${uri_local} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error.name}`);
                 continue;
-
             }
+
         }
-
         //
-        console.log(`Done: ${uri_inter}`.bgYellow);
 
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_local}`);
         browser.close();
     } catch (error) {
-        console.log(`From ${uri_inter} Main: ${error}`.bgRed);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_local} Main: ${error.name}`);
     }
 }
 let source_inter = "https://www.soccerladuma.co.za/news/articles/international/landing";

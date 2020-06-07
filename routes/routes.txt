@@ -15,7 +15,7 @@
     api/v1/laduma
     api/v1/times-live
     api/v1/sabc
-    api/v1//espn
+    api/v1/espn
     api/v1/enews
     api/v1/cgtn
     api/v1/foodwine

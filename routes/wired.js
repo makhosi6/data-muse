@@ -1,9 +1,8 @@
 const express = require('express');
 const wiredBusiness = express.Router();
 const puppeteer = require('puppeteer');
-require('dotenv').config()
-const BROWSER = process.env.BROWSER;
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+require('dotenv').config();
+const vars = require('./store/storeVars');
 ///
 process.setMaxListeners(Infinity);
 //
@@ -12,30 +11,15 @@ let add_science = [];
 let add_gear = [];
 
 async function main(uri_business, uri_science, uri_gear) {
-
     try {
-
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
-
+        const browser = await puppeteer.launch({
+            args: vars.argsArr,
+            defaultViewport: null,
+            headless: vars.bool,
+            executablePath: vars.exPath
+        });
         const page_business = await browser.newPage();
-        page_business.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_business.setUserAgent(vars.userAgent);
         await page_business.goto(uri_business, { waitUntil: 'networkidle2', timeout: 0 });
         await page_business.waitForSelector('.card-component ul');
         const items_business = await page_business.$$('.card-component ul');
@@ -56,14 +40,13 @@ async function main(uri_business, uri_science, uri_gear) {
                     "author": author
                 })
             } catch (error) {
-                console.log(`From ${uri_business} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_gear} loop: ${error.name}`);
                 continue;
             }
         }
         // ANOTHER ONE
-
         const page_science = await browser.newPage();
-        page_science.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_science.setUserAgent(vars.userAgent);
         await page_science.goto(uri_science, { waitUntil: 'networkidle2', timeout: 0 });
         await page_science.waitForSelector('.card-component ul');
         const items_science = await page_science.$$('.card-component ul');
@@ -85,14 +68,12 @@ async function main(uri_business, uri_science, uri_gear) {
                 })
 
             } catch (error) {
-                console.log(`From ${uri_business} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_gear} loop: ${error.name}`);
                 continue;
-
             }
         }
-
         const page_gear = await browser.newPage();
-        page_gear.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_gear.setUserAgent(vars.userAgent);
         await page_gear.goto(uri_gear, { waitUntil: 'networkidle2', timeout: 0 });
         await page_gear.waitForSelector('.card-component ul');
         const items_gear = await page_gear.$$('.card-component ul');
@@ -115,22 +96,23 @@ async function main(uri_business, uri_science, uri_gear) {
                 })
 
             } catch (error) {
-                console.log(`From ${uri_business} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_gear} loop: ${error.name}`);
                 continue;
             }
-        }
 
-        console.log(`Done: ${uri_business}`.bgYellow);
+        }
+        //
+
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_gear}`);
         browser.close();
     } catch (error) {
-        console.log(`From ${uri_business} Main: ${error}`.bgRed);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_gear} Main: ${error.name}`);
     }
 }
 let source_science = "https://www.wired.com/category/science/";
 let source_business = "https://www.wired.com/category/business/";
 let source_gear = "https://www.wired.com/category/gear/";
-
-
+//
 main(source_business, source_science, source_gear);
 ///
 wiredBusiness.get('/wired-all', (req, res) => {
