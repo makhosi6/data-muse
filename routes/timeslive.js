@@ -57,7 +57,7 @@ async function main(uri_business, uri_news, uri_sport) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_business} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_business} loop: ${error}`);
                 continue;
 
             }
@@ -98,7 +98,7 @@ async function main(uri_business, uri_news, uri_sport) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_news} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_news} loop: ${error}`);
                 continue;
 
             }
@@ -140,7 +140,7 @@ async function main(uri_business, uri_news, uri_sport) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_sport} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_sport} loop: ${error}`);
                 continue;
             }
 
@@ -150,7 +150,7 @@ async function main(uri_business, uri_news, uri_sport) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_sport}`);
         browser.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_sport} Main: ${error.name}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_sport} Main: ${error}`);
     }
 }
 let source_business = "https://www.timeslive.co.za/sunday-times/business/";

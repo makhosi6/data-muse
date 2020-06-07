@@ -53,7 +53,7 @@ async function main(uri_inter, uri_local) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error}`);
                 continue;
 
             }
@@ -93,7 +93,7 @@ async function main(uri_inter, uri_local) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error}`);
                 continue;
             }
 
@@ -103,7 +103,7 @@ async function main(uri_inter, uri_local) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_local}`);
         browser.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_local} Main: ${error.name}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_local} Main: ${error}`);
     }
 }
 let source_inter = "https://www.soccerladuma.co.za/news/articles/international/landing";

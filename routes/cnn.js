@@ -7,11 +7,11 @@ const vars = require('./store/storeVars')
 process.setMaxListeners(Infinity);
 ///
 let sources = {
-        world = "https://edition.cnn.com/world",
-        africa = "https://edition.cnn.com/africa",
-        tech = "https://edition.cnn.com/business/tech",
-        health = "https://edition.cnn.com/health",
-        business = "https://edition.cnn.com/business",
+        world: "https://edition.cnn.com/world",
+        africa: "https://edition.cnn.com/africa",
+        tech: "https://edition.cnn.com/business/tech",
+        health: "https://edition.cnn.com/health",
+        business: "https://edition.cnn.com/business",
     }
     //
 const Puppet = puppet.Scrapper;

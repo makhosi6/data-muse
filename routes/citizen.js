@@ -52,7 +52,7 @@ async function main(uri) {
                     "lede": lede
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
 
             }
         }
@@ -84,7 +84,7 @@ async function main(uri) {
                     "headline": headline
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
                 continue;
             }
 
@@ -94,7 +94,7 @@ async function main(uri) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
         browser.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error.name}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
     }
 }
 let source = "https://citizen.co.za/"

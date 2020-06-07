@@ -65,7 +65,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${url_news} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${url_news} loop: ${error}`);
                 continue;
             }
         }
@@ -122,7 +122,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_mostPopula} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_mostPopula} loop: ${error}`);
                 continue;
             }
         }
@@ -186,7 +186,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_study} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_study} loop: ${error}`);
                 continue;
             }
         }
@@ -238,14 +238,14 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error}`);
                 continue;
             }
         }
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_video}`);
         browser.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_video} Main: ${error.name}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_video} Main: ${error}`);
     }
 
 }

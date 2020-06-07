@@ -51,7 +51,7 @@ async function main(uri_cgtn) {
                     "headline": c,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_cgtn} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_cgtn} loop: ${error}`);
                 continue;
             }
 
@@ -61,7 +61,7 @@ async function main(uri_cgtn) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_cgtn}`);
         browser.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_cgtn} Main: ${error.name}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_cgtn} Main: ${error}`);
     }
 }
 let source_cgtn = "https://www.cgtn.com/";

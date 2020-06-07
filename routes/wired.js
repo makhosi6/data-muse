@@ -40,7 +40,7 @@ async function main(uri_business, uri_science, uri_gear) {
                     "author": author
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_gear} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_gear} loop: ${error}`);
                 continue;
             }
         }
@@ -68,7 +68,7 @@ async function main(uri_business, uri_science, uri_gear) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_gear} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_gear} loop: ${error}`);
                 continue;
             }
         }
@@ -96,7 +96,7 @@ async function main(uri_business, uri_science, uri_gear) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_gear} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_gear} loop: ${error}`);
                 continue;
             }
 
@@ -106,7 +106,7 @@ async function main(uri_business, uri_science, uri_gear) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_gear}`);
         browser.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_gear} Main: ${error.name}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_gear} Main: ${error}`);
     }
 }
 let source_science = "https://www.wired.com/category/science/";

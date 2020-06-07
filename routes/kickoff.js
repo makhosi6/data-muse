@@ -140,14 +140,14 @@ async function main(uri) {
                     "teamName": teamName
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
                 continue;
             }
         }
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
         browser.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error.name}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
     }
 }
 let source = "https://www.kickoff.com/";

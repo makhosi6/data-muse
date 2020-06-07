@@ -37,14 +37,14 @@ async function main( /*uri_business, uri_lifestyle, uri_politics, uri_sport,uri_
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_trending} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_trending} loop: ${error}`);
                 continue;
             }
         }
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_trending}`);
         browser.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error.name}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error}`);
     }
 
 }
@@ -74,7 +74,7 @@ dataFour.puppet();
 
 //source_business, source_lifestyle, source_politics, source_sport,
 
-main(source_trending);
+main(sources.trending);
 /////////////
 ewnRouta.get('/ewn', (req, res) => {
     res.send({

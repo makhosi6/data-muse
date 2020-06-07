@@ -113,7 +113,7 @@ async function main(uri_docs, uri_trending) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_docs} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_docs} loop: ${error}`);
                 continue;
             }
             // page
@@ -148,7 +148,7 @@ async function main(uri_docs, uri_trending) {
                     "headline": headlineText
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_trending} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_trending} loop: ${error}`);
                 continue;
             }
 
@@ -158,7 +158,7 @@ async function main(uri_docs, uri_trending) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_trending}`);
         browser.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error.name}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error}`);
     }
 }
 

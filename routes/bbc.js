@@ -6,7 +6,7 @@ require('dotenv').config()
 process.setMaxListeners(Infinity);
 
 //
-let source = {
+let sources = {
         news: "https://www.bbc.com/news/business",
         africa: "https://www.bbc.com/news/world/africa",
         health: "https://www.bbc.com/news/health",

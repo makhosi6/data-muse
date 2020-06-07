@@ -64,7 +64,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_men} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_men} loop: ${error}`);
                 continue;
             }
         }
@@ -111,7 +111,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_women} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_women} loop: ${error}`);
                 continue;
             }
         }
@@ -158,7 +158,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     })
                     //
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_vogue} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_vogue} loop: ${error}`);
                 continue;
             }
         }
@@ -199,7 +199,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_you} loop: ${error.name}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_you} loop: ${error}`);
                 continue;
             }
 
@@ -209,7 +209,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_you}`);
         browser.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_you} Main: ${error.name}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_you} Main: ${error}`);
     }
 }
 let source_men = "https://www.mh.co.za/";
