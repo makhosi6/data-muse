@@ -1,8 +1,7 @@
 const express = require('express');
 const bbcBusiness = express.Router();
 const puppet = require('./store/puppetBbc');
-const vars = require('./store/storeVars');
-require('dotenv').config()
+require('dotenv').config();
 process.setMaxListeners(Infinity);
 
 //

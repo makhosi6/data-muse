@@ -1,7 +1,7 @@
 const express = require('express');
 require('dotenv').config()
 const hbr = express.Router();
-const puppeteer = require('puppeteer');
+const browser = require('../browser');
 process.setMaxListeners(Infinity);
 let vars = require('./store/storeVars');
 
@@ -13,12 +13,6 @@ let add_study = [];
 let add_video = [];
 async function main(url_news, uri_mostPopula, uri_study, uri_video) {
     try {
-        const browser = await puppeteer.launch({
-            args: vars.argsArr,
-            defaultViewport: null,
-            headless: vars.bool,
-            executablePath: vars.exPath
-        });
 
         const page_news = await browser.newPage();
         page_news.setUserAgent(vars.userAgent);
@@ -243,7 +237,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
             }
         }
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_video}`);
-        browser.close();
+
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri_video} Main: ${error}`);
     }

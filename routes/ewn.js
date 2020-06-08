@@ -1,7 +1,7 @@
 const express = require('express');
 const ewnRouta = express.Router();
 require('dotenv').config()
-const puppeteer = require('puppeteer');
+const browser = require('../browser');
 const puppet = require('./store/puppetEwn');
 const vars = require('./store/storeVars')
     //
@@ -11,12 +11,6 @@ let add_trending = [];
 //
 async function main( /*uri_business, uri_lifestyle, uri_politics, uri_sport,uri_spt2*/ uri_trending) {
     try {
-        const browser = await puppeteer.launch({
-            args: vars.argsArr,
-            defaultViewport: null,
-            headless: vars.bool,
-            executablePath: vars.exPath
-        });
 
         const page_trending = await browser.newPage();
         page_trending.setUserAgent(vars.userAgent);
@@ -42,7 +36,7 @@ async function main( /*uri_business, uri_lifestyle, uri_politics, uri_sport,uri_
             }
         }
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_trending}`);
-        browser.close();
+
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error}`);
     }

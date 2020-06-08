@@ -4,20 +4,14 @@ const puppeteer = require('puppeteer');
 require('dotenv').config()
 const vars = require('./store/storeVars');
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
+const browser = require('../browser');
 ///
 process.setMaxListeners(Infinity);
 //
 let add = [];
 
 async function main(uri) {
-
     try {
-        const browser = await puppeteer.launch({
-            args: vars.argsArr,
-            headless: vars.bool,
-            defaultViewport: null,
-            executablePath: vars.exPath
-        });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -58,7 +52,7 @@ async function main(uri) {
         //
 
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
-        browser.close();
+
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
     }

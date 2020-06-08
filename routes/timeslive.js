@@ -2,6 +2,7 @@ const express = require('express');
 const timesLiveBusi = express.Router();
 const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars');
+const browser = require('../browser');
 ///
 process.setMaxListeners(Infinity);
 //
@@ -11,13 +12,6 @@ let add_sport = [];
 
 async function main(uri_business, uri_news, uri_sport) {
     try {
-        const browser = await puppeteer.launch({
-            args: vars.argsArr,
-            defaultViewport: null,
-            headless: vars.bool,
-            executablePath: vars.exPath
-        });
-
         const page_business = await browser.newPage();
         page_business.setUserAgent(vars.userAgent);
         await page_business.goto(uri_business, { waitUntil: 'networkidle2', timeout: 0 });
@@ -148,7 +142,7 @@ async function main(uri_business, uri_news, uri_sport) {
         //
 
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_sport}`);
-        browser.close();
+
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri_sport} Main: ${error}`);
     }

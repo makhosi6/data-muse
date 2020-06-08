@@ -4,8 +4,7 @@ const { bgYellow } = require('colors');
 require('dotenv').config()
 const BROWSER = process.env.BROWSER;
 const saFinance = express.Router();
-/////
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const browser = require('../browser');
 //
 
 process.setMaxListeners(Infinity);
@@ -19,25 +18,6 @@ let data_sport = [];
 ///
 async function main(uri_finance, uri_motoring, uri_life, uri_news, uri_tech, uri_sport) {
     try {
-
-        const browser = (IS_PRODUCTION) ?
-            await puppeteer.connect({
-                browserWSEndpoint: `wss://chrome.browserless.io/?token=${BROWSER}`
-            }) :
-            await puppeteer.launch({
-                args: [
-                    "--ignore-certificate-errors",
-                    "--no-sandbox",
-                    '--disable-dev-shm-usage',
-                    "--disable-setuid-sandbox",
-                    "--window-size=1920,1080",
-                    "--disable-accelerated-2d-canvas",
-                    "--disable-gpu"
-                ],
-                defaultViewport: null,
-                executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe'
-
-            });
 
         const page_finance = await browser.newPage();
         page_finance.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
@@ -324,7 +304,7 @@ async function main(uri_finance, uri_motoring, uri_life, uri_news, uri_tech, uri
         //
         console.log(`Done: ${uri_finance}`.bgYellow);
 
-        browser.close();
+
     } catch (error) {
         console.log(`From ${uri_news} loop: ${error}`.bgRed);
     }

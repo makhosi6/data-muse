@@ -1,7 +1,7 @@
 const express = require('express');
 const international = express.Router();
 require('dotenv').config()
-const puppeteer = require('puppeteer');
+const browser = require('../browser');
 const vars = require('./store/storeVars')
 
 ///
@@ -13,19 +13,9 @@ let add_local = [];
 async function main(uri_inter, uri_local) {
 
     try {
-
-        const browser = await puppeteer.launch({
-            args: vars.argsArr,
-            defaultViewport: null,
-            headless: vars.bool,
-            executablePath: vars.exPath
-        });
-
         const page_inter = await browser.newPage();
         page_inter.setUserAgent(vars.u);
-
         await page_inter.goto(uri_inter, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_inter.waitForSelector('.pod');
         //
         const items_inter = await page_inter.$$('.pod');
@@ -33,11 +23,8 @@ async function main(uri_inter, uri_local) {
         //
         for (const item of items_inter) {
             try {
-                // const left = await item.$('.right > .content > .article-synopsis.d-none.d-md-block');
                 const get = await item.$('img.story-img');
                 const f = await item.$('.pod__meta');
-
-                //
                 const thumbnail = await page_inter.evaluate(img => img.dataset.src, get);
                 const link = await item.$eval('a', a => a.href);
                 const headline = await item.$eval('h2 > a', a => a.innerText);
@@ -101,7 +88,7 @@ async function main(uri_inter, uri_local) {
         //
 
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_local}`);
-        browser.close();
+
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri_local} Main: ${error}`);
     }

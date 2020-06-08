@@ -1,6 +1,6 @@
 const express = require('express');
 const wiredBusiness = express.Router();
-const puppeteer = require('puppeteer');
+const browser = require('../browser');
 require('dotenv').config();
 const vars = require('./store/storeVars');
 ///
@@ -12,12 +12,6 @@ let add_gear = [];
 
 async function main(uri_business, uri_science, uri_gear) {
     try {
-        const browser = await puppeteer.launch({
-            args: vars.argsArr,
-            defaultViewport: null,
-            headless: vars.bool,
-            executablePath: vars.exPath
-        });
         const page_business = await browser.newPage();
         page_business.setUserAgent(vars.userAgent);
         await page_business.goto(uri_business, { waitUntil: 'networkidle2', timeout: 0 });
@@ -104,7 +98,7 @@ async function main(uri_business, uri_science, uri_gear) {
         //
 
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_gear}`);
-        browser.close();
+
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri_gear} Main: ${error}`);
     }

@@ -1,6 +1,6 @@
 const express = require('express');
 const menLifestyle = express.Router();
-const puppeteer = require('puppeteer');
+const browser = require('../browser');
 require('dotenv').config();
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
 const vars = require('./store/storeVars');
@@ -15,13 +15,6 @@ let add_you = [];
 async function main(uri_men, uri_women, uri_vogue, uri_you) {
 
     try {
-        const browser = await puppeteer.launch({
-            args: vars.argsArr,
-            defaultViewport: null,
-            headless: vars.bool,
-            executablePath: vars.exPath
-        });
-
         const page_men = await browser.newPage();
         page_men.setUserAgent(vars.userAgent);
 
@@ -207,7 +200,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         //
 
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_you}`);
-        browser.close();
+
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri_you} Main: ${error}`);
     }

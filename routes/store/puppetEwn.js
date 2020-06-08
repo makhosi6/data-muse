@@ -1,6 +1,5 @@
-const express = require('express');
-const puppeteer = require('puppeteer');
 const vars = require('./storeVars');
+const browser = require('../../browser');
 //
 class Scrapper {
     constructor(uri) {
@@ -8,13 +7,6 @@ class Scrapper {
         this.data = [];
         this.puppet = async function() {
             try {
-                const browser = await puppeteer.launch({
-                    args: vars.argsArr,
-                    defaultViewport: null,
-                    headless: vars.bool,
-                    executablePath: vars.exPath
-                });
-                //
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
                 await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -39,7 +31,7 @@ class Scrapper {
                             const lede = (para != null || undefined) ? await item.$eval('p', p => p.innerText) : null;
                             const date = await item.$eval('abbr', abbr => abbr.innerText);
 
-                            add.push({
+                            arrr.push({
                                 "url": url,
                                 "lede": lede,
                                 "headline": headlineText,
@@ -57,7 +49,7 @@ class Scrapper {
                 //
                 this.data = arrr;
                 console.log('\x1b[43m%s\x1b[0m', `Done: ${this.uri}`);
-                browser.close();
+
             } catch (error) {
                 console.trace('\x1b[41m%s\x1b[0m', `From ${this.uri} Main: ${error}`);
             }

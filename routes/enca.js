@@ -1,7 +1,7 @@
 const express = require('express');
 const enca = express.Router();
 require('dotenv').config()
-const puppeteer = require('puppeteer');
+const browser = require('../browser');
 const vars = require('./store/storeVars')
     //
 process.setMaxListeners(Infinity);
@@ -15,19 +15,10 @@ async function main(uri_sport, uri_video, uri_business) {
 
     try {
 
-        const browser = await puppeteer.launch({
-            args: vars.argsArr,
-            defaultViewport: null,
-            headless: vars.bool,
-            executablePath: vars.exPath
-        });
         const page_sport = await browser.newPage();
         page_sport.setUserAgent(vars.userAgent);
-
         await page_sport.goto(uri_sport, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_sport.waitForSelector('.views-row');
-
         const items_sport = await page_sport.$$('.views-row');
         await page_sport.waitFor(5000);
         //
@@ -183,7 +174,7 @@ async function main(uri_sport, uri_video, uri_business) {
         //
 
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
-        browser.close();
+
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
     }

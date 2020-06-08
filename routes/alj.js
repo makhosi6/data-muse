@@ -3,7 +3,9 @@ require('dotenv').config()
 const aljRouta = express.Router();
 const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars');
+const browser = require('../browser');
 const puppet = require('./store/puppetAlj');
+
 //
 process.setMaxListeners(Infinity);
 ///
@@ -13,13 +15,6 @@ let add_trending = [];
 
 async function main(uri_docs, uri_trending) {
     try {
-
-        const browser = await puppeteer.launch({
-            args: vars.argsArr,
-            defaultViewport: null,
-            headless: vars.bool,
-            executablePath: vars.exPath
-        });
         const page_docs = await browser.newPage();
         page_docs.setUserAgent(vars.userAgent);
         await page_docs.goto(uri_docs, { waitUntil: 'networkidle2', timeout: 0 });
@@ -156,7 +151,7 @@ async function main(uri_docs, uri_trending) {
         //
 
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_trending}`);
-        browser.close();
+
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error}`);
     }

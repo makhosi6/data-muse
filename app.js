@@ -16,7 +16,7 @@ const cgtnNews = require('./routes/cgtn');
 const enews = require('./routes/flipboard/enews')
 const espn = require('./routes/flipboard/espn');
 const foodWine = require('./routes/flipboard/foodWine');
-const natGeo = require('./routes/flipboard/nat-geo');
+// const natGeo = require('./routes/flipboard/nat-geo');
 const timesLive = require('./routes/timeslive');
 const bbcRouter = require('./routes/bbc');
 const enca = require('./routes/enca');
@@ -36,7 +36,6 @@ const w24 = require('./routes/life');
 const magz = require('./routes/magz');
 const kickOff = require('./routes/kickoff');
 
-
 //base route
 let arr = [
     /*ewn*/
@@ -52,7 +51,7 @@ let arr = [
     /*alj*/
     aljRouta,
     /*sa*/
-    saNews,
+    // saNews,
     /*cnn*/
     cnnRouta,
     /*WIneFOODF*/
@@ -60,25 +59,25 @@ let arr = [
     /*espnF*/
     espn,
     /*natGeoF*/
-    natGeo,
+    // natGeo,
     /*wired*/
     wired,
-    /*TimesLive*/
-    timesLive,
-    /*Sabc*/
+    // /*TimesLive*/
+    // timesLive,
+    // /*Sabc*/
     sabcNews,
     /*mgNews*/
-    mgNews,
-    /*Bloomberg*/
-    blomNews,
-    //*africa*/
-    africa,
-    /*citizen*/
-    citizen,
-    /*cgtnNews*/
-    cgtnNews,
-    /*magz*/
-    laduma, w24, magz, kickOff
+    // mgNews,
+    // /*Bloomberg*/
+    // blomNews,
+    // //*africa*/
+    // africa,
+    // /*citizen*/
+    // citizen,
+    // /*cgtnNews*/
+    // cgtnNews,
+    // /*magz*/
+    // laduma, w24, magz, kickOff
 ];
 // 
 app.use('/api/v1/', arr);
