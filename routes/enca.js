@@ -1,7 +1,8 @@
 const express = require('express');
 const enca = express.Router();
 require('dotenv').config()
-const browser = require('../browser');
+const wsChromeEndpointurl = require('../browser');
+const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars')
     //
 process.setMaxListeners(Infinity);
@@ -15,6 +16,10 @@ async function main(uri_sport, uri_video, uri_business) {
 
     try {
 
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: wsChromeEndpointurl,
+            defaultViewport: null
+        });
         const page_sport = await browser.newPage();
         page_sport.setUserAgent(vars.userAgent);
         await page_sport.goto(uri_sport, { waitUntil: 'networkidle2', timeout: 0 });
@@ -22,7 +27,6 @@ async function main(uri_sport, uri_video, uri_business) {
         const items_sport = await page_sport.$$('.views-row');
         await page_sport.waitFor(5000);
         //
-
         for (const item of items_sport) {
             try {
 
@@ -53,14 +57,10 @@ async function main(uri_sport, uri_video, uri_business) {
         }
 
         //
-
         const page_video = await browser.newPage();
         page_video.setUserAgent(vars.userAgent);
-
         await page_video.goto(uri_video, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_video.waitForSelector('.grid__content');
-
         const items_video = await page_video.$$('.grid__content');
         await page_video.waitFor(5000);
         //
@@ -92,22 +92,16 @@ async function main(uri_sport, uri_video, uri_business) {
                 continue;
             }
         }
-
         //
-
+        await page_video.close();
 
         const page_business = await browser.newPage();
         page_business.setUserAgent(vars.userAgent);
-
         await page_business.goto(uri_business, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_business.waitForXPath('//*[@id="block-views-block-test-business-listing-view-block-4"]/div/div');
-
         const wrapper = await page_business.$x('//*[@id="block-views-block-test-business-listing-view-block-4"]/div/div');
-
         const items_business = await page_business.$$('.views-row');
         await page_business.waitFor(5000);
-        //
         const trends = await page_sport.$$('.view-content > .trending-list');
         const latest = await page_sport.$$('.trending-story-wrapper > .trending-list');
         //
@@ -126,6 +120,7 @@ async function main(uri_sport, uri_video, uri_business) {
             });
         }
         //
+        await page_sport.close();
         for (const trend of trends) {
             try {
                 const link = await trend.$('a');
@@ -172,7 +167,7 @@ async function main(uri_sport, uri_video, uri_business) {
 
         }
         //
-
+        await page_business.close();
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
 
     } catch (error) {

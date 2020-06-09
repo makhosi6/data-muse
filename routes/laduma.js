@@ -1,7 +1,8 @@
 const express = require('express');
 const international = express.Router();
 require('dotenv').config()
-const browser = require('../browser');
+const wsChromeEndpointurl = require('../browser');
+const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars')
 
 ///
@@ -13,11 +14,14 @@ let add_local = [];
 async function main(uri_inter, uri_local) {
 
     try {
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: wsChromeEndpointurl,
+            defaultViewport: null
+        });
         const page_inter = await browser.newPage();
-        page_inter.setUserAgent(vars.u);
+        page_inter.setUserAgent(vars.userAgent);
         await page_inter.goto(uri_inter, { waitUntil: 'networkidle2', timeout: 0 });
         await page_inter.waitForSelector('.pod');
-        //
         const items_inter = await page_inter.$$('.pod');
         await page_inter.waitFor(125000);
         //
@@ -47,14 +51,10 @@ async function main(uri_inter, uri_local) {
         }
         //
 
-
         const page_local = await browser.newPage();
         page_local.setUserAgent(vars.userAgent);
-
         await page_local.goto(uri_local, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_local.waitForSelector('.pod');
-        //
         const items_local = await page_local.$$('.pod');
         await page_local.waitFor(125000);
         //
@@ -63,14 +63,11 @@ async function main(uri_inter, uri_local) {
                 // const left = await item.$('.right > .content > .article-synopsis.d-none.d-md-block');
                 const get = await item.$('img.story-img');
                 const f = await item.$('.pod__meta');
-
-                //
                 const thumbnail = await page_local.evaluate(img => img.dataset.src, get);
                 const link = await item.$eval('a', a => a.href);
                 const headline = await item.$eval('h2 > a', a => a.innerText);
                 const time = await page_local.evaluate(a => a.innerText, f);
                 const iHtml = await page_local.evaluate(el => el.innerHTML, item);
-
                 let a = (time != null || undefined) ? time.split("\n") : null;
                 let b = (a != null) ? a[1].replace(/(\r\n|\n|\r)/gm, "").trim() : null;
                 add_local.push({
@@ -86,7 +83,8 @@ async function main(uri_inter, uri_local) {
 
         }
         //
-
+        await page_inter.close();
+        await page_local.close();
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_local}`);
 
     } catch (error) {

@@ -1,7 +1,8 @@
 const express = require('express');
 const ewnRouta = express.Router();
 require('dotenv').config()
-const browser = require('../browser');
+const wsChromeEndpointurl = require('../browser');
+const puppeteer = require('puppeteer');
 const puppet = require('./store/puppetEwn');
 const vars = require('./store/storeVars')
     //
@@ -11,7 +12,10 @@ let add_trending = [];
 //
 async function main( /*uri_business, uri_lifestyle, uri_politics, uri_sport,uri_spt2*/ uri_trending) {
     try {
-
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: wsChromeEndpointurl,
+            defaultViewport: null
+        });
         const page_trending = await browser.newPage();
         page_trending.setUserAgent(vars.userAgent);
         await page_trending.goto(uri_trending, { waitUntil: 'networkidle2', timeout: 0 });
@@ -36,7 +40,7 @@ async function main( /*uri_business, uri_lifestyle, uri_politics, uri_sport,uri_
             }
         }
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_trending}`);
-
+        await page_trending.close();
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error}`);
     }

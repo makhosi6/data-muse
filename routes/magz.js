@@ -1,6 +1,7 @@
 const express = require('express');
 const menLifestyle = express.Router();
-const browser = require('../browser');
+const wsChromeEndpointurl = require('../browser');
+const puppeteer = require('puppeteer');
 require('dotenv').config();
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
 const vars = require('./store/storeVars');
@@ -15,20 +16,18 @@ let add_you = [];
 async function main(uri_men, uri_women, uri_vogue, uri_you) {
 
     try {
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: wsChromeEndpointurl,
+            defaultViewport: null
+        });
         const page_men = await browser.newPage();
         page_men.setUserAgent(vars.userAgent);
-
         await page_men.goto(uri_men, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_men.waitForSelector('article.post');
-        //
-
         let myVar = setInterval(() =>
             scrollPageToBottom(page_men), 100);
-        //
         await page_men.waitFor(5300);
         clearInterval(myVar);
-
         await page_men.waitFor(32300);
         ///
         const items_men = await page_men.$$('article.post');
@@ -63,23 +62,16 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         }
         // 
 
-
         const page_women = await browser.newPage();
         page_women.setUserAgent(vars.userAgent);
-
         await page_women.goto(uri_women, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_women.waitForSelector('article.post');
-        //
         let myVar_women = setInterval(() =>
             scrollPageToBottom(page_women), 100);
-        //
         await page_women.waitFor(5300);
         clearInterval(myVar_women);
         await page_women.waitFor(32300);
-        ///
         const items_women = await page_women.$$('article.post');
-        //
         for (const item of items_women) {
             try {
                 //
@@ -115,7 +107,6 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         page_vogue.setUserAgent(vars.userAgent);
         await page_vogue.goto(uri_vogue, { waitUntil: 'networkidle2', timeout: 0 });
         await page_vogue.waitForSelector('[data-test-id="TeaserBasic"]');
-        //
         const items_vogue = await page_vogue.$$('[data-test-id="TeaserBasic"]');
         await page_vogue.waitFor(125000);
         ////
@@ -200,7 +191,13 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         //
 
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_you}`);
+        //
+        await page_men.close();
+        await page_women.close();
+        await page_you.close();
+        await page_vogue.close();
 
+        //
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri_you} Main: ${error}`);
     }

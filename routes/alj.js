@@ -3,18 +3,20 @@ require('dotenv').config()
 const aljRouta = express.Router();
 const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars');
-const browser = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const puppet = require('./store/puppetAlj');
 
 //
 process.setMaxListeners(Infinity);
 ///
-
 let add_docs = [];
 let add_trending = [];
 
 async function main(uri_docs, uri_trending) {
     try {
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: wsChromeEndpointurl,
+        });
         const page_docs = await browser.newPage();
         page_docs.setUserAgent(vars.userAgent);
         await page_docs.goto(uri_docs, { waitUntil: 'networkidle2', timeout: 0 });
@@ -114,13 +116,7 @@ async function main(uri_docs, uri_trending) {
             // page
         }
         //
-
-        //africa
-        //
-        //news
-
-        //
-        //
+        await page_docs.close();
         //
 
         const page_trending = await browser.newPage();
@@ -149,7 +145,7 @@ async function main(uri_docs, uri_trending) {
 
         }
         //
-
+        await page_trending.close();
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_trending}`);
 
     } catch (error) {
@@ -166,20 +162,15 @@ let source = {
     //
 
 const Puppet = puppet.Scrapper;
+//
 const dataAfrica = new Puppet(source.africa);
 dataAfrica.puppet();
+//
 const dataNews = new Puppet(source.news);
 dataNews.puppet();
 
-const you = (sec) => {
-    setTimeout(() => {
-        console.log("done");
-    }, sec);
-}
-
-you(3000);
 //
-main(source.docs /* source_africa, source_news */ , source.trending);
+main(source.docs, source.trending);
 /////////////
 aljRouta.get('/alj', (req, res) => {
     res.send({

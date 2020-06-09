@@ -1,6 +1,7 @@
 const express = require('express');
 const mgNews = express.Router();
-const browser = require('../browser');
+const wsChromeEndpointurl = require('../browser');
+const puppeteer = require('puppeteer');
 require('dotenv').config();
 const vars = require('./store/storeVars');
 ///
@@ -10,6 +11,10 @@ let add = [];
 
 async function main(uri) {
     try {
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: wsChromeEndpointurl,
+            defaultViewport: null
+        });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -59,7 +64,7 @@ async function main(uri) {
 
         }
         //
-
+        await page.close();
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
 
     } catch (error) {

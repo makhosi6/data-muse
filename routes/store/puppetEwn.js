@@ -1,5 +1,6 @@
 const vars = require('./storeVars');
-const browser = require('../../browser');
+const puppeteer = require("puppeteer");
+const wsChromeEndpointurl = require('../../browser');
 //
 class Scrapper {
     constructor(uri) {
@@ -7,6 +8,11 @@ class Scrapper {
         this.data = [];
         this.puppet = async function() {
             try {
+
+                const browser = await puppeteer.connect({
+                    browserWSEndpoint: wsChromeEndpointurl,
+                    defaultViewport: null
+                });
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
                 await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -48,6 +54,7 @@ class Scrapper {
                 }
                 //
                 this.data = arrr;
+                await page.close()
                 console.log('\x1b[43m%s\x1b[0m', `Done: ${this.uri}`);
 
             } catch (error) {

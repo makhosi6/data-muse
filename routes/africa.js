@@ -1,7 +1,8 @@
 const express = require('express');
 const africa = express.Router();
 require('dotenv').config()
-const browser = require('../browser');
+const puppeteer = require("puppeteer");
+const wsChromeEndpointurl = require('../browser');
 const vars = require('./store/storeVars')
     ///
 process.setMaxListeners(Infinity);
@@ -11,6 +12,9 @@ let data = [];
 async function main(uri) {
     try {
 
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: wsChromeEndpointurl,
+        });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -37,6 +41,7 @@ async function main(uri) {
 
             }
         }
+
 
         //
         const items = await page.$$('article');
@@ -75,7 +80,7 @@ async function main(uri) {
 
         }
         //
-
+        await page.close();
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
 
     } catch (error) {

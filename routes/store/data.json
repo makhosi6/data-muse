@@ -1,0 +1,496 @@
+{
+    "africa": {
+        "uri": "https://www.bbc.com/news/world/africa",
+        "data": []
+    },
+    "news": {
+        "uri": "https://www.bbc.com/news/business",
+        "data": [{
+                "thumbnail": null,
+                "url": "https://www.bbc.com/news/business-52972901",
+                "heading": "Pandemic pushes US into official recession",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "5h",
+                "category": "Business",
+                "lede": "Economists say America's economic expansion ended in February, but markets remain on the upswing."
+            },
+            {
+                "thumbnail": null,
+                "url": "https://www.bbc.com/news/business-52972901",
+                "heading": "Pandemic pushes US into official recession",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "5h",
+                "category": "Business",
+                "lede": "Economists say America's economic expansion ended in February, but markets remain on the upswing."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/0452/production/_112760110_gettyimages-1218280885.jpg",
+                "url": "https://www.bbc.com/news/business-52960676",
+                "heading": "Court rejects Samsung heir arrest warrant request",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "1h",
+                "category": "Business",
+                "lede": "The decision comes after Lee Jae-yong was convicted in 2017 over a political and corporate scandal."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/FA38/production/_112765046__110872138_bplogo.jpg",
+                "url": "https://www.bbc.com/news/explainers-52966609",
+                "heading": "BP to cut 10,000 jobs as virus hits demand for oil",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "10h",
+                "category": "Business",
+                "lede": "The oil giant plans to slash around 15% of its workforce in response coronavirus crisis."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/227B/production/_112772880_mulberry.png",
+                "url": "https://www.bbc.com/news/business-52966800",
+                "heading": "Mulberry plans to axe a quarter of its workforce",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "14h",
+                "category": "Business",
+                "lede": "The handbag maker says social distancing and reduced tourism will affect its income."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/AEFB/production/_112759744_061589353.jpg",
+                "url": "https://www.bbc.com/news/business-52959118",
+                "heading": "'Quarantine’s a stunt, they could be playing golf'",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "14h",
+                "category": "Business",
+                "lede": "Ryanair boss says the mandatory two-week isolation for all people arriving in the UK is \"unenforceable\"."
+            },
+            {
+                "thumbnail": null,
+                "url": "https://www.bbc.co.uk/news/business-52823940",
+                "heading": "'My first collection failed, it was heartbreaking'",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/12636/production/_112781357_mediaitem112781356.jpg",
+                "url": "https://www.bbc.com/news/world-us-canada-52963102",
+                "heading": "Reebok cuts ties over CrossFit CEO racism tweet",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "14h",
+                "category": "US & Canada",
+                "lede": "Greg Glassman faces an industry backlash over a tweet making light of George Floyd's death."
+            },
+            {
+                "thumbnail": null,
+                "url": "https://www.bbc.com/news/business-52972901",
+                "heading": "Pandemic pushes US into official recession",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "5h",
+                "category": "Business",
+                "lede": "Economists say America's economic expansion ended in February, but markets remain on the upswing."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/0452/production/_112760110_gettyimages-1218280885.jpg",
+                "url": "https://www.bbc.com/news/business-52960676",
+                "heading": "Court rejects Samsung heir arrest warrant request",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "1h",
+                "category": "Business",
+                "lede": "The decision comes after Lee Jae-yong was convicted in 2017 over a political and corporate scandal."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/FA38/production/_112765046__110872138_bplogo.jpg",
+                "url": "https://www.bbc.com/news/explainers-52966609",
+                "heading": "BP to cut 10,000 jobs as virus hits demand for oil",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "10h",
+                "category": "Business",
+                "lede": "The oil giant plans to slash around 15% of its workforce in response coronavirus crisis."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/227B/production/_112772880_mulberry.png",
+                "url": "https://www.bbc.com/news/business-52966800",
+                "heading": "Mulberry plans to axe a quarter of its workforce",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "14h",
+                "category": "Business",
+                "lede": "The handbag maker says social distancing and reduced tourism will affect its income."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/AEFB/production/_112759744_061589353.jpg",
+                "url": "https://www.bbc.com/news/business-52959118",
+                "heading": "'Quarantine’s a stunt, they could be playing golf'",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "14h",
+                "category": "Business",
+                "lede": "Ryanair boss says the mandatory two-week isolation for all people arriving in the UK is \"unenforceable\"."
+            },
+            {
+                "thumbnail": null,
+                "url": "https://www.bbc.co.uk/news/business-52823940",
+                "heading": "'My first collection failed, it was heartbreaking'",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/12636/production/_112781357_mediaitem112781356.jpg",
+                "url": "https://www.bbc.com/news/world-us-canada-52963102",
+                "heading": "Reebok cuts ties over CrossFit CEO racism tweet",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "14h",
+                "category": "US & Canada",
+                "lede": "Greg Glassman faces an industry backlash over a tweet making light of George Floyd's death."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/0452/production/_112760110_gettyimages-1218280885.jpg",
+                "url": "https://www.bbc.com/news/business-52960676",
+                "heading": "Court rejects Samsung heir arrest warrant request",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "1h",
+                "category": "Business",
+                "lede": "The decision comes after Lee Jae-yong was convicted in 2017 over a political and corporate scandal."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/FA38/production/_112765046__110872138_bplogo.jpg",
+                "url": "https://www.bbc.com/news/explainers-52966609",
+                "heading": "BP to cut 10,000 jobs as virus hits demand for oil",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "10h",
+                "category": "Business",
+                "lede": "The oil giant plans to slash around 15% of its workforce in response coronavirus crisis."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/227B/production/_112772880_mulberry.png",
+                "url": "https://www.bbc.com/news/business-52966800",
+                "heading": "Mulberry plans to axe a quarter of its workforce",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "14h",
+                "category": "Business",
+                "lede": "The handbag maker says social distancing and reduced tourism will affect its income."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/AEFB/production/_112759744_061589353.jpg",
+                "url": "https://www.bbc.com/news/business-52959118",
+                "heading": "'Quarantine’s a stunt, they could be playing golf'",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": null,
+                "url": "https://www.bbc.co.uk/news/business-52823940",
+                "heading": "'My first collection failed, it was heartbreaking'",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/12636/production/_112781357_mediaitem112781356.jpg",
+                "url": "https://www.bbc.com/news/world-us-canada-52963102",
+                "heading": "Reebok cuts ties over CrossFit CEO racism tweet",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/BBDF/production/_112759084_drugs2.jpg",
+                "url": "https://www.bbc.com/news/business-52959639",
+                "heading": "UK post-Brexit drug stockpiles at risk amid virus",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/76BB/production/_112759303_mediaitem112759299.jpg",
+                "url": "https://www.bbc.com/news/technology-52959644",
+                "heading": "Huawei begins media blitz as UK weighs its 5G role",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/1739/production/_112754950_gettyimages-462521118.jpg",
+                "url": "https://www.bbc.com/news/business-52954741",
+                "heading": "Public investment 'is key to escaping crisis'",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/7B2B/production/_111513513_gettyimages-1214681576.jpg",
+                "url": "https://www.bbc.com/news/business-52954738",
+                "heading": "BA 'dismissal threat' undermines talks - union",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/101FC/production/_112744066_wahacaboss.jpg",
+                "url": "https://www.bbc.com/news/business-52941045",
+                "heading": "It's going to be hell after lockdown, says Wahaca",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/16AD0/production/_112708829_luisonofre1.jpg",
+                "url": "https://www.bbc.com/news/business-52823940",
+                "heading": "'My first collection failed, it was heartbreaking'",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/41B7/production/_112332861_ldtsanitationdrone-sky.jpg",
+                "url": "https://www.bbc.com/news/business-52703044",
+                "heading": "Is coronavirus changing the world of cleaning?",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/1287/production/_112634740_estellewillthiswork_.jpg",
+                "url": "https://www.bbc.com/news/business-52821861",
+                "heading": "Sex workers around the world fear for their future",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/CA81/production/_112614815_0c59a097-50a4-4d1d-afdc-a0af5c825dac.jpg",
+                "url": "https://www.bbc.com/news/business-52394534",
+                "heading": "'You audition for a show only for it to get cancelled’",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/1389/production/_112610050_2020photo-002.jpg",
+                "url": "https://www.bbc.com/news/business-52890465",
+                "heading": "Job-hunting tips for graduates, from the Class of 2008",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/mcs/media/images/66951000/jpg/_66951438_biz_heads_640x360_with_logo.jpg",
+                "url": "https://www.bbc.com/news/business-11876811",
+                "heading": "BBC World News business headlines",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/E0CE/production/_112505575_p08f711h.jpg",
+                "url": "https://www.bbc.com/news/newsbeat-52811356",
+                "heading": "Coronavirus: How your hair salon might look when it reopens",
+                "isVid": true,
+                "vidLen": "2:17",
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/1165/production/_112435440_p08f2zy6.jpg",
+                "url": "https://www.bbc.com/news/world-asia-52792953",
+                "heading": "The S Korean Samsung protester living in the sky",
+                "isVid": true,
+                "vidLen": "4:01",
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/BA73/production/_112413774_p08dx4pz.jpg",
+                "url": "https://www.bbc.com/news/business-52772056",
+                "heading": "Paphitis: ‘Retail will never, ever be the same again’",
+                "isVid": true,
+                "vidLen": "2:44",
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/25A7/production/_112393690_p08ds046.jpg",
+                "url": "https://www.bbc.com/news/technology-52749066",
+                "heading": "Facebook to 'take down' coronavirus misinformation",
+                "isVid": true,
+                "vidLen": "1:30",
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/1436/production/_109747150_gettyimages-1182591111.jpg",
+                "url": "https://www.bbc.com/news/business-50465651",
+                "heading": "What Trump wants from trade",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/17CBC/production/_109786479_5g.robot.g.index.jpg",
+                "url": "https://www.bbc.com/news/business-50515426",
+                "heading": "Huawei: Boom time in China",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/80F6/production/_109741033_ken1.jpg",
+                "url": "https://www.bbc.com/news/business-50458312",
+                "heading": "The garlic farmers who love Trump",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/11DFE/production/_109641237_yue.laboratory.dv.jpg",
+                "url": "https://www.bbc.com/news/business-50287485",
+                "heading": "How China plans to lead in computer chips",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/3F8D/production/_109496261_gettyimages-535141582.jpg",
+                "url": "https://www.bbc.com/news/business-50255191",
+                "heading": "Is China gaining an edge in AI?",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": null,
+                "category": null,
+                "lede": null
+            }
+        ]
+    },
+    "real": {
+        "uri": "https://www.bbc.com/news/reality_check",
+        "data": [{
+                "thumbnail": null,
+                "url": "https://www.bbc.com/news/world-africa-52819674",
+                "heading": "Is a coronavirus 'cure' being secretly poisoned?",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "2d",
+                "category": "Africa",
+                "lede": "We examine claims of bribes and poison, a positive virus test that was not and anti-virus \"badges\"."
+            },
+            {
+                "thumbnail": null,
+                "url": "https://www.bbc.com/news/world-africa-52819674",
+                "heading": "Is a coronavirus 'cure' being secretly poisoned?",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "2d",
+                "category": "Africa",
+                "lede": "We examine claims of bribes and poison, a positive virus test that was not and anti-virus \"badges\"."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/1152/production/_112743440_flamesprotestwh.jpg",
+                "url": "https://www.bbc.com/news/52934672",
+                "heading": "Fake White House image and protest videos debunked",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "3d",
+                "category": "Reality Check",
+                "lede": "Debunking some of the most widely shared misleading posts and videos about the George Floyd protests."
+            }
+        ]
+    },
+    "health": {
+        "uri": "https://www.bbc.com/news/health",
+        "data": [{
+                "thumbnail": null,
+                "url": "https://www.bbc.com/news/health-52968523",
+                "heading": "Lockdowns in Europe saved 'millions of lives'",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "12h",
+                "category": "Health",
+                "lede": "The researchers say the death toll would have been \"huge\" without a lockdown."
+            },
+            {
+                "thumbnail": null,
+                "url": "https://www.bbc.com/news/health-52968523",
+                "heading": "Lockdowns in Europe saved 'millions of lives'",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "12h",
+                "category": "Health",
+                "lede": "The researchers say the death toll would have been \"huge\" without a lockdown."
+            },
+            {
+                "thumbnail": "https://ichef.bbci.co.uk/news/490/cpsprodpb/C9AA/production/_112762615_gettyimages-993589114.jpg",
+                "url": "https://www.bbc.com/news/health-52965722",
+                "heading": "Higher coronavirus risk for pregnant BAME women",
+                "isVid": false,
+                "vidLen": null,
+                "timestamp": "11h",
+                "category": "Health",
+                "lede": "Nearly three times the expected number have been admitted to UK hospitals, a study finds."
+            }
+        ]
+    },
+    "sport": {
+        "uri": "https://www.bbc.com/sport",
+        "data": []
+    },
+    "tech": {
+        "uri": "https://www.bbc.com/news/technology",
+        "data": []
+    }
+}

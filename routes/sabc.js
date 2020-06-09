@@ -3,7 +3,7 @@ const sabcBusiness = express.Router();
 const puppeteer = require('puppeteer');
 const puppet = require('./store/puppetSabc');
 require('dotenv').config();
-const browser = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const vars = require('./store/storeVars');
 ///
 process.setMaxListeners(Infinity);
@@ -13,7 +13,10 @@ let add = [];
 async function main(uri) {
 
     try {
-        // 
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: wsChromeEndpointurl,
+            defaultViewport: null
+        });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });

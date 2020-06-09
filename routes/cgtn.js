@@ -1,7 +1,9 @@
 const express = require('express');
 const cgtnNews = express.Router();
 const browser = require('../browser');
-require('dotenv').config()
+require('dotenv').config();
+const wsChromeEndpointurl = require('../browser');
+const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars');
 ///
 process.setMaxListeners(Infinity);
@@ -10,6 +12,10 @@ let add_cgtn = [];
 
 async function main(uri_cgtn) {
     try {
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: wsChromeEndpointurl,
+            defaultViewport: null
+        });
         const page_cgtn = await browser.newPage();
         page_cgtn.setUserAgent(vars.userAgent);
         await page_cgtn.goto(uri_cgtn, { waitUntil: 'networkidle2', timeout: 0 });
@@ -51,7 +57,7 @@ async function main(uri_cgtn) {
 
         }
         //
-
+        await page_cgtn.close();
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_cgtn}`);
 
     } catch (error) {

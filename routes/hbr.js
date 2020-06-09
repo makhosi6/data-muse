@@ -1,7 +1,8 @@
 const express = require('express');
 require('dotenv').config()
 const hbr = express.Router();
-const browser = require('../browser');
+const wsChromeEndpointurl = require('../browser');
+const puppeteer = require('puppeteer');
 process.setMaxListeners(Infinity);
 let vars = require('./store/storeVars');
 
@@ -14,6 +15,10 @@ let add_video = [];
 async function main(url_news, uri_mostPopula, uri_study, uri_video) {
     try {
 
+        const browser = await puppeteer.connect({
+            browserWSEndpoint: wsChromeEndpointurl,
+            defaultViewport: null
+        });
         const page_news = await browser.newPage();
         page_news.setUserAgent(vars.userAgent);
         await page_news.goto(url_news, { waitUntil: 'networkidle2', timeout: 0 });
@@ -64,7 +69,8 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
             }
         }
         //
-
+        await page_news.close();
+        //
         const page_mostPopula = await browser.newPage();
         page_mostPopula.setUserAgent(vars.userAgent);
         await page_mostPopula.goto(uri_mostPopula, { waitUntil: 'networkidle2', timeout: 0 });
@@ -120,7 +126,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 continue;
             }
         }
-
+        await page_mostPopula.close();
         ///
         const page_study = await browser.newPage();
         page_study.setUserAgent(vars.userAgent);
@@ -185,7 +191,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
             }
         }
         //
-
+        await page_study.close();
         const page_video = await browser.newPage();
         page_video.setUserAgent(vars.userAgent);
         await page_video.setViewport({
@@ -193,11 +199,8 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
             height: 1080
         });
         await page_video.goto(uri_video, { waitUntil: 'networkidle2', timeout: 0 });
-
         await page_video.waitFor(33000);
         await page_video.waitForSelector('.mvm');
-
-
         const items_video = await page_video.$$('.mvm.flex-row');
         //
         for (const item of items_video) {
@@ -237,14 +240,11 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
             }
         }
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_video}`);
-
+        await page_video.close();
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri_video} Main: ${error}`);
     }
-
 }
-
-
 let source_news = "https://hbr.org/";
 let source_mostPopula = "https://hbr.org/most-popular";
 let source_study = "https://hbr.org/visual-library";

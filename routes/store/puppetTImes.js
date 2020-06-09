@@ -1,6 +1,6 @@
-const puppeteer = require("puppeteer");
-const wsChromeEndpointurl = require('../../browser');
 const vars = require('./storeVars');
+const puppeteer = require('puppeteer');
+const wsChromeEndpointurl = require('../../browser');
 //
 class Scrapper {
     constructor(uri) {
@@ -8,6 +8,7 @@ class Scrapper {
         this.data = [];
         this.puppet = async function() {
             try {
+
                 const browser = await puppeteer.connect({
                     browserWSEndpoint: wsChromeEndpointurl,
                     defaultViewport: null
@@ -15,39 +16,48 @@ class Scrapper {
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
                 await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
-                await page.waitForSelector('.sabc_cat_list_item');
-                const items = await page.$$('.sabc_cat_list_item');
+                await page.waitForSelector('.article');
+                const items = await page.$$('.generic-block');
                 await page.waitFor(125000);
+                //
                 let arrr = [];
                 //
                 for (const item of items) {
                     try {
 
-                        const image = await item.$('.sabc_cat_list_item_image > img');
-                        const title = await item.$('.sabc_cat_list_item_title > a');
-
-                        //sabc_cat_item_date
-                        const thumbnail = await page.evaluate(img => img.src, image);
-                        const date = await item.$eval('.sabc_cat_item_date', span => span.innerText);
-                        const lede = await item.$eval('.sabc_cat_list_item_summary', p => p.innerText);
-                        const link = await page.evaluate(a => a.href, title);
-                        const headline = await page.evaluate(a => a.innerText, title);
+                        const get = await item.$('a.image.image-loader');
+                        const e = await item.$('span.image-loader-image');
+                        const f = await item.$('.article-text');
                         //
+                        const thumbnail = await page.evaluate(a => a.style.backgroundImage, e);
+
+                        const link = await page.evaluate(a => a.href, get);
+                        const headline = await item.$eval('.article-title', span => span.innerText);
+                        const lede = (f != null || undefined) ? await item.$eval('.article-text', a => a.innerText) : null;
+                        const category = await item.$eval('span.section-title', span => span.innerText);
+                        //
+                        let a = thumbnail.split('url("');
+                        let b = a[1];
+                        let c = b.split('")');
+                        let d = c[0];
+
                         const iHtml = await page.evaluate(el => el.innerHTML, item);
 
+
                         arrr.push({
-                            "date": date,
+
                             "lede": lede,
+                            "category": category,
                             "url": link,
-                            "thumbnail": thumbnail,
+                            "thumbnail": d,
                             "headline": headline,
                         })
                     } catch (error) {
                         console.trace('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`);
                         continue;
+
                     }
                 }
-                //
                 this.data = arrr;
                 await page.close()
                 console.log('\x1b[43m%s\x1b[0m', `Done: ${this.uri}`);
@@ -56,7 +66,7 @@ class Scrapper {
                 console.trace('\x1b[41m%s\x1b[0m', `From ${this.uri} Main: ${error}`);
             }
 
-            return this.data
+            return this.data;
         }
     }
 }

@@ -2,8 +2,7 @@ const express = require('express');
 const cnnRouta = express.Router();
 require('dotenv').config()
 const puppet = require('./store/puppetCnn');
-const vars = require('./store/storeVars')
-    //
+//
 process.setMaxListeners(Infinity);
 ///
 let sources = {
