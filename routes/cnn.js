@@ -15,33 +15,35 @@ let sources = {
     //
 const Puppet = puppet.Scrapper;
 //one
-const dataOne = new Puppet(sources.world);
-dataOne.puppet();
+const One = new Puppet(sources.world);
+One.puppet();
 //Two
-const dataTwo = new Puppet(sources.africa);
-dataTwo.puppet();
+const Two = new Puppet(sources.africa);
+Two.puppet();
 //Three
-const dataThree = new Puppet(sources.tech);
-dataThree.puppet();
+const Three = new Puppet(sources.tech);
+Three.puppet();
 //Four
-const dataFour = new Puppet(sources.health);
-dataFour.puppet();
+const Four = new Puppet(sources.health);
+Four.puppet();
 //Five
-const dataFive = new Puppet(sources.business);
-dataFive.puppet();
+const Five = new Puppet(sources.business);
+Five.puppet();
 //
+
 
 
 /////////////
 cnnRouta.get('/cnn', (req, res) => {
     res.send({
 
-        "world": dataOne,
-        "africa": dataTwo,
-        "tech": dataThree,
-        "health": dataFour,
-        "business": dataFive
+        "world": One.data,
+        "africa": Two.data,
+        "tech": Three.data,
+        "health": Four.data,
+        "business": Five.data
     });
+
 })
 
 module.exports = cnnRouta;

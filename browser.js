@@ -2,8 +2,10 @@ const puppeteer = require('puppeteer');
 const vars = require('./routes/store/storeVars');
 
 
+
 //
 (async function() {
+
     const browser = await puppeteer.launch({
         args: vars.argsArr,
         defaultViewport: null,
@@ -11,8 +13,16 @@ const vars = require('./routes/store/storeVars');
         executablePath: vars.exPath
     });
     console.log(browser.wsEndpoint())
-    module.exports = browser.wsEndpoint();
 
+    module.exports = browser.wsEndpoint();
+    let ver = await browser.version();
+
+    setTimeout(() => {
+
+        console.log(ver);
+
+        console.log('====================================');
+    }, 2000);
     // setTimeout(() => {
     //     browser.close();
     // }, 12231414544);

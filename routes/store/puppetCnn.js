@@ -5,7 +5,7 @@ const wsChromeEndpointurl = require('../../browser');
 //
 class Scrapper {
     constructor(uri) {
-        this.uri = uri;
+        this._uri = uri;
         this.data = [];
         this.puppet = async function() {
             try {
@@ -15,7 +15,7 @@ class Scrapper {
                 });
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
-                await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
+                await page.goto(this._uri, { waitUntil: 'networkidle2', timeout: 0 });
                 await page.waitForSelector('.cd__wrapper');
                 const items = await page.$$('.cd__wrapper');
                 //
@@ -52,15 +52,15 @@ class Scrapper {
 
 
                     } catch (error) {
-                        console.trace('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`);
+                        console.trace('\x1b[42m%s\x1b[0m', `From ${this._uri} loop: ${error}`);
                     }
                 }
                 this.data = arrr;
                 await page.close()
-                console.log('\x1b[43m%s\x1b[0m', `Done: ${this.uri}`);
+                console.log('\x1b[43m%s\x1b[0m', `Done: ${this._uri}`);
 
             } catch (error) {
-                console.trace('\x1b[41m%s\x1b[0m', `From ${this.uri} Main: ${error}`);
+                console.trace('\x1b[41m%s\x1b[0m', `From ${this._uri} Main: ${error}`);
             }
 
             return this.data
