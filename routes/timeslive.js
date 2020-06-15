@@ -23,9 +23,9 @@ dataThree.puppet();
 /////
 timesLiveBusi.get('/times-live', (req, res) => {
     res.send({
-        "timesLiveBusi": dataOne,
-        "timesLive": dataTwo,
-        "timesLiveSport": dataThree
+        "timesLiveBusi": dataOne.data,
+        "timesLive": dataTwo.data,
+        "timesLiveSport": dataThree.data
     });
 })
 

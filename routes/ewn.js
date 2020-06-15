@@ -76,10 +76,10 @@ main(sources.trending);
 /////////////
 ewnRouta.get('/ewn', (req, res) => {
     res.send({
-        "ewnNews": dataOne,
-        "ewnLifestyle": dataTwo,
-        "ewnPolitics": dataThree,
-        "ewnSport": dataFour,
+        "ewnNews": dataOne.data,
+        "ewnLifestyle": dataTwo.data,
+        "ewnPolitics": dataThree.data,
+        "ewnSport": dataFour.data,
         "ewnTrending": add_trending
     });
 })

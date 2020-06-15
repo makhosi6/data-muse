@@ -21,8 +21,8 @@ dataTwo.puppet();
 /////////////
 foodWine.get('/foodwine', (req, res) => {
     res.send({
-        "foodWine": dataOne,
-        "foodWineRecipes": dataTwo
+        "foodWine": dataOne.data,
+        "foodWineRecipes": dataTwo.data
     });
 })
 

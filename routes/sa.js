@@ -38,12 +38,12 @@ dataSix.puppet();
 saFinance.get('/sa-scrapper', (req, res) => {
     res.send({
 
-        "saFinance": dataOne,
-        "saMotoring": dataTwo,
-        "saLife": dataThree,
-        "saNews": dataFour,
-        "saTech": dataFive,
-        "saSport": dataSix
+        "saFinance": dataOne.data,
+        "saMotoring": dataTwo.data,
+        "saLife": dataThree.data,
+        "saNews": dataFour.data,
+        "saTech": dataFive.data,
+        "saSport": dataSix.data
     });
 })
 

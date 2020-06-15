@@ -25,9 +25,9 @@ dataThree.puppet();
 ///
 wiredBusiness.get('/wired-all', (req, res) => {
     res.send({
-        "wiredScience": dataOne,
-        "wiredBusiness": dataTwo,
-        "wiredGear": dataThree
+        "wiredScience": dataOne.data,
+        "wiredBusiness": dataTwo.data,
+        "wiredGear": dataThree.data
     });
 })
 

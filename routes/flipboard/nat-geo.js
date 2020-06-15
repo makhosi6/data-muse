@@ -37,12 +37,12 @@ dataSix.puppet();
 
 natGeoAnimals.get('/flipboard/natgeo', (req, res) => {
     res.send({
-        "natGeoAnimals": dataOne,
-        "natGeoNews": dataTwo,
-        "espnNatGoe": dataThree,
-        "natGeoPhoto": dataFour,
-        "natGeoSci": dataFive,
-        "natGeoTravel": dataSix
+        "natGeoAnimals": dataOne.data,
+        "natGeoNews": dataTwo.data,
+        "espnNatGoe": dataThree.data,
+        "natGeoPhoto": dataFour.data,
+        "natGeoSci": dataFive.data,
+        "natGeoTravel": dataSix.data
     });
 })
 

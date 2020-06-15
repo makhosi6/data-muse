@@ -6,14 +6,14 @@ process.setMaxListeners(Infinity);
 ///
 const Puppet = puppet.Scrapper;
 let source = "https://flipboard.com/@enews";
-const data = new Puppet(source);
+const dataOne = new Puppet(source);
 
-data.puppet();
+dataOne.puppet();
 /////////////
 espnEnews.get('/enews', (req, res) => {
     res.send({
 
-        "espnEnews": data,
+        "espnEnews": dataOne.data,
 
     });
 })

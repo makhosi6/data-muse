@@ -113,11 +113,11 @@ dataFive.puppet();
 sabcBusiness.get('/sabc', (req, res) => {
     res.send({
         "sabcNews": add,
-        "sabcBusiness": dataTwo,
-        "sabcPolitics": dataOne,
-        "sabcScience": dataThree,
-        "sabcSport": dataFour,
-        "sabcWorld": dataFive
+        "sabcBusiness": dataTwo.data,
+        "sabcPolitics": dataOne.data,
+        "sabcScience": dataThree.data,
+        "sabcSport": dataFour.data,
+        "sabcWorld": dataFive.data
     });
 })
 

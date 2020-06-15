@@ -40,12 +40,12 @@ dataSix.puppet();
 
 bbcBusiness.get('/bbc', (req, res) => {
     res.send({
-        "africa": dataTwo,
-        "news": dataOne,
-        "real": dataFour,
-        "health": dataThree,
-        "sport": dataFive,
-        "tech": dataSix
+        "africa": dataTwo.data,
+        "news": dataOne.data,
+        "real": dataFour.data,
+        "health": dataThree.data,
+        "sport": dataFive.data,
+        "tech": dataSix.data
     });
 })
 module.exports = bbcBusiness;
