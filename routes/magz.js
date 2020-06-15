@@ -52,7 +52,6 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let emptyArr = "";
                 let src = "https://upload.wikimedia.org/wikipedia/commons/8/8b/Men%27s_Health.svg";
                 //
-                let category = empty;
                 let catLink = empty;
                 let tag = empty;
                 //
@@ -121,7 +120,6 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let emptyArr = "";
                 let src = "https://www.womenshealthsa.co.za/wp-content/uploads/2018/01/wh-logo.svg";
                 //
-                let category = empty;
                 let catLink = empty;
                 let tag = empty;
                 //
@@ -274,7 +272,6 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let isVid = false;
                 let vidLen = empty;
 
-                let lede = empty;
                 //
                 add_you.push({
                     url,

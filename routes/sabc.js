@@ -95,19 +95,19 @@ main(sources.news)
     //
 const Puppet = puppet.Scrapper;
 //one
-const dataOne = new Puppet(sources.politics, politics);
+const dataOne = new Puppet(sources.politics, 'politics');
 dataOne.puppet();
 //Two
-const dataTwo = new Puppet(sources.business, business);
+const dataTwo = new Puppet(sources.business, 'business');
 dataTwo.puppet();
 //tthree
-const dataThree = new Puppet(sources.science, science);
+const dataThree = new Puppet(sources.science, 'science');
 dataThree.puppet();
 //four
-const dataFour = new Puppet(sources.sport, sport);
+const dataFour = new Puppet(sources.sport, 'sport');
 dataFour.puppet();
 //five
-const dataFive = new Puppet(sources.world, world);
+const dataFive = new Puppet(sources.world, 'world');
 dataFive.puppet();
 /////
 sabcBusiness.get('/sabc', (req, res) => {

@@ -34,7 +34,7 @@ async function main(uri) {
                 const cat = await item.$('.story-package-module__story__eyebrow');
                 //
                 const url = await page.evaluate(a => a.href, f);
-                const category = (cat != null || undefined) ? await page.evaluate(section => section.textContent, cat).trim() : null;
+                const categori = (cat != null || undefined) ? await page.evaluate(section => section.textContent, cat) : null;
                 const headline = await item.$eval('h3 > a', a => a.innerText);
                 const date = (time != null || undefined) ? await page.evaluate(time => time.innerText, time) : null;
                 const thumbnail = (get != null || undefined) ? await page.evaluate(img => img.src, get) : null;
@@ -46,12 +46,12 @@ async function main(uri) {
                 let author = empty;
                 let tag = empty;
                 let src = "https://www.conviva.com/wp-content/uploads/2019/12/Bloomberg-logo-.png";
-                let category = empty;
+
                 let vidLen = empty;
                 let isVid = false;
                 let catLink = empty;
                 let images = emptyArr;
-
+                let category = categori.trim();
                 add.push({
                     url,
                     headline,

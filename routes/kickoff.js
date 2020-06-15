@@ -52,7 +52,6 @@ async function main(uri) {
                 //
                 let author = empty;
                 let date = empty;
-                let isVid = false;
                 add.push({
                     url,
                     headline,
@@ -97,13 +96,14 @@ async function main(uri) {
                         let emptyArr = "";
                         //
                         let lede = empty;
-                        let category = empty;
                         let catLink = empty;
                         let tag = empty;
+                        let thumbnail = empty;
                         //
                         let images = emptyArr;
                         //
                         let vidLen = empty;
+                        let isVid = false;
                         //
                         let author = empty;
                         let date = empty;

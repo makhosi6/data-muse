@@ -47,7 +47,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 if (authors != null) {
                     for (const autha of authors) {
                         let value = await page_news.evaluate(li => li.innerText, autha)
-                        autha.push(value);
+                        author.push(value);
                     }
                 } else {
                     author.push(null)
@@ -133,7 +133,6 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 let emptyArr = "";
 
                 let catLink = empty;
-                let author = empty;
                 let vidLen = empty;
                 let isVid = false;
 

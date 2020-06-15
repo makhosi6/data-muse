@@ -48,8 +48,6 @@ async function main(uri) {
                 let empty = null;
                 let emptyArr = "";
                 //
-                let lede = empty;
-                let category = empty;
                 let catLink = empty;
                 let tag = empty;
                 //

@@ -23,7 +23,6 @@ class Scrapper {
                 //
                 for (const item of items) {
                     try {
-
                         const image = await item.$('.sabc_cat_list_item_image > img');
                         const title = await item.$('.sabc_cat_list_item_title > a');
 

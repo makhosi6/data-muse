@@ -23,7 +23,6 @@ class Scrapper {
                 for (let i = 0; i < items.length; i++) {
                     try {
                         await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
-                        console.trace('\x1b[36m%s\x1b[0m', this.uri + " => " + __filename)
                         await page.waitForSelector('.item-list');
                         const items = await page.$$('.post__section-item-display');
                         const item = items[i];

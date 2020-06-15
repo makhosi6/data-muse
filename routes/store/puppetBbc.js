@@ -52,7 +52,7 @@ class Scrapper {
                         let emptyArr = "";
                         //
                         let src = "https://nav.files.bbci.co.uk/orbit/db9d3ece642dbb01f23f791064ec1502/img/blq-orbit-blocks_grey_alpha.png";
-                        let tag = empty;
+                        let tag = category;
                         let author = empty;
                         //
                         arrr.push({
