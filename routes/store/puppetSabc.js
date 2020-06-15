@@ -3,8 +3,9 @@ const wsChromeEndpointurl = require('../../browser');
 const vars = require('./storeVars');
 //
 class Scrapper {
-    constructor(uri) {
+    constructor(uri, cat) {
         this.uri = uri;
+        this.cat = cat;
         this.data = [];
         this.puppet = async function() {
             try {
@@ -30,17 +31,37 @@ class Scrapper {
                         const thumbnail = await page.evaluate(img => img.src, image);
                         const date = await item.$eval('.sabc_cat_item_date', span => span.innerText);
                         const lede = await item.$eval('.sabc_cat_list_item_summary', p => p.innerText);
-                        const link = await page.evaluate(a => a.href, title);
+                        const url = await page.evaluate(a => a.href, title);
                         const headline = await page.evaluate(a => a.innerText, title);
                         //
                         const iHtml = await page.evaluate(el => el.innerHTML, item);
-
+                        let category = this.cat;
+                        let emptyArr = "";
+                        //
+                        let src = "https://www.sabcnews.com/sabcnews/wp-content/uploads/2018/06/sabc-logo-white-final.png";
+                        let images = emptyArr;
+                        let tag = category;
+                        let catLink = null;
+                        let isVid = true;
+                        let vidLen = catLink;
+                        let author = catLink;
                         arrr.push({
-                            "date": date,
-                            "lede": lede,
-                            "url": link,
-                            "thumbnail": thumbnail,
-                            "headline": headline,
+                            url,
+                            headline,
+                            lede,
+                            thumbnail,
+                            //
+                            category,
+                            catLink,
+                            tag,
+                            //
+                            images,
+                            //
+                            isVid,
+                            vidLen,
+                            //
+                            author,
+                            date
                         })
                     } catch (error) {
                         console.trace('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`);

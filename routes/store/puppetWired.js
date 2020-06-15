@@ -24,16 +24,41 @@ class Scrapper {
                 for (const item of items) {
                     try {
                         const thumbnail = await item.$eval('img', img => img.src);
-                        const link = await item.$eval('a', a => a.href);
+                        const url = await item.$eval('a', a => a.href);
                         const headline = await item.$eval('h2', h2 => h2.innerText);
                         const author = await item.$eval('a.byline-component__link', a => a.innerText);
                         const category = await item.$eval('span.brow-component--micro', span => span.innerText);
+
+                        let empty = null;
+                        let emptyArr = "";
+
+                        let lede = empty;
+                        let images = emptyArr;
+                        let tag = empty;
+                        let date = empty;
+                        let isVid = empty;
+                        let vidLen = empty;
+                        let catLink = empty;
+                        let src = "https://www.wired.com/images/icons/logo-black.svg";
+
                         arrr.push({
-                            "category": category,
-                            "url": link,
-                            "thumbnail": thumbnail,
-                            "headline": headline,
-                            "author": author
+                            url,
+                            headline,
+                            lede,
+                            thumbnail,
+                            src,
+                            //
+                            category,
+                            catLink,
+                            tag,
+                            //
+                            images,
+                            //
+                            isVid,
+                            vidLen,
+                            //
+                            author,
+                            date
                         })
                     } catch (error) {
                         console.trace('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`);

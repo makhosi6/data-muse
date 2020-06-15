@@ -11,6 +11,7 @@ let add_sport = [];
 let add_video = [];
 let add_business = [];
 let add_trends = [];
+let src = "https://www.enca.com/sites/all/themes/custom/enca/images/eNCA_logo.svg";
 
 async function main(uri_sport, uri_video, uri_business) {
 
@@ -30,23 +31,47 @@ async function main(uri_sport, uri_video, uri_business) {
         for (const item of items_sport) {
             try {
 
-                const headline = await item.$('h2');
+                const head = await item.$('h2');
                 const image = await item.$('img');
                 const sec = await item.$('.para-section-author');
                 const para = await item.$('.para-section-text');
                 //
-                const headlineText = (headline != null || undefined) ? await headline.$eval('a', a => a.innerText) : null;
+                const headline = (head != null || undefined) ? await head.$eval('a', a => a.innerText) : null;
                 const thumbnail = (image != null || undefined) ? await item.$eval('img', img => img.src) : null;
-                const url = (headline != null || undefined) ? await headline.$eval('a', a => a.href) : null;
+                const url = (head != null || undefined) ? await head.$eval('a', a => a.href) : null;
                 const lede = (para != null || undefined) ? await para.$eval('div.field-content', div => div.innerText) : null;
                 const date = (sec != null || undefined) ? await sec.$eval('span.field-content', span => span.innerText) : null;
 
+                let empty = null;
+                let emptyArr = "";
+
+                let catLink = empty;
+                let author = empty;
+                let category = empty;
+                let tag = category;
+                let images = emptyArr;
+                let vidLen = empty;
+                let isVid = false;
+
+
                 (url === null) ? false: add_sport.push({
-                    "url": url,
-                    "lede": lede,
-                    "headline": headlineText,
-                    "thumbnail": thumbnail,
-                    "date": date
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 });
 
 
@@ -68,21 +93,47 @@ async function main(uri_sport, uri_video, uri_business) {
         for (const item of items_video) {
             // 
             try {
-                const headline = await item.$('h2');
+                const head = await item.$('h2');
                 const image = await item.$('img');
 
                 const para = await item.$('.views-field.views-field-field-teaser-text');
                 //
-                const headlineText = (headline != null || undefined) ? await headline.$eval('a', a => a.innerText) : null;
+                const headline = (head != null || undefined) ? await head.$eval('a', a => a.innerText) : null;
                 const thumbnail = (image != null || undefined) ? await item.$eval('img', img => img.src) : null;
-                const url = (headline != null || undefined) ? await headline.$eval('a', a => a.href) : null;
+                const url = (head != null || undefined) ? await head.$eval('a', a => a.href) : null;
                 const lede = (para != null || undefined) ? await para.$eval('div.field-content', div => div.innerText) : null;
 
+
+                let empty = null;
+                let emptyArr = "";
+
+                let catLink = empty;
+                let author = empty;
+                let date = empty;
+                let category = empty;
+                let tag = category;
+                let images = emptyArr;
+                let vidLen = empty;
+                let isVid = false;
+
                 (url === null) ? false: add_video.push({
-                    "url": url,
-                    "lede": lede,
-                    "headline": headlineText,
-                    "thumbnail": thumbnail,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
 
                 });
 
@@ -140,23 +191,47 @@ async function main(uri_sport, uri_video, uri_business) {
         //
         for (const item of items_business) {
             try {
-                const headline = await item.$('h2');
+                const head = await item.$('h2');
                 const image = await item.$('img');
                 const sec = await item.$('.para-section-author');
                 const para = await item.$('.para-section-text');
                 //
-                const headlineText = (headline != null || undefined) ? await headline.$eval('a', a => a.innerText) : null;
+                const headline = (head != null || undefined) ? await head.$eval('a', a => a.innerText) : null;
                 const thumbnail = (image != null || undefined) ? await item.$eval('img', img => img.src) : null;
-                const url = (headline != null || undefined) ? await headline.$eval('a', a => a.href) : null;
+                const url = (head != null || undefined) ? await head.$eval('a', a => a.href) : null;
                 const lede = (para != null || undefined) ? await para.$eval('div.field-content', div => div.innerText) : null;
                 const date = (sec != null || undefined) ? await sec.$eval('span.field-content', span => span.innerText) : null;
 
+
+                let empty = null;
+                let emptyArr = "";
+
+                let catLink = empty;
+                let author = empty;
+                let category = empty;
+                let tag = category;
+                let images = emptyArr;
+                let vidLen = empty;
+                let isVid = false;
+
                 (url === null) ? false: add_business.push({
-                    "url": url,
-                    "lede": lede,
-                    "headline": headlineText,
-                    "thumbnail": thumbnail,
-                    "date": date
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 });
 
 
@@ -164,7 +239,6 @@ async function main(uri_sport, uri_video, uri_business) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
                 continue;
             }
-
         }
         //
         await page_business.close();
@@ -178,11 +252,11 @@ async function main(uri_sport, uri_video, uri_business) {
 let source_sport = "https://www.enca.com/sports";
 let source_video = "https://www.enca.com/watch";
 let source_business = "https://www.enca.com/business";
+//
 main(source_sport, source_video, source_business);
-/////////////
+//
 enca.get('/enca', (req, res) => {
     res.send({
-
         "encaSport": add_sport,
         "encaVideo": add_video,
         "encaBusiness": add_business,

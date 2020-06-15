@@ -12,6 +12,7 @@ let add_news = [];
 let add_mostPopula = [];
 let add_study = [];
 let add_video = [];
+let src = "https://www.logolynx.com/images/logolynx/s_e5/e5f4b05f3bb630f8179f1dc505dea803.png";
 async function main(url_news, uri_mostPopula, uri_study, uri_video) {
     try {
 
@@ -31,36 +32,54 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
             try {
                 const image = await item.$('img');
                 const thumbnail = (image != null || undefined) ? await item.$eval('img', img => img.src) : null;
-                const headline = await item.$('.hed');
-                const topic = await item.$eval('a.topic', a => a.innerText);
+                const head = await item.$('.hed');
+                const tag = await item.$eval('a.topic', a => a.innerText);
                 const category = await item.$eval('span.content-type', span => span.innerText)
                 const a = await item.$('.byline-list');
                 const authors = (a != null || undefined) ? await a.$$('li') : null;
                 const lede = await item.$eval('div.dek', div => div.innerText);
-                const url = await headline.$eval('a', a => a.href);
-                const headlineText = await headline.$eval('a', a => a.innerText);
+                const url = await head.$eval('a', a => a.href);
+                const headline = await head.$eval('a', a => a.innerText);
                 let utiliti = await item.$('.stream-utility');
                 const date = await utiliti.$eval('li.pubdate', li => li.innerText);
                 //
-                let all = [];
+                let author = [];
                 if (authors != null) {
-                    for (const author of authors) {
-                        let value = await page_news.evaluate(li => li.innerText, author)
-                        all.push(value);
+                    for (const autha of authors) {
+                        let value = await page_news.evaluate(li => li.innerText, autha)
+                        autha.push(value);
                     }
                 } else {
-                    all.push(null)
+                    author.push(null)
                 }
 
+
+                let empty = null;
+                let emptyArr = "";
+                //
+                let vidLen = empty;
+                let isVid = false;
+                let catLink = empty;
+                let images = emptyArr;
+
                 add_news.push({
-                    "url": url,
-                    "lede": lede,
-                    "headline": headlineText,
-                    "thumbnail": thumbnail,
-                    "author": all,
-                    "category": category,
-                    "tag": topic,
-                    "date": date,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
 
             } catch (error) {
@@ -92,33 +111,50 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
         for (const item of items_mostPopula) {
             try {
                 const thumbnail = await item.$eval('img', img => img.src);
-                const headline = await item.$('.hed');
-                const topic = await item.$eval('a.topic', a => a.innerText);
+                const head = await item.$('.hed');
+                const tag = await item.$eval('a.topic', a => a.innerText);
                 const category = await item.$eval('span.content-type', span => span.innerText)
                 const a = await item.$('.byline-list');
                 const authors = await a.$$('li');
                 const lede = await item.$eval('div.dek', div => div.innerText);
-                const url = await headline.$eval('a', a => a.href);
-                const headlineText = await headline.$eval('a', a => a.innerText);
+                const url = await head.$eval('a', a => a.href);
+                const headline = await head.$eval('a', a => a.innerText);
                 let utiliti = await item.$('.stream-utility');
                 const date = await utiliti.$eval('li.pubdate', li => li.innerText);
                 //
-                let all = [];
+                let author = [];
 
-                for (const author of authors) {
-                    let value = await page_mostPopula.evaluate(li => li.innerText, author)
-                    all.push(value);
+                for (const autha of authors) {
+                    let value = await page_mostPopula.evaluate(li => li.innerText, autha)
+                    author.push(value);
                 }
 
+                let empty = null;
+                let emptyArr = "";
+
+                let catLink = empty;
+                let author = empty;
+                let vidLen = empty;
+                let isVid = false;
+
                 add_mostPopula.push({
-                    "url": url,
-                    "lede": lede,
-                    "headline": headlineText,
-                    "thumbnail": thumbnail,
-                    "author": all,
-                    "category": category,
-                    "tag": topic,
-                    "date": date
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    //
+                    src,
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
 
             } catch (error) {
@@ -158,17 +194,17 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
 
                 //
                 const thumbnail = (image != null || undefined) ? await item.$eval('img', img => img.src) : null;
-                const title = await h4.$eval('a', a => a.innerText);
+                const headline = await h4.$eval('a', a => a.innerText);
                 const url = await h4.$eval('a', a => a.href);
                 const about = await item.$eval('p.product-text.mbs', p => p.innerText);
-                let all = [];
+                let author = [];
                 if (authors != null) {
-                    for (const author of authors) {
-                        let value = await page_study.evaluate(li => li.innerText, author)
-                        all.push(value);
+                    for (const autha of authors) {
+                        let value = await page_study.evaluate(li => li.innerText, autha)
+                        author.push(value);
                     }
                 } else {
-                    all.push(null)
+                    author.push(null)
                 }
                 const date = await item.$eval('time', time => time.innerText);
                 const subject = await page_study.evaluate(p => p.innerText, subj)
@@ -179,6 +215,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                     "title": title,
                     "thumbnail": thumbnail,
                     "author": all,
+                    src,
                     "subject": subject,
                     "format": format,
                     "about": about,
@@ -227,6 +264,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                     "url": url,
                     "headline": headlineText,
                     "lede": b,
+                    src,
                     "thumbnail": thumbnail,
                     "author": credit,
                     "category": c,

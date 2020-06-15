@@ -10,6 +10,7 @@ process.setMaxListeners(Infinity);
 let add = [];
 let data = [];
 let trends = [];
+let src = "https://cdn.kickoff.com/assets/kickoff-logo@2x-3a7d35049d4a22e56ca2579da5c8d8df0edf67f40a78af4dab3de8f159c69494.png";
 let add_list = [];
 async function main(uri) {
 
@@ -32,19 +33,47 @@ async function main(uri) {
                 //
                 const get = await item.$('.pod__image img');
                 const check = await item.$('.icon-play.pod__video-icon');
-                const link = await item.$eval('.pod__title > a', a => a.href);
+                const url = await item.$eval('.pod__title > a', a => a.href);
                 const headline = await item.$eval('.pod__title > a', a => a.innerText);
                 const thumbnail = await page.evaluate(div => div.dataset.src, get);
                 //
-                let bool = (check != null || undefined) ? true : false;
+                let isVid = (check != null || undefined) ? true : false;
+                let empty = null;
+                let emptyArr = "";
+                //
+                let lede = empty;
+                let category = empty;
+                let catLink = empty;
+                let tag = empty;
+                //
+                let images = emptyArr;
+                //
+                let vidLen = empty;
+                //
+                let author = empty;
+                let date = empty;
+                let isVid = false;
                 add.push({
-                    "isVid": bool,
-                    "url": link,
-                    "thumbnail": thumbnail,
-                    "headline": headline,
+                    url,
+                    headline,
+                    isVid,
+                    src,
+                    thumbnail,
+                    //
+                    lede,
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
-                console.log(`From ${uri} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
                 continue;
             }
         }
@@ -58,22 +87,52 @@ async function main(uri) {
 
                 for (const each of pods) {
                     try {
-                        const link = await each.$eval('.pod__title > a', a => a.href);
+                        const url = await each.$eval('.pod__title > a', a => a.href);
                         const headline = await each.$eval('.pod__title > a', a => a.innerText);
                         // const btn = await each.$eval('a.button', a => a.innerText);
                         let a = btn.split('More ');
-                        let b = a[1];
+                        let category = a[1];
+
+                        let empty = null;
+                        let emptyArr = "";
+                        //
+                        let lede = empty;
+                        let category = empty;
+                        let catLink = empty;
+                        let tag = empty;
+                        //
+                        let images = emptyArr;
+                        //
+                        let vidLen = empty;
+                        //
+                        let author = empty;
+                        let date = empty;
+
                         data.push({
-                            "category": b,
-                            "url": link,
-                            "headline": headline,
+                            url,
+                            headline,
+                            lede,
+                            thumbnail,
+                            //
+                            src,
+                            category,
+                            catLink,
+                            tag,
+                            //
+                            images,
+                            //
+                            isVid,
+                            vidLen,
+                            //
+                            author,
+                            date
                         })
                     } catch (error) {
-                        console.log(`From ${uri} loop: ${error}`.bgMagenta);
+                        console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loopInside: ${error}`);
                     }
                 }
             } catch (error) {
-                console.log(`From ${uri} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
             }
         }
         //
@@ -88,7 +147,7 @@ async function main(uri) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.log(`From ${uri} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
 
             }
         }
@@ -122,13 +181,14 @@ async function main(uri) {
                 const teamName = await page_list.evaluate(el => el.textContent, team);
 
                 add_list.push({
-                    "more": more,
-                    "teamNum": teamNum,
-                    "teamLogo": teamImg,
-                    "teamPl": teamPl,
-                    "teamGd": teamGd,
-                    "teamPts": teamPts,
-                    "teamName": teamName
+                    src,
+                    more,
+                    teamNum,
+                    teamImg,
+                    teamPl,
+                    teamGd,
+                    teamPts,
+                    teamName
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);

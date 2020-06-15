@@ -34,27 +34,45 @@ class Scrapper {
                         //
                         const mediaLink = (media != null || undefined) ? await media.$eval('img', img => img.src) : null;
                         const value = (mediaLink != null || undefined) ? await item.$eval('img', img => img.dataset.src) : null;
+                        const images = (mediaLink != null || undefined) ? await item.$eval('img', img => img.srcset) : null;
                         const url = (body != null || undefined) ? await body.$eval('a', a => a.href) : null;
-                        const heading = (body != null || undefined) ? await body.$eval('h3', h3 => h3.innerText) : null;
-                        const timeStamp = (el != null || undefined) ? await body.$eval('span.qa-status-date-output', span => span.innerText) : null;
+                        const headline = (body != null || undefined) ? await body.$eval('h3', h3 => h3.innerText) : null;
+                        const date = (el != null || undefined) ? await body.$eval('span.qa-status-date-output', span => span.innerText) : null;
                         const vidLen = (cont != null) ? await body.$eval('span.qa-onscreen', span => span.innerText) : null;
-                        const bool = (vidLen != null || undefined) ? true : false;
+                        const isVid = (vidLen != null || undefined) ? true : false;
                         const cat = (el != null || undefined) ? await sect.$eval('span', span => span.innerText) : null;
+                        const catLink = (el != null || undefined) ? await sect.$eval('span', span => span.href) : null;
                         const lede = ((para != null || undefined) && (media != null || undefined)) ? await body.$eval('p', p => p.innerText) : null;
                         //
                         let slc = url.slice(21, 31)
                         const category = (slc == "programmes") ? "programmes" : cat;
                         let thumbnail = (value != null) ? value.replace("{width}", "490") : null;
                         //
+                        let empty = null;
+                        let emptyArr = "";
+                        //
+                        let src = "https://nav.files.bbci.co.uk/orbit/db9d3ece642dbb01f23f791064ec1502/img/blq-orbit-blocks_grey_alpha.png";
+                        let tag = empty;
+                        let author = empty;
+                        //
                         arrr.push({
-                            "thumbnail": thumbnail,
-                            "url": url,
-                            "heading": heading,
-                            "isVid": bool,
-                            "vidLen": vidLen,
-                            "timestamp": timeStamp,
-                            "category": category,
-                            "lede": lede,
+                            url,
+                            src,
+                            headline,
+                            lede,
+                            thumbnail,
+                            //
+                            category,
+                            catLink,
+                            tag,
+                            //
+                            images,
+                            //
+                            isVid,
+                            vidLen,
+                            //
+                            author,
+                            date
 
                         })
                     } catch (error) {

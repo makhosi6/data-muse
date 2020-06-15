@@ -30,24 +30,50 @@ class Scrapper {
                         const first = await str[0];
                         const sec = await str[2];
                         const category = (first != "") ? await first : null;
-                        const hasVid = (sec == "video") ? true : false;
+                        const isVid = (sec == "video") ? true : false;
                         //VALUES
-                        const headline = await item.$('.cd__headline');
+                        const head = await item.$('.cd__headline');
                         const media = await item.$('.media');
                         //
-                        const headlineText = await headline.$eval('span', span => span.innerText);
-                        const link = await headline.$eval('a', a => a.href);
+                        const headline = await head.$eval('span', span => span.innerText);
+                        const url = await head.$eval('a', a => a.href);
                         const mediaLink = (media != null || undefined) ? await media.$eval('a', a => a.href) : null;
                         const image = (media != null || undefined) ? await media.$('.media__image') : null;
                         const thumbnail = ((media != null || undefined) && (image != null || undefined)) ? await media.$eval('img', img => img.dataset.src) : null;
+                        let j = await item.$('.cnn-badge-icon');
+
+                        const src = 'https://civiliansinconflict.org/wp-content/uploads/2017/09/Colors-CNN-Logo.jpg';
+
+                        let empty = null;
+                        let emptyArr = "";
+
+
+                        let tag = category;
+                        let lede = empty;
+                        let date = empty;
+                        let author = empty;
+                        let vidLen = empty;
+                        let catLink = empty;
+                        let images = emptyArr;
 
                         arrr.push({
-                            "category": category,
-                            "url": link,
-                            "has video": hasVid,
-                            "media url": mediaLink,
-                            "thumbnail": thumbnail,
-                            "headline": headlineText
+                            url,
+                            headline,
+                            lede,
+                            thumbnail,
+                            //
+                            category,
+                            catLink,
+                            tag,
+                            src,
+                            //
+                            images,
+                            //
+                            isVid,
+                            vidLen,
+                            //
+                            author,
+                            date
                         })
 
 

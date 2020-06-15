@@ -8,6 +8,7 @@ const wsChromeEndpointurl = require('../browser');
 process.setMaxListeners(Infinity);
 //
 let add = [];
+let src = "https://citizen.co.za/wp-content/themes/citizen-v5-2/images/citizen_logo_footer_v2.png";
 
 async function main(uri) {
 
@@ -24,32 +25,51 @@ async function main(uri) {
         const emAll = await page.$$('.lead-story');
         for (const each of emAll) {
             try {
-                // const left = await item.$('.right > .content > .article-synopsis.d-none.d-md-block');
                 const get = await each.$('.image img');
                 const a = await each.$('.image > a');
                 //
                 const thumbnail = await page.evaluate(a => a.src, get);
-                const link = await page.evaluate(a => a.href, a);
+                const url = await page.evaluate(a => a.href, a);
                 const headline = await each.$eval('h3 > a', span => span.innerText);
                 const category = await each.$eval('span.category-link > a', a => a.innerText);
                 const lede = await each.$eval('.excerpt', span => span.innerText);
                 // const ledeT = await each.$eval('span.js-shave', span => span.innerText);
                 // let para = lede + ledeT;
                 //
+                let empty = null;
+                let emptyArr = "";
+
+                let catLink = empty;
+                let author = empty;
+                let date = empty;
+                let tag = category;
+                let images = emptyArr;
+                let vidLen = empty;
+                let isVid = false;
 
                 add.push({
-                    "category": category,
-                    "thumbnail": thumbnail,
-                    "url": link,
-                    "headline": headline,
-                    "lede": lede
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
-
             }
         }
-
         //
         const items = await page.$$('div.article');
         //
@@ -64,41 +84,61 @@ async function main(uri) {
                 //
                 const category = await page.evaluate(div => div.innerText, cat);
                 const thumbnail = await page.evaluate(img => img.src, image);
-                const link = await page.evaluate(a => a.href, cat);
+                const url = await page.evaluate(a => a.href, cat);
                 const headline = await item.$eval('.homelead2-headline-more-stories', a => a.innerText);
                 //
 
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
 
+                let empty = null;
+                let emptyArr = "";
+
+                let catLink = empty;
+                let date = empty;
+                let lede = empty;
+                let author = empty;
+                let images = emptyArr;
+                let tag = category;
+                let vidLen = empty;
+                let isVid = false;
+
                 add.push({
-                    "category": category,
-                    "thumbnail": thumbnail,
-                    "url": link,
-                    "headline": headline
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
                 continue;
             }
-
         }
         //
-
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
         await page.close();
     } catch (error) {
         console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
     }
 }
-let source = "https://citizen.co.za/"
+let source = "https://citizen.co.za/";
 main(source);
 /////
 citizen.get('/citizen', (req, res) => {
     res.send({
-        "source": {
-            "name": "citizen",
-            "page url": source
-        },
+
         "citizen": add
     });
 })

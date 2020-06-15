@@ -37,23 +37,52 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 const get = await item.$('div.uk-cover-background.uk-position-cover');
                 const cat = await item.$('.uk-badge');
                 //
-                const link = await item.$eval('.uk-panel-title', a => a.href);
+                const url = await item.$eval('.uk-panel-title', a => a.href);
                 const headline = await item.$eval('.uk-panel-title', a => a.innerText);
                 const category = (cat != null || undefined) ? await page_men.evaluate(a => a.innerText, cat) : null;
-                const thumbnail = await page_men.evaluate(div => div.style.backgroundImage, get);
+                const thumb = await page_men.evaluate(div => div.style.backgroundImage, get);
                 //
-                let a = thumbnail.split('url("');
+                let a = thumb.split('url("');
                 let b = a[1];
                 let c = b.split('")');
-                let d = c[0];
+                let thumbnail = c[0];
                 const iHtml = await page_men.evaluate(el => el.innerHTML, cat);
+                //
+                let empty = null;
+                let emptyArr = "";
+                let src = "https://upload.wikimedia.org/wikipedia/commons/8/8b/Men%27s_Health.svg";
+                //
+                let category = empty;
+                let catLink = empty;
+                let tag = empty;
+                //
+                let images = emptyArr;
+                //
+                let isVid = false;
+                let vidLen = empty;
+                //
+                let author = empty;
+                let date = empty;
+                let lede = empty;
 
                 add_men.push({
-
-                    "category": category,
-                    "url": link,
-                    "thumbnail": d,
-                    "headline": headline,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    //
+                    src,
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri_men} loop: ${error}`);
@@ -78,22 +107,50 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 const get = await item.$('div.uk-cover-background.uk-position-cover');
                 const cat = await item.$('.uk-badge');
                 //
-                const link = await item.$eval('.uk-panel-title', a => a.href);
+                const url = await item.$eval('.uk-panel-title', a => a.href);
                 const headline = await item.$eval('.uk-panel-title', a => a.innerText);
                 const category = (cat != null || undefined) ? await page_women.evaluate(a => a.innerText, cat) : null;
-                const thumbnail = await page_women.evaluate(div => div.style.backgroundImage, get);
+                const thumb = await page_women.evaluate(div => div.style.backgroundImage, get);
                 //
-                let a = thumbnail.split('url("');
+                let a = thumb.split('url("');
                 let b = a[1];
                 let c = b.split('")');
-                let d = c[0];
+                let thumbnail = c[0];
                 const iHtml = await page_women.evaluate(el => el.innerHTML, cat);
-
+                let empty = null;
+                let emptyArr = "";
+                let src = "https://www.womenshealthsa.co.za/wp-content/uploads/2018/01/wh-logo.svg";
+                //
+                let category = empty;
+                let catLink = empty;
+                let tag = empty;
+                //
+                let images = emptyArr;
+                //
+                let isVid = false;
+                let vidLen = empty;
+                //
+                let author = empty;
+                let date = empty;
+                let lede = empty;
                 add_women.push({
-                    "category": category,
-                    "url": link,
-                    "thumbnail": d,
-                    "headline": headline,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    //
+                    src,
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri_women} loop: ${error}`);
@@ -120,25 +177,51 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 const cat = await item.$('[data-test-id="KickerText"]');
                 //
 
-                const thumbnail = (image != null || undefined) ? await page_vogue.evaluate(img => img.src, image) : await page_vogue.evaluate(img => img.innerHTML, imageTwo);
-                const link = (anchor != null || undefined) ? await page_vogue.evaluate(a => a.href, anchor) : null;
+                const thumb = (image != null || undefined) ? await page_vogue.evaluate(img => img.src, image) : await page_vogue.evaluate(img => img.innerHTML, imageTwo);
+                const url = (anchor != null || undefined) ? await page_vogue.evaluate(a => a.href, anchor) : null;
                 const headline = (head != null || undefined) ? await page_vogue.evaluate(p => p.innerText, head) : null;
                 const category = (cat != null || undefined) ? await page_vogue.evaluate(p => p.innerText, cat) : null;
                 const author = (name != null || undefined) ? await page_vogue.evaluate(p => p.innerText, name) : null;
                 //
 
-                let a = (image == null) ? thumbnail.split('src="') : null;
+                let a = (image == null) ? thumb.split('src="') : null;
                 let b = (image == null) ? a[1] : null;
                 let c = (image == null) ? b.split('" srcSet="') : null;
                 let d = (image == null) ? c[0] : null;
-                let e = (d == null) ? thumbnail : d;
+                let thumbnail = (d == null) ? thumb : d;
                 //
+                let empty = null;
+                let emptyArr = "";
+                let src = "https://img.favpng.com/24/11/2/vogue-logo-magazine-fashion-png-favpng-H83cmbUdKYE8XPb1rZtiVg4j8.jpg";
+                //
+                let date = empty;
+                let catLink = empty;
+                let tag = category;
+                //
+                let images = emptyArr;
+                //
+                let isVid = false;
+                let vidLen = empty;
+
+                let lede = empty;
                 add_vogue.push({
-                        "author": author,
-                        "category": category,
-                        "url": link,
-                        "thumbnail": e,
-                        "headline": headline
+                        url,
+                        headline,
+                        lede,
+                        thumbnail,
+                        //
+                        src,
+                        category,
+                        catLink,
+                        tag,
+                        //
+                        images,
+                        //
+                        isVid,
+                        vidLen,
+                        //
+                        author,
+                        date
                     })
                     //
             } catch (error) {
@@ -171,16 +254,46 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 const image = await item.$('#lnkListingImage > img');
                 const title = await item.$('h3 > a#lnkListingTitle');
                 //
-                const link = await item.$eval('a#lnkListingTitle', a => a.href);
+                const url = await item.$eval('a#lnkListingTitle', a => a.href);
                 const thumbnail = await page_you.evaluate(img => img.src, image);
                 const lede = await item.$eval('p', p => p.innerText);
                 const headline = await page_you.evaluate(a => a.innerText, title);
                 //
+                let empty = null;
+                let emptyArr = "";
+                let src = "https://pbs.twimg.com/profile_images/463234912493907968/HxL6FPIG_400x400.jpeg";
+                //
+                let date = empty;
+                let author = empty;
+                let category = empty;
+                let catLink = empty;
+                let tag = category;
+                //
+                let images = emptyArr;
+                //
+                let isVid = false;
+                let vidLen = empty;
+
+                let lede = empty;
+                //
                 add_you.push({
-                    "lede": lede,
-                    "url": link,
-                    "thumbnail": thumbnail,
-                    "headline": headline,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    //
+                    src,
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri_you} loop: ${error}`);

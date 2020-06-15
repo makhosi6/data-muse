@@ -33,20 +33,43 @@ async function main(uri) {
                 const time = await item.$('time');
                 const cat = await item.$('.story-package-module__story__eyebrow');
                 //
-                const link = await page.evaluate(a => a.href, f);
+                const url = await page.evaluate(a => a.href, f);
                 const category = (cat != null || undefined) ? await page.evaluate(section => section.textContent, cat).trim() : null;
                 const headline = await item.$eval('h3 > a', a => a.innerText);
                 const date = (time != null || undefined) ? await page.evaluate(time => time.innerText, time) : null;
                 const thumbnail = (get != null || undefined) ? await page.evaluate(img => img.src, get) : null;
                 //
+                let empty = null;
+                let emptyArr = "";
+
+                let lede = empty;
+                let author = empty;
+                let tag = empty;
+                let src = "https://www.conviva.com/wp-content/uploads/2019/12/Bloomberg-logo-.png";
+                let category = empty;
+                let vidLen = empty;
+                let isVid = false;
+                let catLink = empty;
+                let images = emptyArr;
 
                 add.push({
-
-                    "date": date,
-                    "category": category,
-                    "url": link,
-                    "thumbnail": thumbnail,
-                    "headline": headline,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    //
+                    src,
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);

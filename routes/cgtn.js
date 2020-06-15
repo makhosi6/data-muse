@@ -31,24 +31,47 @@ async function main(uri_cgtn) {
                 const cat = await item.$('.cg-newsCategory');
                 const para = await item.$('.cg-content');
                 //
-                const link = await page_cgtn.evaluate(a => a.href, hed);
-                const category = (cat != null || undefined) ? await page_cgtn.evaluate(section => section.textContent, cat) : null;
-                const headline = await item.$eval('h4 > a', a => a.innerText);
-                const date = (time != null || undefined) ? await page_cgtn.evaluate(time => time.innerText, time) : null;
+                const url = await page_cgtn.evaluate(a => a.href, hed);
+                const categoryA = (cat != null || undefined) ? await page_cgtn.evaluate(section => section.textContent, cat) : null;
+                const headlineA = await item.$eval('h4 > a', a => a.innerText);
+                const dateA = (time != null || undefined) ? await page_cgtn.evaluate(time => time.innerText, time) : null;
                 const lede = (para != null || undefined) ? await page_cgtn.evaluate(div => div.innerText, para) : null;
                 const thumbnail = (image != null || undefined) ? await page_cgtn.evaluate(img => img.src, image) : null;
                 //
-                let a = (date != null) ? date.trim() : date;
-                let b = (category != null) ? category.trim() : category;
-                let c = (headline != null) ? headline.trim() : headline;
+                let date = (dateA != null) ? dateA.trim() : dateA;
+                let category = (categoryA != null) ? categoryA.trim() : categoryA;
+                let headline = (headlineA != null) ? headlineA.trim() : headlineA;
+                //
+                let empty = null;
+                let emptyArr = "";
+                //
+                let catLink = empty;
+                let author = empty;
+                let tag = empty;
+                let vidLen = empty;
+                let isVid = false;
+                let images = emptyArr;
+                let src = "https://ui.cgtn.com/static/ng/resource/images/icon/logo@3x.png";
+
                 //
                 add_cgtn.push({
-                    "lede": lede,
-                    "date": a,
-                    "category": b,
-                    "url": link,
-                    "thumbnail": thumbnail,
-                    "headline": c,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri_cgtn} loop: ${error}`);

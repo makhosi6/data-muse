@@ -4,7 +4,7 @@ require('dotenv').config()
 const puppet = require('./store/puppetCnn');
 //
 process.setMaxListeners(Infinity);
-///
+//
 let sources = {
         world: "https://edition.cnn.com/world",
         africa: "https://edition.cnn.com/africa",

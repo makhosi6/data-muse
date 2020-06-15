@@ -55,23 +55,43 @@ async function main(uri) {
                 const f = await item.$('.teaser__title');
                 const time = await item.$('time');
                 //
-                const link = await page.evaluate(a => a.href, item);
-                const headline = await item.$eval('.teaser__title', a => a.textContent);
+                const url = await page.evaluate(a => a.href, item);
+                const head = await item.$eval('.teaser__title', a => a.textContent);
                 const date = (time != null || undefined) ? await page.evaluate(i => i.textContent, time).trim() : null;
                 const thumbnail = (e != null || undefined) ? await item.$eval('img', img => img.src) : null;
                 const vidLen = (timeStamp != null || undefined) ? await page.evaluate(a => a.innerText, timeStamp) : null;
                 const isVid = (timeStamp != null || undefined) ? true : false;
                 //
-
+                let headline = head.trim();
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
+                let empty = null;
+                let emptyArr = "";
+                let src = "https://www.screenafrica.com/wp-content/uploads/2018/04/Africanews-logo.png";
+                let lede = empty;
+                let author = empty;
+                let tag = empty;
+                let category = empty;
+                let catLink = empty;
+                let images = emptyArr;
 
                 add.push({
-                    "isVid": isVid,
-                    "vidLen": vidLen,
-                    "date": date,
-                    "thumbnail": thumbnail,
-                    "url": link,
-                    "headline": headline.trim()
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
@@ -92,10 +112,7 @@ main(source);
 /////
 africa.get('/africa', (req, res) => {
     res.send({
-        "source": {
-            "name": "africa",
-            "page url": source
-        },
+
         "africa": add,
         "trending": data
     });

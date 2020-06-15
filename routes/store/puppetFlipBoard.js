@@ -31,6 +31,7 @@ class Scrapper {
                         // 
                         const para = await item.$('.post__excerpt');
                         const mediaLink = await item.$eval('img', img => img.src);
+                        const src = await item.$eval('.author-avatar__image.image.image--loaded', img => img.src);
                         const headlineText = await title.$eval('a.internal-link', a => a.innerText);
                         const tagEl = await item.$('a.topic-tag');
                         const tag = (tagEl != null || undefined) ? await item.$eval('a.topic-tag', a => a.innerText) : null;
@@ -53,14 +54,29 @@ class Scrapper {
                         const d = c[0];
                         const e = decodeURIComponent(d);
 
+                        let empty = null;
+                        let emptyArr = "";
+                        //
+                        let images = emptyArr;
+                        let catLink = empty;
+                        let author = empty;
+                        let vidLen = empty;
+                        let isVid = false;
+
                         arrr.push({
+                            "category": tag,
+                            src,
+                            vidLen,
+                            catLink,
+                            isVid,
+                            images,
                             "url": e,
-                            "media_link": mediaLink,
+                            "thumbnail": mediaLink,
                             "headline": headlineText,
                             "tag": tag,
-                            "source": publisher,
+                            "author": publisher,
                             "lede": lede,
-                            "time_stamp": timeStamp
+                            "date": timeStamp
                         });
 
                     } catch (error) {

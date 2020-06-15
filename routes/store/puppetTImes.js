@@ -29,28 +29,50 @@ class Scrapper {
                         const e = await item.$('span.image-loader-image');
                         const f = await item.$('.article-text');
                         //
-                        const thumbnail = await page.evaluate(a => a.style.backgroundImage, e);
+                        const img = await page.evaluate(a => a.style.backgroundImage, e);
 
-                        const link = await page.evaluate(a => a.href, get);
+                        const url = await page.evaluate(a => a.href, get);
                         const headline = await item.$eval('.article-title', span => span.innerText);
                         const lede = (f != null || undefined) ? await item.$eval('.article-text', a => a.innerText) : null;
                         const category = await item.$eval('span.section-title', span => span.innerText);
                         //
-                        let a = thumbnail.split('url("');
+                        let a = img.split('url("');
                         let b = a[1];
                         let c = b.split('")');
-                        let d = c[0];
+                        let thumbnail = c[0];
 
                         const iHtml = await page.evaluate(el => el.innerHTML, item);
+                        let src = "https://www.timeslive.co.za/publication/custom/static/logos/timeslive.logo.png";
+                        //
 
-
+                        let emptyArr = "";
+                        //
+                        let images = emptyArr;
+                        let tag = category;
+                        let catLink = null;
+                        let isVid = true;
+                        let vidLen = catLink;
+                        let author = catLink;
+                        let date = catLink;
+                        //
                         arrr.push({
-
-                            "lede": lede,
-                            "category": category,
-                            "url": link,
-                            "thumbnail": d,
-                            "headline": headline,
+                            url,
+                            headline,
+                            lede,
+                            thumbnail,
+                            src,
+                            //
+                            category,
+                            catLink,
+                            tag,
+                            //
+                            images,
+                            //
+                            isVid,
+                            vidLen,
+                            //
+                            author,
+                            date
                         })
                     } catch (error) {
                         console.trace('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`);

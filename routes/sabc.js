@@ -36,19 +36,39 @@ async function main(uri) {
                 const date = await item.$eval('p.ppc-first-post-date', p => p.innerText);
                 const lede = await item.$eval('p.ppc-first-post-excerpt', p => p.innerText);
                 const category = await page.evaluate(a => a.innerText, cat);
-                const link = await page.evaluate(a => a.href, title);
+                const url = await page.evaluate(a => a.href, title);
                 const headline = await page.evaluate(a => a.innerText, title);
                 //
 
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
-
+                let empty = null;
+                let emptyArr = "";
+                //
+                let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
+                let images = emptyArr;
+                let tag = empty;
+                let catLink = empty;
+                let author = empty;
+                let isVid = true;
+                let vidLen = empty;
                 add.push({
-                    "date": date,
-                    "lede": lede,
-                    "category": category,
-                    "url": link,
-                    "thumbnail": thumbnail,
-                    "headline": headline,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
@@ -62,32 +82,32 @@ async function main(uri) {
     }
 }
 let sources = {
-        business: "https://www.sabcnews.com/sabcnews/category/business/",
-        politics: "https://www.sabcnews.com/sabcnews/category/politics/",
-        science: "https://www.sabcnews.com/sabcnews/category/sci-tech/",
-        sport: "https://www.sabcnews.com/sabcnews/category/sport/",
-        world: "https://www.sabcnews.com/sabcnews/category/world/",
-        news: "https://www.sabcnews.com/sabcnews/"
-    }
-    //source_business, , source_politics, source_science, source_sport, source_world
+    business: "https://www.sabcnews.com/sabcnews/category/business/",
+    politics: "https://www.sabcnews.com/sabcnews/category/politics/",
+    science: "https://www.sabcnews.com/sabcnews/category/sci-tech/",
+    sport: "https://www.sabcnews.com/sabcnews/category/sport/",
+    world: "https://www.sabcnews.com/sabcnews/category/world/",
+    news: "https://www.sabcnews.com/sabcnews/"
+};
+//source_business, , source_politics, source_science, source_sport, source_world
 
 main(sources.news)
     //
 const Puppet = puppet.Scrapper;
 //one
-const dataOne = new Puppet(sources.politics);
+const dataOne = new Puppet(sources.politics, politics);
 dataOne.puppet();
 //Two
-const dataTwo = new Puppet(sources.business);
+const dataTwo = new Puppet(sources.business, business);
 dataTwo.puppet();
 //tthree
-const dataThree = new Puppet(sources.science);
+const dataThree = new Puppet(sources.science, science);
 dataThree.puppet();
 //four
-const dataFour = new Puppet(sources.sport);
+const dataFour = new Puppet(sources.sport, sport);
 dataFour.puppet();
 //five
-const dataFive = new Puppet(sources.world);
+const dataFive = new Puppet(sources.world, world);
 dataFive.puppet();
 /////
 sabcBusiness.get('/sabc', (req, res) => {

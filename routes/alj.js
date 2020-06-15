@@ -11,6 +11,9 @@ process.setMaxListeners(Infinity);
 ///
 let add_docs = [];
 let add_trending = [];
+//
+let empty = null;
+let emptyArr = [];
 
 async function main(uri_docs, uri_trending) {
     try {
@@ -26,22 +29,45 @@ async function main(uri_docs, uri_trending) {
         //
         for (const item of items_docs) {
             try {
-                const tag = await item.$('h4.heading-section');
+                const tagg = await item.$('h4.heading-section');
                 const anchor = await item.$('a.play');
                 //
-                const tagText = await tag.$eval('a', a => a.innerText);
-                const link = await page_docs.evaluate(a => a.href, anchor);
+                const tagText = await tagg.$eval('a', a => a.innerText);
+                const catLink = await tagg.$eval('a', a => a.href);
+                const url = await page_docs.evaluate(a => a.href, anchor);
                 const lede = await item.$eval('p', p => p.innerText);
                 const thumbnail = await item.$eval('img', img => img.src);
-                const headlineText = await item.$eval('img', img => img.title);
-                let end = tagText.replace(/ /g, "_");
+                const headline = await item.$eval('img', img => img.title);
+                let tag = tagText.replace(/ /g, "_");
+                //
 
+                //
+                let category = tagText;
+                let images = emptyArr;
+                let isVid = true;
+                let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
+                let author = empty;
+                let date = empty;
+
+                //
                 add_docs.push({
-                    "url": link,
-                    "headline": headlineText,
-                    "thumbnail": thumbnail,
-                    "tag": end,
-                    "lede": lede
+
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.log(`From ${uri_docs} loop: ${error}`.bgMagenta);
@@ -53,35 +79,52 @@ async function main(uri_docs, uri_trending) {
 
         for (const el of emAll_docs) {
             try {
-                const tag = await el.$('h4.heading-section');
+                const catText = await el.$('h4.heading-section');
+                const catLink = await catText.$eval('a', a => a.href);
                 const anchor = await el.$('a.play');
                 const para = await el.$('p');
                 const tags = await el.$$('p.meta > a');
                 //
-                let hashTAg = [];
+                let tag = [];
                 for (const tagg of tags) {
                     const tagText2 = await page_docs.evaluate(a => a.innerText, tagg);
                     let txt = tagText2.replace(/ /g, "_");
-                    hashTAg.push(txt);
+                    tag.push(txt);
                 }
-                const tagText = await tag.$eval('a', a => a.innerText);
-                const link = await page_docs.evaluate(a => a.href, anchor);
+                const category = await catText.$eval('a', a => a.innerText);
+                const url = await page_docs.evaluate(a => a.href, anchor);
                 const lede = await page_docs.evaluate(p => p.innerText, para);
                 const thumbnail = await el.$eval('img', img => img.src);
-                const headlineText = await el.$eval('img', img => img.title);
+                const headline = await el.$eval('img', img => img.title);
 
-                let end = tagText.replace(/ /g, "_");
+                let end = category.replace(/ /g, "_");
 
-                hashTAg.push(end);
+                tag.push(end);
+                let images = emptyArr;
+                let isVid = true;
+                let author = empty;
+                let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
+                let date = empty;
                 add_docs.push({
-                    "url": link,
-                    "headline": headlineText,
-                    "thumbnail": thumbnail,
-                    "tag": hashTAg,
-                    "lede": lede
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    src,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
-                console.log(`From ${uri_docs} loop: ${error}`.bgMagenta);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_docs} loop: ${error}`);
             }
         }
         //LOOP three 
@@ -91,24 +134,45 @@ async function main(uri_docs, uri_trending) {
         for (const comp of comps_docs) {
 
             try {
-                const tag = await comp.$('h4.heading-section');
+                const tagg = await comp.$('h4.heading-section');
                 const anchor = await comp.$('a.play');
                 //
-                const tagText = await tag.$eval('a', a => a.innerText);
-                const link = await page_docs.evaluate(a => a.href, anchor);
+                const tagText = await tagg.$eval('a', a => a.innerText);
+                const catLink = await tagg.$eval('a', a => a.href);
+                const url = await page_docs.evaluate(a => a.href, anchor);
                 const lede = await comp.$eval('p', p => p.innerText);
                 const thumbnail = await comp.$eval('img', img => img.src);
-                const headlineText = await comp.$eval('img', img => img.title);
-                let end = tagText.replace(/ /g, "_");
+                const headline = await comp.$eval('img', img => img.title);
+                let tag = tagText.replace(/ /g, "_");
+                //
 
+                //
+                let category = tagText;
+                let images = emptyArr;
+                let isVid = true;
+                let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
+                let author = empty;
+                let date = empty;
+
+                //
                 add_docs.push({
-                    "url": link,
-                    "headline": headlineText,
-                    "thumbnail": thumbnail,
-                    "tag": end,
-                    "lede": lede
+                    src,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    //
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    //
+                    author,
+                    date
                 })
-
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri_docs} loop: ${error}`);
                 continue;
@@ -120,7 +184,7 @@ async function main(uri_docs, uri_trending) {
         //
 
         const page_trending = await browser.newPage();
-        page_trending.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML; like Gecko) snap Chromium/80.0.3987.122 Chrome/80.0.3987.122 Safari/537.36');
+        page_trending.setUserAgent(vars.userAgent);
         await page_trending.goto(uri_trending, { waitUntil: 'networkidle2', timeout: 0 });
         await page_trending.waitForSelector('.latest-news-topic-trending');
         const items_trending = await page_trending.$$('#trending-widget > .latest-news-topic-trending');
@@ -129,14 +193,14 @@ async function main(uri_docs, uri_trending) {
         //
         for (const item of items_trending) {
             try {
-                const headline = await item.$('.news-trending-txt');
+                const head = await item.$('.news-trending-txt');
                 //
-                const url = (headline != null || undefined) ? await headline.$eval('a', a => a.href) : null;
-                const headlineText = await headline.$eval('p', p => p.innerText);
+                const url = (head != null || undefined) ? await head.$eval('a', a => a.href) : null;
+                const headline = await head.$eval('p', p => p.innerText);
 
                 add_trending.push({
-                    "url": url,
-                    "headline": headlineText
+                    url,
+                    headline
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri_trending} loop: ${error}`);
@@ -175,8 +239,8 @@ main(source.docs, source.trending);
 aljRouta.get('/alj', (req, res) => {
     res.send({
         "aljDocs": add_docs,
-        "aljAfrica": dataAfrica,
-        "aljNews": dataNews,
+        "aljAfrica": dataAfrica.data,
+        "aljNews": dataNews.data,
         "aljTrending": add_trending
     });
 })

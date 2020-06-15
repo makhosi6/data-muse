@@ -39,21 +39,46 @@ async function main(uri) {
                 const cat = await item.$('.tf-category-name');
 
                 //
-                const link = await item.$eval('a', a => a.href);
+                const url = await item.$eval('a', a => a.href);
                 const thumbnail = await item.$eval('img', img => img.src);
                 const category = await page.evaluate(a => a.innerText, cat);
                 const lede = await item.$eval('p.tf-blurb', p => p.innerText);
                 const headline = await item.$eval('span.tf-title', span => span.innerText);
                 //
-
-                // let a = (time != null || undefined) ? time.split("\n") : null;
+                let empty = null;
+                let emptyArr = "";
+                //
+                let lede = empty;
+                let category = empty;
+                let catLink = empty;
+                let tag = empty;
+                //
+                let images = emptyArr;
+                //
+                let isVid = false;
+                let vidLen = empty;
+                //
+                let author = empty;
+                let date = empty;
                 // let b = (a != null) ? a[1].replace(/(\r\n|\n|\r)/gm, "").trim() : null;
                 add.push({
-                    "lede": lede,
-                    "url": link,
-                    "thumbnail": thumbnail,
-                    "headline": headline,
-                    "category": category
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    //
+                    src,
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);

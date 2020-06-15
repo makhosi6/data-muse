@@ -10,6 +10,7 @@ process.setMaxListeners(Infinity);
 //
 let add_inter = [];
 let add_local = [];
+let src = "https://dj0j0ofql4htg.cloudfront.net/assets/dumb/images/soccerladuma-logo.png";
 
 async function main(uri_inter, uri_local) {
 
@@ -30,18 +31,48 @@ async function main(uri_inter, uri_local) {
                 const get = await item.$('img.story-img');
                 const f = await item.$('.pod__meta');
                 const thumbnail = await page_inter.evaluate(img => img.dataset.src, get);
-                const link = await item.$eval('a', a => a.href);
+                const url = await item.$eval('a', a => a.href);
                 const headline = await item.$eval('h2 > a', a => a.innerText);
                 const time = await page_inter.evaluate(a => a.innerText, f);
                 const iHtml = await page_inter.evaluate(el => el.innerHTML, item);
 
                 let a = (time != null || undefined) ? time.split("\n") : null;
-                let b = (a != null) ? a[1].replace(/(\r\n|\n|\r)/gm, "").trim() : null;
+                let date = (a != null) ? a[1].replace(/(\r\n|\n|\r)/gm, "").trim() : null;
+
+                //
+                let empty = null;
+                let emptyArr = "";
+                //
+                let lede = empty;
+                let category = empty;
+                let catLink = empty;
+                let tag = empty;
+                //
+                let images = emptyArr;
+                //
+                let isVid = false;
+                let vidLen = empty;
+                //
+                let author = empty;
+                //
                 add_inter.push({
-                    "time": b,
-                    "url": link,
-                    "thumbnail": thumbnail,
-                    "headline": headline,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    //
+                    src,
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error}`);
@@ -64,17 +95,48 @@ async function main(uri_inter, uri_local) {
                 const get = await item.$('img.story-img');
                 const f = await item.$('.pod__meta');
                 const thumbnail = await page_local.evaluate(img => img.dataset.src, get);
-                const link = await item.$eval('a', a => a.href);
+                const url = await item.$eval('a', a => a.href);
                 const headline = await item.$eval('h2 > a', a => a.innerText);
                 const time = await page_local.evaluate(a => a.innerText, f);
                 const iHtml = await page_local.evaluate(el => el.innerHTML, item);
                 let a = (time != null || undefined) ? time.split("\n") : null;
-                let b = (a != null) ? a[1].replace(/(\r\n|\n|\r)/gm, "").trim() : null;
+                let date = (a != null) ? a[1].replace(/(\r\n|\n|\r)/gm, "").trim() : null;
+                //
+
+                let empty = null;
+                let emptyArr = "";
+                //
+                let lede = empty;
+                let category = empty;
+                let catLink = empty;
+                let tag = empty;
+                //
+                let images = emptyArr;
+                //
+                let isVid = false;
+                let vidLen = empty;
+                //
+                let author = empty;
+                //
+                //
                 add_local.push({
-                    "time": b,
-                    "url": link,
-                    "thumbnail": thumbnail,
-                    "headline": headline,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    //
+                    src,
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error}`);

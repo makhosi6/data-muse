@@ -36,8 +36,26 @@ class Scrapper {
                             const para = await item.$('p.lead');
                             const lede = (para != null || undefined) ? await item.$eval('p', p => p.innerText) : null;
                             const date = await item.$eval('abbr', abbr => abbr.innerText);
+                            let src = "https://ewn.co.za/site/design/img/ewn-logo.png";
 
+
+                            let empty = null;
+                            let emptyArr = "";
+                            //
+                            let images = emptyArr;
+                            let tag = empty;
+                            let catLink = empty;
+                            let author = empty;
+                            let vidLen = empty;
+                            let isVid = false;
                             arrr.push({
+                                vidLen,
+                                isVid,
+                                author,
+                                catLink,
+                                tag,
+                                images,
+                                src,
                                 "url": url,
                                 "lede": lede,
                                 "headline": headlineText,

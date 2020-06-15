@@ -2,9 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const wsChromeEndpointurl = require('./browser');
 const cors = require('cors');
-
 require('dotenv').config()
-console.log(Date());
 console.log(wsChromeEndpointurl);
 setTimeout(() => {
     // //middleware 
@@ -20,11 +18,11 @@ setTimeout(() => {
     // const foodWine = require('./routes/flipboard/foodWine');
     // const natGeo = require('./routes/flipboard/nat-geo');
     // const timesLive = require('./routes/timeslive');
-    // const bbcRouter = require('./routes/bbc');
+    const bbcRouter = require('./routes/bbc');
     // const enca = require('./routes/enca');
     // const ewnRouta = require('./routes/ewn');;
     // const hbr = require('./routes/hbr');
-    const cnnRouta = require('./routes/cnn');
+    // const cnnRouta = require('./routes/cnn');
     // const wired = require('./routes/wired');
     // const aljRouta = require('./routes/alj');
     // const saNews = require('./routes/sa');
@@ -37,34 +35,37 @@ setTimeout(() => {
     // const w24 = require('./routes/life');
     // const magz = require('./routes/magz');
     // const kickOff = require('./routes/kickoff');
+    // const trendsRouta = require('./routes/trends');
     //base route
     let arr = [
         // /*ewn*/
         // ewnRouta,
+        // /*trends*/
+        // trendsRouta,
         // /*enews*/
         // enews,
         // /*bbc*/
-        // bbcRouter,
+        bbcRouter,
         // /*HBR*/
         // hbr,
         // /*enca*/
         // enca,
-        // // /*alj*/
+        /*alj*/
         // aljRouta,
         // /*sa*/
-        // // saNews,
+        // saNews,
         // /*cnn*/
-        cnnRouta,
+        // cnnRouta,
         // /*WIneFOODF*/
         // foodWine,
         // /*espnF*/
         // espn,
         // /*natGeoF*/
-        // // natGeo,
+        // natGeo,
         // /*wired*/
         // wired,
         // /*TimesLive*/
-        // // timesLive,
+        // timesLive,
         // /*Sabc*/
         // sabcNews,
         // /*mgNews*/
@@ -85,9 +86,9 @@ setTimeout(() => {
     const env = process.env.NODE_ENV;
     const PORT = process.env.PORT;
     //Fiv nat-geo uri
-    app.listen(PORT, console.log('\x1b[42m%s\x1b[0m', `Running in ${env} mode on port ${PORT}. And ${arr.length} routes went live on ${Date()}`));
+    app.listen(PORT, console.log('\x1b[35m%s\x1b[0m', `Running in ${env} mode on port ${PORT}. And ${arr.length} routes went live on ${Date()}`));
 
-}, 20000);
+}, 30000);
 /*
 git add .
 git commit -m "Updates 10/06/2020"

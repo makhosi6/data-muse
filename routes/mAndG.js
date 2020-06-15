@@ -33,29 +33,47 @@ async function main(uri) {
                 const para = await item.$('.td-excerpt');
                 const cat = await item.$('.td-post-category');
                 //
-                const thumbnail = await page.evaluate(a => a.style.backgroundImage, e);
+                const thumb = await page.evaluate(a => a.style.backgroundImage, e);
                 const author = (cred != null || undefined) ? await page.evaluate(a => a.innerText, cred) : null;
                 const date = (time != null || undefined) ? await page.evaluate(time => time.innerText, time) : null;
-                const link = await page.evaluate(a => a.href, get);
+                const url = await page.evaluate(a => a.href, get);
                 const headline = await item.$eval('h3 > a', span => span.innerText);
                 const lede = (para != null || undefined) ? await item.$eval('.td-excerpt', div => div.innerText) : null;
                 const category = (cat != null || undefined) ? await item.$eval('.td-post-category', a => a.innerText) : null;
                 //
-                let a = thumbnail.split('url("');
+                let a = thumb.split('url("');
                 let b = a[1];
                 let c = b.split('")');
-                let d = c[0];
-
+                let thumbnail = c[0];
+                let src = "https://bucket.mg.co.za/wp-media/2020/01/74e543ae-logo-white-467.png";
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
+                let empty = null;
+                let emptyArr = "";
+                let catLink = empty;
+                let tag = category;
+                let images = emptyArr;
+                //
+                let isVid = false;
+                let vidLen = empty;
 
                 add.push({
-                    "author": author,
-                    "date": date,
-                    "lede": lede,
-                    "category": category,
-                    "url": link,
-                    "thumbnail": d,
-                    "headline": headline,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    //
+                    src,
+                    category,
+                    catLink,
+                    tag,
+                    //
+                    images,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    author,
+                    date
                 })
             } catch (error) {
                 console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);

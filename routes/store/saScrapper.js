@@ -24,30 +24,52 @@ class Scrapper {
                     try {
                         const iHtml = await page.evaluate(el => el.innerHTML, item);
                         //
-                        const headline = await item.$('h3.jeg_post_title');
+                        const head = await item.$('h3.jeg_post_title');
                         const time = await item.$('.jeg_meta_date');
                         const publisher = await item.$('.jeg_meta_author');
                         const cat = await item.$('.jeg_post_category');
+                        const catB = await item.$('.jeg_post_category a');
                         const wrapper = await item.$('.jeg_thumb');
                         //
-                        const url = (headline != null || undefined) ? await headline.$eval('a', a => a.href) : null;
-                        const headlineText = (headline != null || undefined) ? await headline.$eval('a', a => a.innerText) : null;
+                        const url = (head != null || undefined) ? await head.$eval('a', a => a.href) : null;
+                        const headline = (head != null || undefined) ? await head.$eval('a', a => a.innerText) : null;
                         const thumbnail = (wrapper != null || undefined) ? await item.$eval('img', img => img.dataset.src) : null;
                         const lede = (item != null || undefined) ? await item.$eval('p', p => p.innerText) : null;
                         const author = (publisher != null || undefined) ? await publisher.$eval('a', a => a.innerText) : null;
                         const date = (time != null || undefined) ? await time.$eval('a', a => a.innerText) : null;
-                        const topic = (cat != null || undefined) ? await cat.$eval('a', a => a.innerText) : null;
+                        const category = (cat != null || undefined) ? await cat.$eval('a', a => a.innerText) : null;
+                        const catLink = (catB != null || undefined) ? await catB.$eval('a', a => a.href) : null;
                         //  
 
-                        arrr.push({
+                        let empty = null;
+                        let emptyArr = "";
+                        //
+                        let catLink = empty;
+                        let tag = empty;
+                        let src = "https://www.thesouthafrican.com/wp-content/uploads/2018/08/south_african_news_online.png";
+                        let images = emptyArr;
+                        let isVid = empty;
+                        let vidLen = empty;
 
-                            "url": url,
-                            "lede": lede,
-                            "headline": headlineText,
-                            "thumbnail": thumbnail,
-                            "category": topic,
-                            "author": author,
-                            "date": date,
+
+                        arrr.push({
+                            url,
+                            headline,
+                            lede,
+                            src,
+                            thumbnail,
+                            //
+                            category,
+                            catLink,
+                            tag,
+                            //
+                            images,
+                            //
+                            isVid,
+                            vidLen,
+                            //
+                            author,
+                            date
                         })
 
                     } catch (error) {
