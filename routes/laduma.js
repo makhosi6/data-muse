@@ -1,6 +1,7 @@
 const express = require('express');
 const international = express.Router();
-require('dotenv').config()
+require('dotenv').config();
+const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars')
@@ -155,7 +156,17 @@ async function main(uri_inter, uri_local) {
 }
 let source_inter = "https://www.soccerladuma.co.za/news/articles/international/landing";
 let source_local = "https://www.soccerladuma.co.za/news/articles/local/landing";
-main(source_inter, source_local);
+
+
+cron.schedule("0 3 * * *", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "LADUMA fired at:", Date());
+        main(source_inter, source_local);
+    })();
+});
+
+
 /////
 international.get('/laduma', (req, res) => {
     res.send({

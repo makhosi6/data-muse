@@ -1,6 +1,7 @@
 const express = require('express');
 const cnnRouta = express.Router();
-require('dotenv').config()
+require('dotenv').config();
+const cron = require("node-cron");
 const puppet = require('./store/puppetCnn');
 //
 process.setMaxListeners(Infinity);
@@ -14,26 +15,31 @@ let sources = {
     }
     //
 const Puppet = puppet.Scrapper;
-//one
 const One = new Puppet(sources.world);
-One.puppet();
-//Two
 const Two = new Puppet(sources.africa);
-Two.puppet();
-//Three
 const Three = new Puppet(sources.tech);
-Three.puppet();
-//Four
 const Four = new Puppet(sources.health);
-Four.puppet();
-//Five
 const Five = new Puppet(sources.business);
-Five.puppet();
+
 //
 
+cron.schedule("0 */6 * * *", () => {
 
-
-/////////////
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "CNN fire at:", Date());
+        //one
+        One.puppet();
+        //Two
+        Two.puppet();
+        //Three
+        Three.puppet();
+        //Four
+        Four.puppet();
+        //Five
+        Five.puppet();
+        //////////////
+    })();
+});
 cnnRouta.get('/cnn', (req, res) => {
     res.send({
 
@@ -45,5 +51,4 @@ cnnRouta.get('/cnn', (req, res) => {
     });
 
 })
-
 module.exports = cnnRouta;

@@ -2,6 +2,7 @@ const express = require('express');
 const bbcBusiness = express.Router();
 const puppet = require('./store/puppetBbc');
 require('dotenv').config();
+const cron = require("node-cron");
 process.setMaxListeners(Infinity);
 
 //
@@ -17,24 +18,31 @@ let sources = {
 const Puppet = puppet.Scrapper;
 //one
 const dataOne = new Puppet(sources.news);
-dataOne.puppet();
 //Two
 const dataTwo = new Puppet(sources.africa);
-dataTwo.puppet();
 //Three
 const dataThree = new Puppet(sources.health);
-dataThree.puppet();
 //Four
 const dataFour = new Puppet(sources.real);
-dataFour.puppet();
 //Five
 const dataFive = new Puppet(sources.sport);
-dataFive.puppet();
 //Six
 const dataSix = new Puppet(sources.tech);
-dataSix.puppet();
 
+cron.schedule("0 */6 * * *", () => {
 
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "BCC fired at:", Date());
+
+        dataOne.puppet();
+        dataTwo.puppet();
+        dataThree.puppet();
+        dataFour.puppet();
+        dataFive.puppet();
+        dataSix.puppet();
+
+    })();
+});
 //
 
 

@@ -2,6 +2,7 @@ const express = require('express');
 require('dotenv').config()
 const aljRouta = express.Router();
 const puppeteer = require('puppeteer');
+const cron = require("node-cron");
 const vars = require('./store/storeVars');
 const wsChromeEndpointurl = require('../browser');
 const puppet = require('./store/puppetAlj');
@@ -228,14 +229,21 @@ let source = {
 const Puppet = puppet.Scrapper;
 //
 const dataAfrica = new Puppet(source.africa);
-dataAfrica.puppet();
 //
 const dataNews = new Puppet(source.news);
-dataNews.puppet();
 
 //
-main(source.docs, source.trending);
-/////////////
+cron.schedule("0 */6 * * *", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "ALJ fired at:", Date());
+        dataAfrica.puppet();
+        dataNews.puppet();
+        main(source.docs, source.trending);
+    })();
+});
+
+///
 aljRouta.get('/alj', (req, res) => {
     res.send({
         "aljDocs": add_docs,

@@ -91,25 +91,33 @@ let sources = {
 };
 //source_business, , source_politics, source_science, source_sport, source_world
 
-main(sources.news)
-    //
+//
 const Puppet = puppet.Scrapper;
 //one
 const dataOne = new Puppet(sources.politics, 'politics');
-dataOne.puppet();
 //Two
 const dataTwo = new Puppet(sources.business, 'business');
-dataTwo.puppet();
 //tthree
 const dataThree = new Puppet(sources.science, 'science');
-dataThree.puppet();
 //four
 const dataFour = new Puppet(sources.sport, 'sport');
-dataFour.puppet();
 //five
 const dataFive = new Puppet(sources.world, 'world');
-dataFive.puppet();
-/////
+///
+cron.schedule("0 3 * * *", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "SABC fired at:", Date());
+        main(sources.news);
+        dataOne.puppet();
+        dataTwo.puppet();
+        dataThree.puppet();
+        dataFour.puppet();
+        dataFive.puppet();
+
+    })();
+});
+//
 sabcBusiness.get('/sabc', (req, res) => {
     res.send({
         "sabcNews": add,

@@ -1,6 +1,7 @@
 const express = require('express');
 const natGeoAnimals = express.Router();
 const vars = require('../store/storeVars');
+const cron = require("node-cron");
 const puppet = require('../store/puppetFlipBoard');
 //
 process.setMaxListeners(Infinity);
@@ -18,22 +19,32 @@ let sources = {
 const Puppet = puppet.Scrapper;
 //one
 const dataOne = new Puppet(sources.animals);
-dataOne.puppet();
 //two
 const dataTwo = new Puppet(sources.news);
-dataTwo.puppet();
 //three
 const dataThree = new Puppet(sources.photo);
 dataThree.puppet();
 //four
 const dataFour = new Puppet(sources.enviro);
-dataFour.puppet();
 //five
 const dataFive = new Puppet(sources.science);
-dataFive.puppet();
 //six
 const dataSix = new Puppet(sources.travel);
-dataSix.puppet();
+
+cron.schedule("0 4 * * SUN", () => {
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "NAT_GEO fired at:", Date());
+        //
+
+        dataOne.puppet();
+        dataTwo.puppet();
+        dataFour.puppet();
+        dataFive.puppet();
+        dataSix.puppet();
+
+    })();
+});
+
 
 natGeoAnimals.get('/flipboard/natgeo', (req, res) => {
     res.send({

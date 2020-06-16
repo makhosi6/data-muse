@@ -1,6 +1,7 @@
 const express = require('express');
 const blomNews = express.Router();
-require('dotenv').config()
+require('dotenv').config();
+const cron = require("node-cron");
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
 const vars = require('./store/storeVars');
 const wsChromeEndpointurl = require('../browser');
@@ -87,7 +88,16 @@ async function main(uri) {
     }
 }
 let source = "https://www.bloomberg.com/africa";
-main(source);
+
+cron.schedule("0 3 * * *", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "BLOOMBERG fired at:", Date());
+
+        main(source);
+    })();
+});
+//
 /////
 blomNews.get('/bloomberg', (req, res) => {
     res.send({

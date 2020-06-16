@@ -2,7 +2,8 @@ const express = require('express');
 const kickOff = express.Router();
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
-require('dotenv').config()
+require('dotenv').config();
+const cron = require("node-cron");
 const vars = require('./store/storeVars')
     ///
 process.setMaxListeners(Infinity);
@@ -204,7 +205,12 @@ async function main(uri) {
 }
 let source = "https://www.kickoff.com/";
 
-main(source);
+cron.schedule("0 3 * * *", () => {
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "KICKOFF fired at:", Date());
+        main(source);
+    })();
+});
 /////
 kickOff.get('/kickoff', (req, res) => {
     res.send({

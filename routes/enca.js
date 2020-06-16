@@ -1,6 +1,7 @@
 const express = require('express');
 const enca = express.Router();
-require('dotenv').config()
+require('dotenv').config();
+const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars')
@@ -14,9 +15,7 @@ let add_trends = [];
 let src = "https://www.enca.com/sites/all/themes/custom/enca/images/eNCA_logo.svg";
 
 async function main(uri_sport, uri_video, uri_business) {
-
     try {
-
         const browser = await puppeteer.connect({
             browserWSEndpoint: wsChromeEndpointurl,
             defaultViewport: null
@@ -249,11 +248,21 @@ async function main(uri_sport, uri_video, uri_business) {
     }
 
 }
-let source_sport = "https://www.enca.com/sports";
-let source_video = "https://www.enca.com/watch";
-let source_business = "https://www.enca.com/business";
-//
-main(source_sport, source_video, source_business);
+
+cron.schedule("0 */6 * * *", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "ENCA fired at:", Date());
+        let source_sport = "https://www.enca.com/sports";
+        let source_video = "https://www.enca.com/watch";
+        let source_business = "https://www.enca.com/business";
+        //
+        main(source_sport, source_video, source_business);
+
+    })();
+});
+
+
 //
 enca.get('/enca', (req, res) => {
     res.send({

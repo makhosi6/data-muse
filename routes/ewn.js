@@ -1,6 +1,7 @@
 const express = require('express');
 const ewnRouta = express.Router();
-require('dotenv').config()
+require('dotenv').config();
+const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const puppet = require('./store/puppetEwn');
@@ -56,23 +57,30 @@ let sources = {
     spt2: "https://ewn.co.za/categories/sport?pagenumber=2&perPage=30"
 }
 
+
 const Puppet = puppet.Scrapper;
-//One
 const dataOne = new Puppet(sources.business);
-dataOne.puppet();
-//Two
 const dataTwo = new Puppet(sources.lifestyle);
-dataTwo.puppet();
-//three
 const dataThree = new Puppet(sources.politics);
-dataThree.puppet();
-//four
 const dataFour = new Puppet(sources.sport);
-dataFour.puppet();
 
-//source_business, source_lifestyle, source_politics, source_sport,
 
-main(sources.trending);
+cron.schedule("0 */6 * * *", () => {
+
+    (() => {
+        console.log("AFRICA fire at at:", Date());
+        //One
+        dataOne.puppet();
+        //Two
+        dataTwo.puppet();
+        //three
+        dataThree.puppet();
+        //four
+        dataFour.puppet();
+
+        main(sources.trending);
+    })();
+});
 /////////////
 ewnRouta.get('/ewn', (req, res) => {
     res.send({
@@ -83,5 +91,4 @@ ewnRouta.get('/ewn', (req, res) => {
         "ewnTrending": add_trending
     });
 })
-
 module.exports = ewnRouta;

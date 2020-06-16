@@ -2,6 +2,7 @@ const express = require('express');
 const menLifestyle = express.Router();
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
+const cron = require("node-cron");
 require('dotenv').config();
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
 const vars = require('./store/storeVars');
@@ -317,8 +318,16 @@ let source_women = "https://www.womenshealthsa.co.za/";
 let source_vogue = "https://www.vogue.co.uk/";
 let source_you = "https://www.news24.com/You";
 //
-main(source_men, source_women, source_vogue, source_you);
+
 /////
+cron.schedule("0 4 * * SUN", () => {
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "MAGZ fired at:", Date());
+        //
+        main(source_men, source_women, source_vogue, source_you);
+
+    })();
+});
 menLifestyle.get('/magz-lifestyle', (req, res) => {
     res.send({
 

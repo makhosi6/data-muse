@@ -1,5 +1,6 @@
 const express = require('express');
 const foodWine = express.Router();
+const cron = require("node-cron");
 const puppet = require('../store/puppetFlipBoard');
 //
 process.setMaxListeners(Infinity);
@@ -13,12 +14,19 @@ let sources = {
 const Puppet = puppet.Scrapper;
 //one
 const dataOne = new Puppet(sources.news);
-dataOne.puppet();
 //two
 const dataTwo = new Puppet(sources.recipe);
-dataTwo.puppet();
 
-/////////////
+//////
+cron.schedule("0 4 * * SUN", () => {
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "FOODWINE fired at:", Date());
+        dataOne.puppet();
+        dataTwo.puppet();
+    })();
+});
+
+///////
 foodWine.get('/foodwine', (req, res) => {
     res.send({
         "foodWine": dataOne.data,

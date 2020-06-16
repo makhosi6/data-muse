@@ -1,10 +1,11 @@
 const express = require('express');
 const africa = express.Router();
-require('dotenv').config()
+require('dotenv').config();
+const cron = require("node-cron");
 const puppeteer = require("puppeteer");
 const wsChromeEndpointurl = require('../browser');
-const vars = require('./store/storeVars')
-    ///
+const vars = require('./store/storeVars');
+///
 process.setMaxListeners(Infinity);
 //
 let add = [];
@@ -108,7 +109,18 @@ async function main(uri) {
     }
 }
 let source = "https://www.africanews.com/";
-main(source);
+
+
+
+cron.schedule("0 */6 * * *", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "Africa fired at at:", Date());
+
+        main(source);
+
+    })();
+});
 /////
 africa.get('/africa', (req, res) => {
     res.send({

@@ -1,5 +1,6 @@
 const express = require('express');
-require('dotenv').config()
+require('dotenv').config();
+const cron = require("node-cron");
 const saFinance = express.Router();
 const puppet = require('./store/saScrapper');
 //
@@ -17,22 +18,29 @@ let sources = {
 const Puppet = puppet.Scrapper;
 //one
 const dataOne = new Puppet(sources.finance);
-dataOne.puppet();
 //Two
 const dataTwo = new Puppet(sources.motoring);
-dataTwo.puppet();
 //Three
 const dataThree = new Puppet(sources.life);
-dataThree.puppet();
 //Four
 const dataFour = new Puppet(sources.news);
-dataFour.puppet();
 //Five
 const dataFive = new Puppet(sources.tech);
-dataFive.puppet();
 //Six
 const dataSix = new Puppet(sources.sport);
-dataSix.puppet();
+
+cron.schedule("0 3 * * *", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "SAan fired at:", Date());
+        dataOne.puppet();
+        dataTwo.puppet();
+        dataThree.puppet();
+        dataFour.puppet();
+        dataFive.puppet();
+        dataSix.puppet();
+    })();
+});
 
 /////
 saFinance.get('/sa-scrapper', (req, res) => {

@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const wsChromeEndpointurl = require('./browser');
 const cors = require('cors');
 require('dotenv').config()
-console.log(wsChromeEndpointurl);
+console.log('url:', wsChromeEndpointurl);
 setTimeout(() => {
     // //middleware 
     const app = express();
@@ -86,7 +86,7 @@ setTimeout(() => {
     const env = process.env.NODE_ENV;
     const PORT = process.env.PORT;
     //Fiv nat-geo uri
-    app.listen(PORT, console.log('\x1b[35m%s\x1b[0m', `Running in ${env} mode on port ${PORT}. And ${arr.length} routes went live on ${Date()}`));
+    app.listen(PORT, console.log('\x1b[45m%s\x1b[0m', `Running in ${env} mode on port ${PORT}. And ${arr.length} routes went live on ${Date()}`));
 
 }, 30000);
 /*

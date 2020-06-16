@@ -1,5 +1,6 @@
 const express = require('express');
 const mgNews = express.Router();
+const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 require('dotenv').config();
@@ -90,8 +91,17 @@ async function main(uri) {
     }
 }
 let source = "https://mg.co.za/";
-main(source)
-    /////
+
+
+cron.schedule("0 4 * * SUN", () => {
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "M&G fired at:", Date());
+        //
+        main(source);
+
+    })();
+});
+/////
 mgNews.get('/mg/news', (req, res) => {
     res.send({
         "source": {

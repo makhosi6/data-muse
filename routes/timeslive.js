@@ -1,5 +1,6 @@
 const express = require('express');
 const timesLiveBusi = express.Router();
+const cron = require("node-cron");
 const puppet = require('./store/puppetTImes');
 ///
 process.setMaxListeners(Infinity);
@@ -13,14 +14,24 @@ let sources = {
 const Puppet = puppet.Scrapper;
 //one
 const dataOne = new Puppet(sources.business);
-dataOne.puppet();
 //Two
 const dataTwo = new Puppet(sources.news);
-dataTwo.puppet();
 //Three
 const dataThree = new Puppet(sources.sport);
-dataThree.puppet();
 /////
+
+cron.schedule("0 */6 * * *", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "TIMES-LIVES fired at:", Date());
+        dataTwo.puppet();
+        dataOne.puppet();
+        dataThree.puppet();
+
+    })();
+});
+
+
 timesLiveBusi.get('/times-live', (req, res) => {
     res.send({
         "timesLiveBusi": dataOne.data,

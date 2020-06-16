@@ -1,12 +1,35 @@
-// const wsChromeEndpointurl = require('./browser');
+var MongoClient = require('mongodb').MongoClient;
+require('dotenv').config();
 
-// console.log(wsChromeEndpointurl);
+MongoClient.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("museDB");
+    console.log("DB Connected");
+
+    var myobj = [{
+        "url": "https://www.sabcnews.com/sabcnews/a-decade-on-south-africa-insists-world-cup-worth-investment/",
+        "headline": "A decade on, South Africa insists World Cup worth investment",
+        "lede": "Thursday marks 10 years since South Africa hosted a FIFA World Cup highly charged with symbolism but dogged by questions about the wisdom of spending billions on a sports event that might have been better used elsewhere.",
+        "thumbnail": "https://www.sabcnews.com/sabcnews/wp-content/uploads/2020/06/SABC-News-2010FIFA-R.jpg",
+        "category": "sport",
+        "catLink": null,
+        "tag": "sport",
+        "images": "",
+        "isVid": true,
+        "vidLen": null,
+        "author": null,
+        "date": "9 June 2020, 3:29 PM"
+    }];
+    dbo.collection("datamock").insertMany(myobj, function(err, res) {
+        if (err) throw err;
+        console.log('data insected');
+        db.close();
+    });
+});
 
 
 
-
-
-(g() => {
+(() => {
 
     console.table({
         a: "14/06",
@@ -16,10 +39,11 @@
 
     })
 
-})();
+})
 
 /*
-
+();
+    
 {
     url,
     headline,

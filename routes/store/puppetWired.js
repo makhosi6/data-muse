@@ -1,6 +1,7 @@
 const vars = require('./storeVars');
 const puppeteer = require("puppeteer");
-const wsChromeEndpointurl = require('../../browser');
+const wsChromeEndpointurl = "ws://127.0.0.1:61959/devtools/browser/2615c84a-4bda-4059-9998-dba89fbde12a";
+// const wsChromeEndpointurl = require('../../browser');
 
 //
 class Scrapper {

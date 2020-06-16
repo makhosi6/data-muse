@@ -1,23 +1,33 @@
+TWICE A DAY
+ 
+ const cron = require("node-cron");
+
+    api/v1/cnn   
     api/v1/africa
-    api/v1/ewn
-    api/v1/w24
-    api/v1/wired-all
-    api/v1/cnn
-    api/v1/hbr-all
-    api/v1/enca
-    api/v1/alj
+    api/v1/ewn        cron.schedule("0 */6 * * *", () => {  })
+    api/v1/alj             
     api/v1/bbc
-    api/v1/sa-scrapper
-    api/v1/mg/news
-    api/v1/kickoff
+    api/v1/enca
+    api/v1/times-live
+DAILY
+
     api/v1/bloomberg
     api/v1/citizen
+    api/v1/kickoff
+    api/v1/sa-scrapper      cron.schedule("0 3 * * *", () => {  })
     api/v1/laduma
-    api/v1/times-live
-    api/v1/sabc
     api/v1/espn
-    api/v1/enews
     api/v1/cgtn
+    api/v1/sabc
+WEEKLY
+
+    api/v1/w24
+    api/v1/wired-all
+    api/v1/enews
     api/v1/foodwine
-    api/v1/flipboard/natgeo
+    api/v1/flipboard/natgeo                         cron.schedule("0 4 * * SUN", () => {  })
     api/v1/magz-lifestyle
+
+MONTHLY
+    api/v1/mg/news
+    api/v1/hbr-all                               cron.schedule("0 9 1 * *", () => {  })

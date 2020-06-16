@@ -1,7 +1,7 @@
 const express = require('express');
 const cgtnNews = express.Router();
-const browser = require('../browser');
 require('dotenv').config();
+const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars');
@@ -88,7 +88,17 @@ async function main(uri_cgtn) {
     }
 }
 let source_cgtn = "https://www.cgtn.com/";
-main(source_cgtn);
+
+
+
+cron.schedule("0 3 * * *", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "CGTN fired at:", Date());
+
+        main(source_cgtn);
+    })();
+});
 /////
 cgtnNews.get('/cgtn', (req, res) => {
     res.send({
