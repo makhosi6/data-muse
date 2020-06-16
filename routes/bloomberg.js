@@ -23,6 +23,7 @@ async function main(uri) {
         await page.waitForSelector('.story-package-module__story.mod-story');
         let myVar = setInterval(() => scrollPageToBottom(page), 100);
         await page.waitFor(12300);
+        clearInterval(myVar);
         const items = await page.$$('.story-package-module__story.mod-story');
         //
         for (const item of items) {

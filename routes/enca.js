@@ -76,7 +76,7 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_sport} loop: ${error}`);
                 continue;
             }
         }
@@ -139,7 +139,7 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error}`);
                 continue;
             }
         }
@@ -185,7 +185,7 @@ async function main(uri_sport, uri_video, uri_business) {
                     "headline": headline
                 });
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error}`);
             }
         }
         //
@@ -236,16 +236,16 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_business} loop: ${error}`);
                 continue;
             }
         }
         //
         await page_business.close();
-        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_business}`);
 
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
+        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_business} Main: ${error}`);
     }
 
 }
