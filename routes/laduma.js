@@ -76,7 +76,7 @@ async function main(uri_inter, uri_local) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error.name}`)
                 continue;
 
             }
@@ -140,7 +140,7 @@ async function main(uri_inter, uri_local) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error.name}`)
                 continue;
             }
 
@@ -151,7 +151,7 @@ async function main(uri_inter, uri_local) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_local}`);
 
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_local} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri_local} Main: ${error}`);
     }
 }
 let source_inter = "https://www.soccerladuma.co.za/news/articles/international/landing";
@@ -161,7 +161,7 @@ let source_local = "https://www.soccerladuma.co.za/news/articles/local/landing";
 cron.schedule("0 3 * * *", () => {
 
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "LADUMA fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "LADUMA fired at:" + Date());
         main(source_inter, source_local);
     })();
 });

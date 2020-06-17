@@ -13,32 +13,31 @@ let sources = {
         gear: "https://www.wired.com/category/gear/",
     }
     ///
-cron.schedule("* * * * * *", () => { //
 
-    const Puppet = puppet.Scrapper;
-    //one
-    const dataOne = new Puppet(sources.science);
-    //Two
-    const dataTwo = new Puppet(sources.business);
-    //Three
-    const dataThree = new Puppet(sources.gear);
-    ///
-    cron.schedule("0 4 * * SUN", () => {
 
-        (() => {
-            console.log('\x1b[46m%s\x1b[0m', "WIRED fired at:", Date());
-            dataOne.puppet();
-            dataTwo.puppet();
-            dataThree.puppet();
-        })();
+const Puppet = puppet.Scrapper;
+//one
+const dataOne = new Puppet(sources.science);
+//Two
+const dataTwo = new Puppet(sources.business);
+//Three
+const dataThree = new Puppet(sources.gear);
+///
+cron.schedule("0 4 * * SUN", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "WIRED fired at:" + Date());
+        dataOne.puppet();
+        dataTwo.puppet();
+        dataThree.puppet();
+    })();
+});
+//
+wiredBusiness.get('/wired-all', (req, res) => {
+    res.send({
+        "wiredScience": dataOne.data,
+        "wiredBusiness": dataTwo.data,
+        "wiredGear": dataThree.data
     });
-    //
-    wiredBusiness.get('/wired-all', (req, res) => {
-        res.send({
-            "wiredScience": dataOne.data,
-            "wiredBusiness": dataTwo.data,
-            "wiredGear": dataThree.data
-        });
-    })
-    module.exports = wiredBusiness;
 })
+module.exports = wiredBusiness;

@@ -1,6 +1,7 @@
 const express = require('express');
 const newsTrends = express.Router();
-require('dotenv').config()
+require('dotenv').config();
+const cron = require("node-cron");
 const vars = require('./store/storeVars');
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
@@ -39,7 +40,7 @@ async function main(uri) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
                 continue;
             }
 
@@ -49,11 +50,18 @@ async function main(uri) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
 
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
     }
 }
 let source = "https://trends.google.com/trends/trendingsearches/daily?geo=ZA";
-main(source);
+
+cron.schedule("0 */6 * * *", () => {
+
+    (() => {
+        console.log('\x1b[46m%s\x1b[0m', "TRENDS fire at:" + Date());
+        main(source);
+    })();
+});
 /////
 newsTrends.get('/trends', (req, res) => {
     res.send({

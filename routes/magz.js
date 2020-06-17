@@ -85,7 +85,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_men} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_men} loop: ${error.name}`)
                 continue;
             }
         }
@@ -152,7 +152,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_women} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_women} loop: ${error.name}`)
                 continue;
             }
         }
@@ -224,7 +224,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     })
                     //
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_vogue} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_vogue} loop: ${error.name}`)
                 continue;
             }
         }
@@ -294,7 +294,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_you} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_you} loop: ${error.name}`)
                 continue;
             }
 
@@ -310,7 +310,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
 
         //
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_you} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri_you} Main: ${error}`);
     }
 }
 let source_men = "https://www.mh.co.za/";
@@ -322,7 +322,7 @@ let source_you = "https://www.news24.com/You";
 /////
 cron.schedule("0 4 * * SUN", () => {
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "MAGZ fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "MAGZ fired at:" + Date());
         //
         main(source_men, source_women, source_vogue, source_you);
 

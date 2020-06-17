@@ -26,7 +26,7 @@ const Five = new Puppet(sources.business);
 cron.schedule("0 */6 * * *", () => {
 
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "CNN fire at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "CNN fire at:" + Date());
         //one
         One.puppet();
         //Two

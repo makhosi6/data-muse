@@ -75,7 +75,7 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_sport} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_sport} loop: ${error.name}`)
                 continue;
             }
         }
@@ -138,7 +138,7 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error.name}`)
                 continue;
             }
         }
@@ -184,7 +184,7 @@ async function main(uri_sport, uri_video, uri_business) {
                     "headline": headline
                 });
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error.name}`)
             }
         }
         //
@@ -235,7 +235,7 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_business} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_business} loop: ${error.name}`)
                 continue;
             }
         }
@@ -244,7 +244,7 @@ async function main(uri_sport, uri_video, uri_business) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_business}`);
 
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_business} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri_business} Main: ${error}`);
     }
 
 }
@@ -252,7 +252,7 @@ async function main(uri_sport, uri_video, uri_business) {
 cron.schedule("0 */6 * * *", () => {
 
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "ENCA fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "ENCA fired at:" + Date());
         let source_sport = "https://www.enca.com/sports";
         let source_video = "https://www.enca.com/watch";
         let source_business = "https://www.enca.com/business";

@@ -74,7 +74,7 @@ async function main(uri_cgtn) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_cgtn} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_cgtn} loop: ${error.name}`)
                 continue;
             }
 
@@ -84,7 +84,7 @@ async function main(uri_cgtn) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_cgtn}`);
 
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_cgtn} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri_cgtn} Main: ${error}`);
     }
 }
 let source_cgtn = "https://www.cgtn.com/";
@@ -94,7 +94,7 @@ let source_cgtn = "https://www.cgtn.com/";
 cron.schedule("0 3 * * *", () => {
 
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "CGTN fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "CGTN fired at:" + Date());
 
         main(source_cgtn);
     })();

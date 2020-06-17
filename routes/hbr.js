@@ -84,7 +84,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${url_news} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${url_news} loop: ${error.name}`)
                 continue;
             }
         }
@@ -158,7 +158,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_mostPopula} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_mostPopula} loop: ${error.name}`)
                 continue;
             }
         }
@@ -223,7 +223,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_study} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_study} loop: ${error.name}`)
                 continue;
             }
         }
@@ -273,14 +273,14 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error.name}`)
                 continue;
             }
         }
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_video}`);
         await page_video.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_video} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri_video} Main: ${error}`);
     }
 }
 let source_news = "https://hbr.org/";
@@ -291,7 +291,7 @@ let source_video = "https://hbr.org/video";
 
 cron.schedule("0 4 * * SUN", () => {
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "HBR fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "HBR fired at:" + Date());
         //
         main(source_news, source_mostPopula, source_study, source_video);
 

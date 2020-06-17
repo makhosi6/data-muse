@@ -73,7 +73,7 @@ async function main(uri) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
                 continue;
             }
         }
@@ -129,11 +129,11 @@ async function main(uri) {
                             date
                         })
                     } catch (error) {
-                        console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loopInside: ${error}`);
+                        console.log('\x1b[42m%s\x1b[0m', `From ${uri} loopInside: ${error.name}`);
                     }
                 }
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
             }
         }
         //
@@ -148,7 +148,7 @@ async function main(uri) {
                     "headline": headline,
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
 
             }
         }
@@ -192,7 +192,7 @@ async function main(uri) {
                     teamName
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
                 continue;
             }
         }
@@ -200,14 +200,14 @@ async function main(uri) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
 
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
     }
 }
 let source = "https://www.kickoff.com/";
 
 cron.schedule("0 3 * * *", () => {
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "KICKOFF fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "KICKOFF fired at:" + Date());
         main(source);
     })();
 });

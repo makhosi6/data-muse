@@ -77,7 +77,7 @@ async function main(uri) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
                 continue;
             }
 
@@ -87,7 +87,7 @@ async function main(uri) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
 
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
     }
 }
 let source = "https://mg.co.za/";
@@ -95,7 +95,7 @@ let source = "https://mg.co.za/";
 
 cron.schedule("0 4 * * SUN", () => {
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "M&G fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "M&G fired at:" + Date());
         //
         main(source);
 

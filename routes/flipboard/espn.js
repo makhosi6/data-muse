@@ -12,7 +12,7 @@ const dataOne = new Puppet(source);
 cron.schedule("0 3 * * *", () => {
 
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "ESPN fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "ESPN fired at:" + Date());
         dataOne.puppet();
     })();
 });

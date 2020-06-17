@@ -23,7 +23,6 @@ const dataOne = new Puppet(sources.animals);
 const dataTwo = new Puppet(sources.news);
 //three
 const dataThree = new Puppet(sources.photo);
-dataThree.puppet();
 //four
 const dataFour = new Puppet(sources.enviro);
 //five
@@ -33,11 +32,12 @@ const dataSix = new Puppet(sources.travel);
 
 cron.schedule("0 4 * * SUN", () => {
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "NAT_GEO fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "NAT_GEO fired at:" + Date());
         //
 
         dataOne.puppet();
         dataTwo.puppet();
+        dataThree.puppet();
         dataFour.puppet();
         dataFive.puppet();
         dataSix.puppet();

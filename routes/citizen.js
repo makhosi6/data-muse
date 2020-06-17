@@ -68,7 +68,7 @@ async function main(uri) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
             }
         }
         //
@@ -123,7 +123,7 @@ async function main(uri) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
                 continue;
             }
         }
@@ -131,7 +131,7 @@ async function main(uri) {
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
         await page.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
     }
 }
 let source = "https://citizen.co.za/";
@@ -139,7 +139,7 @@ let source = "https://citizen.co.za/";
 cron.schedule("0 3 * * *", () => {
 
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "CITIZEN fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "CITIZEN fired at:" + Date());
 
         main(source);
     })();

@@ -73,7 +73,7 @@ class Scrapper {
                             date
                         })
                     } catch (error) {
-                        console.trace('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`);
+                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`)
                     }
                 }
                 this.data = arrr;
@@ -81,7 +81,7 @@ class Scrapper {
                 console.log('\x1b[43m%s\x1b[0m', `Done: ${this.uri}`);
 
             } catch (error) {
-                console.trace('\x1b[41m%s\x1b[0m', `From ${this.uri} Main: ${error}`);
+                console.log('\x1b[41m%s\x1b[0m', `From ${this.uri} Main: ${error}`);
             }
             return this.data;
         }

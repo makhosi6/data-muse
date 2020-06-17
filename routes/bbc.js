@@ -32,7 +32,7 @@ const dataSix = new Puppet(sources.tech);
 cron.schedule("0 */6 * * *", () => {
 
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "BCC fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "BCC fired at:" + Date());
 
         dataOne.puppet();
         dataTwo.puppet();

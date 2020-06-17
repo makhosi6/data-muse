@@ -36,14 +36,14 @@ async function main( /*uri_business, uri_lifestyle, uri_politics, uri_sport,uri_
                 })
 
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri_trending} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_trending} loop: ${error.name}`)
                 continue;
             }
         }
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_trending}`);
         await page_trending.close();
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error}`);
     }
 
 }
@@ -68,7 +68,7 @@ const dataFour = new Puppet(sources.sport);
 cron.schedule("0 */6 * * *", () => {
 
     (() => {
-        console.log("AFRICA fire at at:", Date());
+        console.log("ENEWS fire at:" + Date());
         //One
         dataOne.puppet();
         //Two

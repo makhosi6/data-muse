@@ -3,6 +3,7 @@ const sabcBusiness = express.Router();
 const puppeteer = require('puppeteer');
 const puppet = require('./store/puppetSabc');
 require('dotenv').config();
+const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const vars = require('./store/storeVars');
 ///
@@ -71,14 +72,14 @@ async function main(uri) {
                     date
                 })
             } catch (error) {
-                console.trace('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
                 continue;
             }
         }
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
 
     } catch (error) {
-        console.trace('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
+        console.log('\x1b[41m%s\x1b[0m', `From ${uri} Main: ${error}`);
     }
 }
 let sources = {
@@ -107,7 +108,7 @@ const dataFive = new Puppet(sources.world, 'world');
 cron.schedule("0 3 * * *", () => {
 
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "SABC fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "SABC fired at:" + Date());
         main(sources.news);
         dataOne.puppet();
         dataTwo.puppet();

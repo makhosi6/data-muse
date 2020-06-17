@@ -10,7 +10,7 @@ const dataOne = new Puppet(source);
 ///
 cron.schedule("0 4 * * SUN", () => {
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "ENEWS fired at:", Date());
+        console.log('\x1b[46m%s\x1b[0m', "ENEWS fired at:" + Date());
         //
         dataOne.puppet();
 
