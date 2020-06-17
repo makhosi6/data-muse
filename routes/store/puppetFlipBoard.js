@@ -29,53 +29,56 @@ class Scrapper {
                         const title = await item.$('.post__title');
                         // 
                         const para = await item.$('.post__excerpt');
-                        const mediaLink = await item.$eval('img', img => img.src);
+                        const thumbnail = await item.$eval('img', img => img.src);
                         const src = await item.$eval('.author-avatar__image.image.image--loaded', img => img.src);
-                        const headlineText = await title.$eval('a.internal-link', a => a.innerText);
+                        const headline = await title.$eval('a.internal-link', a => a.innerText);
                         const tagEl = await item.$('a.topic-tag');
                         const tag = (tagEl != null || undefined) ? await item.$eval('a.topic-tag', a => a.innerText) : null;
                         const cred = await item.$('.post-attribution__source');
                         const source = (cred != null || undefined) ? await cred.$eval('a', a => a.innerText) : null;
                         const lede = await para.$eval('a', a => a.innerText);
-                        const timeStamp = await item.$eval('time', time => time.innerText);
+                        const date = await item.$eval('time', time => time.innerText);
                         //
-                        const publisher = source.replace(" and ", " & ");
+                        const author = source.replace(" and ", " & ");
                         const windo = await item.$('.post__title > a');
                         windo.click();
                         await page.waitFor(33000);
                         await page.waitForSelector('.post__read-more');
                         let button = await page.$x('//*[@id="content"]/div/main/div/div/div[1]/div/div[2]');
                         let ellen = await page.waitForSelector('.post__read-more');
-                        const url = (button != null || undefined) ? await ellen.$eval('a', a => a.href) : null;
-                        const a = url.split("url=");
+                        const url_raw = (button != null || undefined) ? await ellen.$eval('a', a => a.href) : null;
+                        const a = url_raw.split("url=");
                         const b = a[1];
                         const c = b.split("&v=");
                         const d = c[0];
-                        const e = decodeURIComponent(d);
+                        const url = decodeURIComponent(d);
 
                         let empty = null;
                         let emptyArr = "";
                         //
                         let images = emptyArr;
                         let catLink = empty;
-                        let author = empty;
                         let vidLen = empty;
                         let isVid = false;
 
                         arrr.push({
-                            "category": tag,
+                            url,
+                            headline,
+                            lede,
+                            thumbnail,
+                            //
                             src,
-                            vidLen,
+                            category,
                             catLink,
-                            isVid,
+                            tag,
+                            //
                             images,
-                            "url": e,
-                            "thumbnail": mediaLink,
-                            "headline": headlineText,
-                            "tag": tag,
-                            "author": publisher,
-                            "lede": lede,
-                            "date": timeStamp
+                            //
+                            isVid,
+                            vidLen,
+                            //
+                            author,
+                            date
                         });
 
                     } catch (error) {
