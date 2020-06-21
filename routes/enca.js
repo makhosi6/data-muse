@@ -232,8 +232,6 @@ async function main(uri_sport, uri_video, uri_business) {
                     author,
                     date
                 });
-
-
             } catch (error) {
                 console.log('\x1b[42m%s\x1b[0m', `From ${uri_business} loop: ${error.name}`)
                 continue;
@@ -242,11 +240,9 @@ async function main(uri_sport, uri_video, uri_business) {
         //
         await page_business.close();
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_business}`);
-
     } catch (error) {
         console.log('\x1b[41m%s\x1b[0m', `From ${uri_business} Main: ${error}`);
     }
-
 }
 
 cron.schedule("0 */6 * * *", () => {

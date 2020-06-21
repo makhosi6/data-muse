@@ -1,15 +1,13 @@
-const express = require('express');
-const africa = express.Router();
-require('dotenv').config();
 const cron = require("node-cron");
 const puppeteer = require("puppeteer");
+require('dotenv').config();
 const wsChromeEndpointurl = require('../browser');
 const vars = require('./store/storeVars');
 ///
 process.setMaxListeners(Infinity);
 //
-let add = [];
-let data = [];
+let news = [];
+let trending = [];
 async function main(uri) {
     try {
 
@@ -32,7 +30,7 @@ async function main(uri) {
                 const headline = await each.$eval('h3 > a', a => a.innerText);
                 //
                 const link = await page.evaluate(a => a.href, ab);
-                data.push({
+                trending.push({
                     "date": date.replace(/(\r\n|\n|\r)/gm, "").trim(),
                     "url": link,
                     "headline": headline.replace(/(\r\n|\n|\r)/gm, "").trim(),
@@ -75,7 +73,7 @@ async function main(uri) {
                 let catLink = empty;
                 let images = emptyArr;
 
-                add.push({
+                news.push({
                     url,
                     headline,
                     lede,
@@ -122,12 +120,8 @@ cron.schedule("0 */6 * * *", () => {
     })();
 });
 /////
-africa.get('/africa', (req, res) => {
-    res.send({
 
-        "africa": add,
-        "trending": data
-    });
-})
-
-module.exports = africa;
+module.exports = {
+    news,
+    trending
+};

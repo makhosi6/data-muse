@@ -37,7 +37,8 @@ async function main(uri) {
 
                 trends.push({
                     "url": url,
-                    "headline": headline,
+                    "key": Math.floor(Math.random() * 13400000),
+                    "label": headline,
                 })
             } catch (error) {
                 console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
@@ -64,9 +65,10 @@ cron.schedule("0 */6 * * *", () => {
 });
 /////
 newsTrends.get('/trends', (req, res) => {
-    res.send({
-        trends
-    });
+    res.send({});
 })
 
-module.exports = newsTrends;
+module.exports = {
+    trends
+
+};

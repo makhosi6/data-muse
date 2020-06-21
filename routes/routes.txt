@@ -31,3 +31,9 @@ WEEKLY
 MONTHLY
     api/v1/mg/news
     api/v1/hbr-all                               cron.schedule("0 9 1 * *", () => {  })
+
+
+
+0-9   1
+10 - 99  90
+100 999 - 

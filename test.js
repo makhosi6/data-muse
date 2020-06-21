@@ -28,18 +28,17 @@ MongoClient.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTop
 });
 
 
+let obj = {
+    one: [1, 2, 3, 3, 45, 5],
+    two: [12, 43, 5, 556, 66, 6]
+}
+let big = [];
 
-(() => {
+obj.one.map((e) => big.push(e)); //one
+obj.two.map((e) => big.push(e)); //two
 
-    console.table({
-        a: "14/06",
-        b: "00/00",
-        c: "00/00",
+//big OUTPUT  = [1, 2, 3, 3, 45, 5, 12, 43, 5, 556, 66, 6]
 
-
-    })
-
-})
 
 /*
 ();
