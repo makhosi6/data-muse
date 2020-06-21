@@ -1,8 +1,6 @@
-const express = require('express');
-const wiredBusiness = express.Router();
-require('dotenv').config();
 const cron = require("node-cron");
 const puppet = require('./store/puppetWired');
+require('dotenv').config();
 ///
 process.setMaxListeners(Infinity);
 
@@ -24,7 +22,6 @@ const dataTwo = new Puppet(sources.business);
 const dataThree = new Puppet(sources.gear);
 ///
 cron.schedule("0 4 * * SUN", () => {
-
     (() => {
         console.log('\x1b[46m%s\x1b[0m', "WIRED fired at:" + Date());
         dataOne.puppet();
@@ -33,11 +30,8 @@ cron.schedule("0 4 * * SUN", () => {
     })();
 });
 //
-wiredBusiness.get('/wired-all', (req, res) => {
-    res.send({
-        "wiredScience": dataOne.data,
-        "wiredBusiness": dataTwo.data,
-        "wiredGear": dataThree.data
-    });
-})
-module.exports = wiredBusiness;
+module.exports = {
+    "science": dataOne.data,
+    "business": dataTwo.data,
+    "lifestyle": dataThree.data
+};

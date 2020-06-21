@@ -63,11 +63,7 @@ cron.schedule("0 */6 * * *", () => {
         main(source);
     })();
 });
-/////
-newsTrends.get('/trends', (req, res) => {
-    res.send({});
-})
-
+////
 module.exports = {
     trends
 

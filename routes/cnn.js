@@ -1,5 +1,3 @@
-const express = require('express');
-const cnnRouta = express.Router();
 require('dotenv').config();
 const cron = require("node-cron");
 const puppet = require('./store/puppetCnn');
@@ -40,15 +38,12 @@ cron.schedule("0 */6 * * *", () => {
         //////////////
     })();
 });
-cnnRouta.get('/cnn', (req, res) => {
-    res.send({
+//.
+module.exports = {
 
-        "world": One.data,
-        "africa": Two.data,
-        "tech": Three.data,
-        "health": Four.data,
-        "business": Five.data
-    });
-
-})
-module.exports = cnnRouta;
+    "world": One.data,
+    "africa": Two.data,
+    "tech": Three.data,
+    "health": Four.data,
+    "business": Five.data
+}

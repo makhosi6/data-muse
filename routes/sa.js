@@ -1,8 +1,6 @@
-const express = require('express');
-require('dotenv').config();
 const cron = require("node-cron");
-const saFinance = express.Router();
 const puppet = require('./store/saScrapper');
+require('dotenv').config();
 //
 process.setMaxListeners(Infinity);
 //
@@ -43,16 +41,12 @@ cron.schedule("0 3 * * *", () => {
 });
 
 /////
-saFinance.get('/sa-scrapper', (req, res) => {
-    res.send({
+module.exports = {
 
-        "saFinance": dataOne.data,
-        "saMotoring": dataTwo.data,
-        "saLife": dataThree.data,
-        "saNews": dataFour.data,
-        "saTech": dataFive.data,
-        "saSport": dataSix.data
-    });
-})
-
-module.exports = saFinance;
+    "business": dataOne.data,
+    "motoring": dataTwo.data,
+    "lifestyle": dataThree.data,
+    "news": dataFour.data,
+    "tech": dataFive.data,
+    "sport": dataSix.data
+};

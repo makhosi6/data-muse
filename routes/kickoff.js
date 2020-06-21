@@ -4,8 +4,9 @@ const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 require('dotenv').config();
 const cron = require("node-cron");
-const vars = require('./store/storeVars')
-    ///
+const vars = require('./store/storeVars');
+
+///
 process.setMaxListeners(Infinity);
 //
 let add = [];
@@ -132,6 +133,7 @@ async function main(uri) {
                         console.log('\x1b[42m%s\x1b[0m', `From ${uri} loopInside: ${error.name}`);
                     }
                 }
+                data.map((e) => trends.push(e));
             } catch (error) {
                 console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
             }
@@ -212,14 +214,9 @@ cron.schedule("0 3 * * *", () => {
     })();
 });
 /////
-kickOff.get('/kickoff', (req, res) => {
-    res.send({
+module.exports = {
 
-        "kickOff": add,
-        "strips": data,
-        "treanding": trends,
-        "tableList": add_list
-    });
-})
-
-module.exports = kickOff;
+    "news": add,
+    "trends": trends,
+    "table list": add_list
+}

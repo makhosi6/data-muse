@@ -301,10 +301,10 @@ cron.schedule("0 4 * * SUN", () => {
 //
 hbr.get('/hbr-all', (req, res) => {
     res.send({
-        "HBR": add_news,
-        "HBRmostPopula": add_mostPopula,
-        "HBRStudy": add_study,
-        "HBRVideo": add_video
+        "news": add_news,
+        "most popular": add_mostPopula,
+        "research": add_study,
+        "video": add_video
     });
 })
 

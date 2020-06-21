@@ -1,5 +1,3 @@
-const express = require('express');
-const sabcBusiness = express.Router();
 const puppeteer = require('puppeteer');
 const puppet = require('./store/puppetSabc');
 require('dotenv').config();
@@ -119,15 +117,12 @@ cron.schedule("0 3 * * *", () => {
     })();
 });
 //
-sabcBusiness.get('/sabc', (req, res) => {
-    res.send({
-        "sabcNews": add,
-        "sabcBusiness": dataTwo.data,
-        "sabcPolitics": dataOne.data,
-        "sabcScience": dataThree.data,
-        "sabcSport": dataFour.data,
-        "sabcWorld": dataFive.data
-    });
-})
 
-module.exports = sabcBusiness;
+module.exports = {
+    "news": add,
+    "business": dataTwo.data,
+    "politics": dataOne.data,
+    "science": dataThree.data,
+    "sport": dataFour.data,
+    "world": dataFive.data
+};

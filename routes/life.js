@@ -1,5 +1,3 @@
-const express = require('express');
-const w24 = express.Router();
 require('dotenv').config();
 const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
@@ -99,19 +97,11 @@ cron.schedule("0 4 * * SUN", () => {
 
     (() => {
         console.log('\x1b[46m%s\x1b[0m', "W24 fired at:" + Date());
-
         main(source);
     })();
 });
 /////
-w24.get('/w24', (req, res) => {
-    res.send({
-        "source": {
-            "name": "w24",
-            "page url": source
-        },
-        "w24": add
-    });
-})
 
-module.exports = w24;
+module.exports = {
+    "news": add
+}

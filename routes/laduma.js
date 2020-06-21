@@ -1,8 +1,6 @@
-const express = require('express');
-const international = express.Router();
-require('dotenv').config();
 const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
+require('dotenv').config();
 const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars')
 
@@ -168,12 +166,9 @@ cron.schedule("0 3 * * *", () => {
 
 
 /////
-international.get('/laduma', (req, res) => {
-    res.send({
 
-        "international": add_inter,
-        "local": add_local
-    });
-})
+module.exports = {
 
-module.exports = international;
+    "news": add_inter,
+    "sport": add_local
+};

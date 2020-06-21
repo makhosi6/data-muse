@@ -1,5 +1,3 @@
-const express = require('express');
-const blomNews = express.Router();
 require('dotenv').config();
 const cron = require("node-cron");
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
@@ -9,7 +7,7 @@ const puppeteer = require('puppeteer');
 ///
 process.setMaxListeners(Infinity);
 //
-let add = [];
+let news = [];
 
 async function main(uri) {
     try {
@@ -54,7 +52,7 @@ async function main(uri) {
                 let catLink = empty;
                 let images = emptyArr;
                 let category = categori.trim();
-                add.push({
+                news.push({
                     url,
                     headline,
                     lede,
@@ -98,15 +96,8 @@ cron.schedule("0 3 * * *", () => {
     })();
 });
 //
-/////
-blomNews.get('/bloomberg', (req, res) => {
-    res.send({
-        "source": {
-            "name": "blomNews",
-            "page url": source
-        },
-        "blomNews": add
-    });
-})
 
-module.exports = blomNews;
+module.exports = {
+
+    news
+}

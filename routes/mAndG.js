@@ -1,5 +1,3 @@
-const express = require('express');
-const mgNews = express.Router();
 const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
@@ -102,14 +100,7 @@ cron.schedule("0 4 * * SUN", () => {
     })();
 });
 /////
-mgNews.get('/mg/news', (req, res) => {
-    res.send({
-        "source": {
-            "name": "mgNews",
-            "page url": source
-        },
-        "mgNews": add
-    });
-})
 
-module.exports = mgNews;
+module.exports = {
+    "lifestyle": add
+};

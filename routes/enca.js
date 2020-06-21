@@ -1,5 +1,3 @@
-const express = require('express');
-const enca = express.Router();
 require('dotenv').config();
 const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
@@ -258,14 +256,10 @@ cron.schedule("0 */6 * * *", () => {
     })();
 });
 
-
 //
-enca.get('/enca', (req, res) => {
-    res.send({
-        "encaSport": add_sport,
-        "encaVideo": add_video,
-        "encaBusiness": add_business,
-        "add_trends": add_trends
-    });
-})
-module.exports = enca;
+module.exports = {
+    "sport": add_sport,
+    "video": add_video,
+    "business": add_business,
+    "trends": add_trends
+}

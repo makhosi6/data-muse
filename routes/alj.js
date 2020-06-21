@@ -1,6 +1,4 @@
-const express = require('express');
 require('dotenv').config()
-const aljRouta = express.Router();
 const puppeteer = require('puppeteer');
 const cron = require("node-cron");
 const vars = require('./store/storeVars');
@@ -229,7 +227,6 @@ let source = {
 const Puppet = puppet.Scrapper;
 //
 const dataAfrica = new Puppet(source.africa);
-//
 const dataNews = new Puppet(source.news);
 
 //
@@ -243,13 +240,9 @@ cron.schedule("0 */6 * * *", () => {
     })();
 });
 
-///
-aljRouta.get('/alj', (req, res) => {
-    res.send({
-        "aljDocs": add_docs,
-        "aljAfrica": dataAfrica.data,
-        "aljNews": dataNews.data,
-        "aljTrending": add_trending
-    });
-})
-module.exports = aljRouta;
+module.exports = {
+    "documentaries": add_docs,
+    "africa": dataAfrica.data,
+    "news": dataNews.data,
+    "trending": add_trending
+};

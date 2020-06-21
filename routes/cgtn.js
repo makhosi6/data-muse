@@ -1,14 +1,12 @@
-const express = require('express');
-const cgtnNews = express.Router();
-require('dotenv').config();
 const cron = require("node-cron");
+require('dotenv').config();
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('./store/storeVars');
 ///
 process.setMaxListeners(Infinity);
 //
-let add_cgtn = [];
+let news = [];
 
 async function main(uri_cgtn) {
     try {
@@ -54,7 +52,7 @@ async function main(uri_cgtn) {
                 let src = "https://ui.cgtn.com/static/ng/resource/images/icon/logo@3x.png";
 
                 //
-                add_cgtn.push({
+                news.push({
                     url,
                     headline,
                     lede,
@@ -100,11 +98,8 @@ cron.schedule("0 3 * * *", () => {
     })();
 });
 /////
-cgtnNews.get('/cgtn', (req, res) => {
-    res.send({
 
-        "cgtnNews": add_cgtn
-    });
-})
+module.exports = {
 
-module.exports = cgtnNews;
+    news
+}

@@ -1,5 +1,3 @@
-const express = require('express');
-const bbcBusiness = express.Router();
 const puppet = require('./store/puppetBbc');
 require('dotenv').config();
 const cron = require("node-cron");
@@ -45,15 +43,11 @@ cron.schedule("0 */6 * * *", () => {
 });
 //
 
-
-bbcBusiness.get('/bbc', (req, res) => {
-    res.send({
-        "africa": dataTwo.data,
-        "news": dataOne.data,
-        "real": dataFour.data,
-        "health": dataThree.data,
-        "sport": dataFive.data,
-        "tech": dataSix.data
-    });
-})
-module.exports = bbcBusiness;
+module.exports = {
+    "africa": dataTwo.data,
+    "news": dataOne.data,
+    "real": dataFour.data,
+    "health": dataThree.data,
+    "sport": dataFive.data,
+    "tech": dataSix.data
+};

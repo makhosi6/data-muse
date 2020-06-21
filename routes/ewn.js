@@ -1,9 +1,7 @@
-const express = require('express');
-const ewnRouta = express.Router();
-require('dotenv').config();
 const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
+require('dotenv').config();
 const puppet = require('./store/puppetEwn');
 const vars = require('./store/storeVars')
     //
@@ -11,7 +9,7 @@ process.setMaxListeners(Infinity);
 ///
 let add_trending = [];
 //
-async function main( /*uri_business, uri_lifestyle, uri_politics, uri_sport,uri_spt2*/ uri_trending) {
+async function main(uri_trending) {
     try {
         const browser = await puppeteer.connect({
             browserWSEndpoint: wsChromeEndpointurl,
@@ -68,7 +66,7 @@ const dataFour = new Puppet(sources.sport);
 cron.schedule("0 */6 * * *", () => {
 
     (() => {
-        console.log("ENEWS fire at:" + Date());
+        console.log("ENEWS fired at:" + Date());
         //One
         dataOne.puppet();
         //Two
@@ -81,14 +79,11 @@ cron.schedule("0 */6 * * *", () => {
         main(sources.trending);
     })();
 });
-/////////////
-ewnRouta.get('/ewn', (req, res) => {
-    res.send({
-        "ewnNews": dataOne.data,
-        "ewnLifestyle": dataTwo.data,
-        "ewnPolitics": dataThree.data,
-        "ewnSport": dataFour.data,
-        "ewnTrending": add_trending
-    });
-})
-module.exports = ewnRouta;
+////////
+module.exports = {
+    "news": dataOne.data,
+    "lifestyle": dataTwo.data,
+    "politics": dataThree.data,
+    "sport": dataFour.data,
+    "trending": add_trending
+}

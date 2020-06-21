@@ -1,5 +1,3 @@
-const express = require('express');
-const timesLiveBusi = express.Router();
 const cron = require("node-cron");
 const puppet = require('./store/puppetTImes');
 ///
@@ -31,13 +29,9 @@ cron.schedule("0 */6 * * *", () => {
     })();
 });
 
-
-timesLiveBusi.get('/times-live', (req, res) => {
-    res.send({
-        "timesLiveBusi": dataOne.data,
-        "timesLive": dataTwo.data,
-        "timesLiveSport": dataThree.data
-    });
-})
-
-module.exports = timesLiveBusi;
+//
+module.exports = {
+    "business": dataOne.data,
+    "news": dataTwo.data,
+    "sport": dataThree.data
+};

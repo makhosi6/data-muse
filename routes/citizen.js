@@ -8,7 +8,7 @@ const wsChromeEndpointurl = require('../browser');
 ///
 process.setMaxListeners(Infinity);
 //
-let add = [];
+let news = [];
 let src = "https://citizen.co.za/wp-content/themes/citizen-v5-2/images/citizen_logo_footer_v2.png";
 
 async function main(uri) {
@@ -48,7 +48,7 @@ async function main(uri) {
                 let vidLen = empty;
                 let isVid = false;
 
-                add.push({
+                news.push({
                     url,
                     headline,
                     lede,
@@ -103,7 +103,7 @@ async function main(uri) {
                 let vidLen = empty;
                 let isVid = false;
 
-                add.push({
+                news.push({
                     url,
                     headline,
                     lede,
@@ -145,11 +145,7 @@ cron.schedule("0 3 * * *", () => {
     })();
 });
 /////
-citizen.get('/citizen', (req, res) => {
-    res.send({
 
-        "citizen": add
-    });
-})
-
-module.exports = citizen
+module.exports = {
+    news
+}
