@@ -11,6 +11,7 @@ let add_video = [];
 let add_business = [];
 let add_trends = [];
 let src = "https://www.enca.com/sites/all/themes/custom/enca/images/eNCA_logo.svg";
+let src_name = "enca";
 
 async function main(uri_sport, uri_video, uri_business) {
     try {
@@ -45,13 +46,15 @@ async function main(uri_sport, uri_video, uri_business) {
                 let catLink = empty;
                 let author = empty;
                 let category = empty;
+                let url_src = uri_sport;
                 let tag = category;
                 let images = emptyArr;
                 let vidLen = empty;
                 let isVid = false;
-
-
+                //
                 (url === null) ? false: add_sport.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     lede,
@@ -109,11 +112,14 @@ async function main(uri_sport, uri_video, uri_business) {
                 let date = empty;
                 let category = empty;
                 let tag = category;
+                let url_src = uri_video;
                 let images = emptyArr;
                 let vidLen = empty;
                 let isVid = false;
 
                 (url === null) ? false: add_video.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     lede,
@@ -159,10 +165,11 @@ async function main(uri_sport, uri_video, uri_business) {
             //
             let url = (link != null || undefined) ? await page_sport.evaluate(a => a.href, link) : null;
             let headline = (hed != null || undefined) ? await page_sport.evaluate(a => a.innerText, hed) : null;
-
+            let url_src = uri_video;
 
             add_trends.push({
-
+                src_name,
+                url_src,
                 "url": url,
                 "headline": headline
             });
@@ -175,10 +182,11 @@ async function main(uri_sport, uri_video, uri_business) {
                 //
                 let url = (link != null || undefined) ? await page_sport.evaluate(a => a.innerText, link) : null;
                 let headline = (link != null || undefined) ? await page_sport.evaluate(a => a.href, link) : null;
-
+                let url_src = uri_sport;
                 add_trends.push({
-
+                    src_name,
                     "url": url,
+                    url_src,
                     "headline": headline
                 });
             } catch (error) {
@@ -202,16 +210,18 @@ async function main(uri_sport, uri_video, uri_business) {
 
                 let empty = null;
                 let emptyArr = "";
-
                 let catLink = empty;
                 let author = empty;
                 let category = empty;
+                let url_src = uri_video;
                 let tag = category;
                 let images = emptyArr;
                 let vidLen = empty;
                 let isVid = false;
 
                 (url === null) ? false: add_business.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     lede,
@@ -244,7 +254,6 @@ async function main(uri_sport, uri_video, uri_business) {
 }
 
 cron.schedule("0 */6 * * *", () => {
-
     (() => {
         console.log('\x1b[46m%s\x1b[0m', "ENCA fired at:" + Date());
         let source_sport = "https://www.enca.com/sports";
@@ -255,7 +264,6 @@ cron.schedule("0 */6 * * *", () => {
 
     })();
 });
-
 //
 module.exports = {
     "sport": add_sport,

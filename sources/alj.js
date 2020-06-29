@@ -41,16 +41,18 @@ async function main(uri_docs, uri_trending) {
                 //
 
                 //
-                let category = tagText;
+
+                let category = (tagText === null) ? "documentary" : tagText;
                 let images = emptyArr;
                 let isVid = true;
                 let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
                 let author = empty;
                 let date = empty;
 
+                let url_src = uri_docs;
                 //
                 add_docs.push({
-
+                    url_src,
                     url,
                     headline,
                     lede,
@@ -90,21 +92,24 @@ async function main(uri_docs, uri_trending) {
                     let txt = tagText2.replace(/ /g, "_");
                     tag.push(txt);
                 }
-                const category = await catText.$eval('a', a => a.innerText);
+                const a = await catText.$eval('a', a => a.innerText);
                 const url = await page_docs.evaluate(a => a.href, anchor);
                 const lede = await page_docs.evaluate(p => p.innerText, para);
                 const thumbnail = await el.$eval('img', img => img.src);
                 const headline = await el.$eval('img', img => img.title);
 
                 let end = category.replace(/ /g, "_");
-
+                let category = (a === null) ? "documentary" : a;
                 tag.push(end);
                 let images = emptyArr;
                 let isVid = true;
                 let author = empty;
                 let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
                 let date = empty;
+                let url_src = uri_docs;
+
                 add_docs.push({
+                    url_src,
                     url,
                     headline,
                     lede,
@@ -144,17 +149,19 @@ async function main(uri_docs, uri_trending) {
                 const headline = await comp.$eval('img', img => img.title);
                 let tag = tagText.replace(/ /g, "_");
                 //
-
+                l
                 //
-                let category = tagText;
+                let category = (tagText === null) ? "documentary" : tagText;
                 let images = emptyArr;
                 let isVid = true;
                 let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
                 let author = empty;
                 let date = empty;
 
+                let url_src = uri_docs;
                 //
                 add_docs.push({
+                    url_src,
                     src,
                     url,
                     headline,
@@ -196,8 +203,9 @@ async function main(uri_docs, uri_trending) {
                 //
                 const url = (head != null || undefined) ? await head.$eval('a', a => a.href) : null;
                 const headline = await head.$eval('p', p => p.innerText);
-
+                let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
                 add_trending.push({
+                    src,
                     url,
                     headline
                 })

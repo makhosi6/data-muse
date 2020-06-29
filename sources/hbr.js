@@ -11,6 +11,7 @@ let add_news = [];
 let add_mostPopula = [];
 let add_study = [];
 let add_video = [];
+let src_name = 'HBR';
 let src = "https://www.logolynx.com/images/logolynx/s_e5/e5f4b05f3bb630f8179f1dc505dea803.png";
 async function main(url_news, uri_mostPopula, uri_study, uri_video) {
     try {
@@ -56,12 +57,15 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 let empty = null;
                 let emptyArr = "";
                 //
+                let url_src = url_news;
                 let vidLen = empty;
                 let isVid = false;
                 let catLink = empty;
                 let images = emptyArr;
 
                 add_news.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     lede,
@@ -122,6 +126,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 const date = await utiliti.$eval('li.pubdate', li => li.innerText);
                 //
                 let author = [];
+                let url_src = uri_mostPopula;
 
                 for (const autha of authors) {
                     let value = await page_mostPopula.evaluate(li => li.innerText, autha)
@@ -130,13 +135,14 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
 
                 let empty = null;
                 let emptyArr = "";
-
                 let catLink = empty;
                 let vidLen = empty;
                 let isVid = false;
-
+                //
                 add_mostPopula.push({
+                    src_name,
                     url,
+                    url_src,
                     headline,
                     lede,
                     thumbnail,
@@ -189,7 +195,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 const subj = await item.$('div.hide-small > p:nth-child(6)');
                 const ft = await item.$('div.hide-small > p:nth-child(8)');
                 const authors = (a != null || undefined) ? await a.$$('li') : null;
-
+                let url_src = uri_study;
                 //
                 const thumbnail = (image != null || undefined) ? await item.$eval('img', img => img.src) : null;
                 const headline = await h4.$eval('a', a => a.innerText);
@@ -209,6 +215,8 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 const format = await page_study.evaluate(p => p.innerText, ft)
 
                 add_study.push({
+                    src_name,
+                    url_src,
                     "url": url,
                     "title": title,
                     "thumbnail": thumbnail,
@@ -240,6 +248,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
         //
         for (const item of items_video) {
             try {
+                let url_src = uri_video;
                 const headline = await item.$('.mbn');
                 const wrapper = await item.$('.pubdate');
                 const url = (headline != null || undefined) ? await headline.$eval('a', a => a.href) : null;
@@ -248,6 +257,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 const vidLen = (wrapper != null || undefined) ? await item.$eval('li.text-gray', li => li.innerText) : null;
                 const date = (wrapper != null || undefined) ? await item.$eval('li.pubdate', li => li.innerText) : null;
                 //
+
                 const pam = await item.$('.pam');
                 const a = (pam != null || undefined) ? await pam.$eval('stream-item', a => a.dataset.authors) : null;
                 const b = (pam != null || undefined) ? await pam.$eval('stream-item', b => b.dataset.summary) : null;
@@ -259,6 +269,8 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
 
 
                 add_video.push({
+                    url_src,
+                    src_name,
                     "url": url,
                     "headline": headlineText,
                     "lede": b,

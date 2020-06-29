@@ -7,6 +7,7 @@ const vars = require('../store/storeVars')
 process.setMaxListeners(Infinity);
 //
 let add = [];
+let src_name = "";
 
 async function main(uri) {
     try {
@@ -36,7 +37,7 @@ async function main(uri) {
             try {
                 //
                 const cat = await item.$('.tf-category-name');
-
+                let url_src = uri;
                 //
                 const url = await item.$eval('a', a => a.href);
                 const thumbnail = await item.$eval('img', img => img.src);
@@ -59,6 +60,8 @@ async function main(uri) {
                 let date = empty;
                 // let b = (a != null) ? a[1].replace(/(\r\n|\n|\r)/gm, "").trim() : null;
                 add.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     lede,

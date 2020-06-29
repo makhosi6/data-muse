@@ -2,6 +2,8 @@ const vars = require('./storeVars');
 const puppeteer = require("puppeteer");
 const wsChromeEndpointurl = require('../browser');
 //
+let src_name = "EWN";
+//
 class Scrapper {
     constructor(uri) {
         this.uri = uri;
@@ -45,10 +47,13 @@ class Scrapper {
                             let images = emptyArr;
                             let tag = empty;
                             let catLink = empty;
+                            let url_src = this.uri;
                             let author = empty;
                             let vidLen = empty;
                             let isVid = false;
                             arrr.push({
+                                url_src,
+                                src_name,
                                 vidLen,
                                 isVid,
                                 author,

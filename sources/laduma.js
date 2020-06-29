@@ -9,6 +9,7 @@ process.setMaxListeners(Infinity);
 //
 let add_inter = [];
 let add_local = [];
+let src_name = 'Laduma';
 let src = "https://dj0j0ofql4htg.cloudfront.net/assets/dumb/images/soccerladuma-logo.png";
 
 async function main(uri_inter, uri_local) {
@@ -53,8 +54,11 @@ async function main(uri_inter, uri_local) {
                 let vidLen = empty;
                 //
                 let author = empty;
+                let url_src = uri_inter;
                 //
                 add_inter.push({
+                    src_name,
+                    url_src,
                     url,
                     headline,
                     lede,
@@ -116,9 +120,12 @@ async function main(uri_inter, uri_local) {
                 let vidLen = empty;
                 //
                 let author = empty;
+                let url_src = uri_local;
                 //
                 //
                 add_local.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     lede,

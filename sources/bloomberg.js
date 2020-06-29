@@ -46,13 +46,16 @@ async function main(uri) {
                 let author = empty;
                 let tag = empty;
                 let src = "https://www.conviva.com/wp-content/uploads/2019/12/Bloomberg-logo-.png";
-
+                let src_name = "Bloomberg";
                 let vidLen = empty;
                 let isVid = false;
                 let catLink = empty;
+                let url_src = uri;
                 let images = emptyArr;
                 let category = categori.trim();
                 news.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     lede,
@@ -98,6 +101,5 @@ cron.schedule("0 3 * * *", () => {
 //
 
 module.exports = {
-
     news
 }

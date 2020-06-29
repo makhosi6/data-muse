@@ -2,6 +2,7 @@ const vars = require('./storeVars');
 const puppeteer = require("puppeteer");
 const wsChromeEndpointurl = require('../browser');
 
+let src_name = "Aljazeera";
 //
 class Scrapper {
     constructor(uri) {
@@ -44,8 +45,7 @@ class Scrapper {
                         const vidLen = (time != null || undefined) ? await item.$eval("div.cardsvideoduration", div => div.innerText) : null;
                         let isVid = (vidLen !== null) ? true : false;
                         let url = await item.$eval('div.topics-sec-item-cont > a', a => a.href);
-                        //////
-
+                        //
                         let empty = null;
                         let emptyArr = "";
                         //
@@ -53,9 +53,11 @@ class Scrapper {
                         let images = emptyArr;
                         let tag = empty;
                         let author = empty;
+                        let url_src = this.uri;
                         //
-
                         arrr.push({
+                            url_src,
+                            src_name,
                             url,
                             headline,
                             lede,
@@ -74,6 +76,7 @@ class Scrapper {
                             author,
                             date
                         })
+
                     } catch (error) {
                         console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`)
                     }

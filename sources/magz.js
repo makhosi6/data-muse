@@ -59,12 +59,16 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let isVid = false;
                 let vidLen = empty;
                 //
+                let url_src = uri_men;
+                let src_name = 'men health';
                 let author = empty;
                 let date = empty;
                 let lede = empty;
 
                 add_men.push({
                     url,
+                    url_src,
+                    src_name,
                     headline,
                     lede,
                     thumbnail,
@@ -127,13 +131,17 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let isVid = false;
                 let vidLen = empty;
                 //
+                let src_name = 'womens health';
+                let url_src = uri_women;
                 let author = empty;
                 let date = empty;
                 let lede = empty;
                 add_women.push({
                     url,
+                    url_src,
                     headline,
                     lede,
+                    src_name,
                     thumbnail,
                     //
                     src,
@@ -195,6 +203,8 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let catLink = empty;
                 let tag = category;
                 //
+                let url_src = uri_vogue;
+                let src_name = 'vogue';
                 let images = emptyArr;
                 //
                 let isVid = false;
@@ -203,6 +213,8 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let lede = empty;
                 add_vogue.push({
                         url,
+                        url_src,
+                        src_name,
                         headline,
                         lede,
                         thumbnail,
@@ -258,11 +270,13 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 //
                 let empty = null;
                 let emptyArr = "";
+                let url_src = uri_you;
                 let src = "https://pbs.twimg.com/profile_images/463234912493907968/HxL6FPIG_400x400.jpeg";
                 //
                 let date = empty;
                 let author = empty;
                 let category = empty;
+                let src_name = 'YOU';
                 let catLink = empty;
                 let tag = category;
                 //
@@ -273,7 +287,9 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
 
                 //
                 add_you.push({
+                    src_name,
                     url,
+                    url_src,
                     headline,
                     lede,
                     thumbnail,

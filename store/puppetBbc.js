@@ -2,6 +2,7 @@ const vars = require('./storeVars');
 const puppeteer = require('puppeteer');
 const wsChromeEndpointurl = require('../browser');
 //
+let src_name = "BBC";
 class Scrapper {
     constructor(uri) {
         this.uri = uri;
@@ -54,8 +55,11 @@ class Scrapper {
                         let src = "https://nav.files.bbci.co.uk/orbit/db9d3ece642dbb01f23f791064ec1502/img/blq-orbit-blocks_grey_alpha.png";
                         let tag = category;
                         let author = empty;
+                        let url_src = this.uri;
                         //
                         arrr.push({
+                            src_name,
+                            url_src,
                             url,
                             src,
                             headline,

@@ -7,7 +7,7 @@ const vars = require('../store/storeVars');
 process.setMaxListeners(Infinity);
 //
 let news = [];
-
+let src_name = "CGTN";
 async function main(uri_cgtn) {
     try {
         const browser = await puppeteer.connect({
@@ -47,12 +47,16 @@ async function main(uri_cgtn) {
                 let author = empty;
                 let tag = empty;
                 let vidLen = empty;
+                let url_src = uri_cgtn;
                 let isVid = false;
                 let images = emptyArr;
                 let src = "https://ui.cgtn.com/static/ng/resource/images/icon/logo@3x.png";
 
                 //
                 news.push({
+                    url_src,
+                    src_name,
+                    //
                     url,
                     headline,
                     lede,
@@ -75,7 +79,6 @@ async function main(uri_cgtn) {
                 console.log('\x1b[42m%s\x1b[0m', `From ${uri_cgtn} loop: ${error.name}`)
                 continue;
             }
-
         }
         //
         await page_cgtn.close();

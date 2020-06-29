@@ -5,7 +5,7 @@ process.setMaxListeners(Infinity);
 ///
 const Puppet = puppet.Scrapper;
 let source = "https://flipboard.com/@espn";
-const dataOne = new Puppet(source);
+const dataOne = new Puppet(source, "ESPN");
 
 cron.schedule("0 3 * * *", () => {
 

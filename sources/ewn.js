@@ -8,9 +8,11 @@ const vars = require('../store/storeVars')
 process.setMaxListeners(Infinity);
 ///
 let add_trending = [];
+let src_name = "EWN";
 //
 async function main(uri_trending) {
     try {
+        let url_src = uri_trending;
         const browser = await puppeteer.connect({
             browserWSEndpoint: wsChromeEndpointurl,
             defaultViewport: null
@@ -29,6 +31,8 @@ async function main(uri_trending) {
                 const headline = await item.$eval('a', a => a.innerText);
 
                 add_trending.push({
+                    url_src,
+                    src_name,
                     "url": url,
                     "headline": headline
                 })

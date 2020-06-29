@@ -2,13 +2,15 @@ const vars = require('./storeVars');
 const puppeteer = require("puppeteer");
 const wsChromeEndpointurl = require('../browser');
 //
+
+//
 class Scrapper {
-    constructor(uri) {
+    constructor(uri, src) {
         this.uri = uri;
+        this.src = src;
         this.data = [];
         this.puppet = async function() {
             try {
-
                 const browser = await puppeteer.connect({
                     browserWSEndpoint: wsChromeEndpointurl,
                     defaultViewport: null
@@ -53,15 +55,19 @@ class Scrapper {
                         const d = c[0];
                         const url = decodeURIComponent(d);
 
+                        let url_src = this.uri;
                         let empty = null;
                         let emptyArr = "";
                         //
+                        let src_name = this.src;
                         let images = emptyArr;
                         let catLink = empty;
                         let vidLen = empty;
                         let isVid = false;
 
                         arrr.push({
+                            url_src,
+                            src_name,
                             url,
                             headline,
                             lede,

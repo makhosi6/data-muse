@@ -2,6 +2,8 @@ const vars = require('./storeVars');
 const puppeteer = require('puppeteer');
 const wsChromeEndpointurl = require('../browser');
 //
+let src_name = "Timeslive";
+//
 class Scrapper {
     constructor(uri) {
         this.uri = uri;
@@ -39,12 +41,12 @@ class Scrapper {
                         let a = img.split('url("');
                         let b = a[1];
                         let c = b.split('")');
+                        let url_src = this.uri;
                         let thumbnail = c[0];
-
+                        //
                         const iHtml = await page.evaluate(el => el.innerHTML, item);
                         let src = "https://www.timeslive.co.za/publication/custom/static/logos/timeslive.logo.png";
                         //
-
                         let emptyArr = "";
                         //
                         let images = emptyArr;
@@ -56,6 +58,8 @@ class Scrapper {
                         let date = catLink;
                         //
                         arrr.push({
+                            url_src,
+                            src_name,
                             url,
                             headline,
                             lede,

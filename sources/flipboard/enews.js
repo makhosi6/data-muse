@@ -4,7 +4,7 @@ const puppet = require('../../store/puppetFlipBoard');
 process.setMaxListeners(Infinity);
 const Puppet = puppet.Scrapper;
 let source = "https://flipboard.com/@enews";
-const dataOne = new Puppet(source);
+const dataOne = new Puppet(source, "eNews");
 ///
 cron.schedule("0 4 * * SUN", () => {
     (() => {

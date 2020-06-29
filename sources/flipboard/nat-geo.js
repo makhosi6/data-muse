@@ -1,5 +1,5 @@
 const cron = require("node-cron");
-const puppet = require('../.../store/puppetFlipBoard');
+const puppet = require('../../store/puppetFlipBoard');
 //
 process.setMaxListeners(Infinity);
 //
@@ -15,17 +15,17 @@ let sources = {
     //
 const Puppet = puppet.Scrapper;
 //one
-const dataOne = new Puppet(sources.animals);
+const dataOne = new Puppet(sources.animals, "nationalgeographic");
 //two
-const dataTwo = new Puppet(sources.news);
+const dataTwo = new Puppet(sources.news, "nationalgeographic");
 //three
-const dataThree = new Puppet(sources.photo);
+const dataThree = new Puppet(sources.photo, "nationalgeographic");
 //four
-const dataFour = new Puppet(sources.enviro);
+const dataFour = new Puppet(sources.enviro, "nationalgeographic");
 //five
-const dataFive = new Puppet(sources.science);
+const dataFive = new Puppet(sources.science, "nationalgeographic");
 //six
-const dataSix = new Puppet(sources.travel);
+const dataSix = new Puppet(sources.travel, "nationalgeographic");
 
 cron.schedule("0 4 * * SUN", () => {
     (() => {

@@ -1,8 +1,10 @@
 const vars = require('./storeVars');
 const puppeteer = require("puppeteer");
-const wsChromeEndpointurl = "ws://127.0.0.1:61959/devtools/browser/2615c84a-4bda-4059-9998-dba89fbde12a";
-// const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = "ws://127.0.0.1:61959/devtools/browser/2615c84a-4bda-4059-9998-dba89fbde12a";
+const wsChromeEndpointurl = require('../browser');
 
+//
+let src_name = "Wired";
 //
 class Scrapper {
     constructor(uri) {
@@ -35,6 +37,7 @@ class Scrapper {
 
                         let lede = empty;
                         let images = emptyArr;
+                        let url_src = this.uri;
                         let tag = empty;
                         let date = empty;
                         let isVid = empty;
@@ -43,6 +46,8 @@ class Scrapper {
                         let src = "https://www.wired.com/images/icons/logo-black.svg";
 
                         arrr.push({
+                            src_name,
+                            url_src,
                             url,
                             headline,
                             lede,

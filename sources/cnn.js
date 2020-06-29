@@ -13,11 +13,11 @@ let sources = {
     }
     //
 const Puppet = puppet.Scrapper;
-const One = new Puppet(sources.world);
-const Two = new Puppet(sources.africa);
-const Three = new Puppet(sources.tech);
-const Four = new Puppet(sources.health);
-const Five = new Puppet(sources.business);
+const One = new Puppet(sources.world, "world");
+const Two = new Puppet(sources.africa, "africa");
+const Three = new Puppet(sources.tech, "tech");
+const Four = new Puppet(sources.health, "health");
+const Five = new Puppet(sources.business, "business");
 
 //
 
@@ -38,9 +38,8 @@ cron.schedule("0 */6 * * *", () => {
         //////////////
     })();
 });
-//.
+//
 module.exports = {
-
     "world": One.data,
     "africa": Two.data,
     "tech": Three.data,

@@ -11,9 +11,9 @@ let sources = {
     //
 const Puppet = puppet.Scrapper;
 //one
-const dataOne = new Puppet(sources.news);
+const dataOne = new Puppet(sources.news, "foodandwine");
 //two
-const dataTwo = new Puppet(sources.recipe);
+const dataTwo = new Puppet(sources.recipe, "foodandwine");
 
 //////
 cron.schedule("0 4 * * SUN", () => {

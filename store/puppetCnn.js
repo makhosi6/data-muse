@@ -3,9 +3,11 @@ const puppeteer = require('puppeteer');
 const vars = require('./storeVars');
 const wsChromeEndpointurl = require('../browser');
 //
+let src_name = "CNN";
 class Scrapper {
-    constructor(uri) {
-        this._uri = uri;
+    constructor(uri, cat) {
+        this.uri = uri;
+        this.cat = cat;
         this.data = [];
         this.puppet = async function() {
             try {
@@ -15,7 +17,7 @@ class Scrapper {
                 });
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
-                await page.goto(this._uri, { waitUntil: 'networkidle2', timeout: 0 });
+                await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
                 await page.waitForSelector('.cd__wrapper');
                 const items = await page.$$('.cd__wrapper');
                 //
@@ -29,7 +31,7 @@ class Scrapper {
                         const str = await subText.split("_");
                         const first = await str[0];
                         const sec = await str[2];
-                        const category = (first != "") ? await first : null;
+                        const c = (first != "") ? await first : null;
                         const isVid = (sec == "video") ? true : false;
                         //VALUES
                         const head = await item.$('.cd__headline');
@@ -46,7 +48,7 @@ class Scrapper {
 
                         let empty = null;
                         let emptyArr = "";
-
+                        let category = (c == null || undefined) ? this.cat : c;
 
                         let tag = category;
                         let lede = empty;
@@ -54,9 +56,12 @@ class Scrapper {
                         let author = empty;
                         let vidLen = empty;
                         let catLink = empty;
+                        let url_src = this.uri;
                         let images = emptyArr;
 
                         arrr.push({
+                            url_src,
+                            src_name,
                             url,
                             headline,
                             lede,
@@ -78,15 +83,15 @@ class Scrapper {
 
 
                     } catch (error) {
-                        console.log('\x1b[42m%s\x1b[0m', `From ${this._uri} loop: ${error.name}`)
+                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`)
                     }
                 }
                 this.data = arrr;
                 await page.close()
-                console.log('\x1b[43m%s\x1b[0m', `Done: ${this._uri}`);
+                console.log('\x1b[43m%s\x1b[0m', `Done: ${this.uri}`);
 
             } catch (error) {
-                console.log('\x1b[41m%s\x1b[0m', `From ${this._uri} Main: ${error}`);
+                console.log('\x1b[41m%s\x1b[0m', `From ${this.uri} Main: ${error}`);
             }
 
             return this.data

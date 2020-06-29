@@ -10,10 +10,13 @@ process.setMaxListeners(Infinity);
 //
 let news = [];
 let src = "https://citizen.co.za/wp-content/themes/citizen-v5-2/images/citizen_logo_footer_v2.png";
+let src_name = "Citizen";
+
 
 async function main(uri) {
 
     try {
+        let url_src = uri;
         const browser = await puppeteer.connect({
             browserWSEndpoint: wsChromeEndpointurl,
             defaultViewport: null
@@ -49,6 +52,8 @@ async function main(uri) {
                 let isVid = false;
 
                 news.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     lede,
@@ -104,6 +109,8 @@ async function main(uri) {
                 let isVid = false;
 
                 news.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     lede,

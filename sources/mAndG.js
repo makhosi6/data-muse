@@ -7,9 +7,11 @@ const vars = require('../store/storeVars');
 process.setMaxListeners(Infinity);
 //
 let add = [];
+let src_name = "mg";
 
 async function main(uri) {
     try {
+        let url_src = uri;
         const browser = await puppeteer.connect({
             browserWSEndpoint: wsChromeEndpointurl,
             defaultViewport: null
@@ -56,7 +58,9 @@ async function main(uri) {
                 let vidLen = empty;
 
                 add.push({
+                    url_src,
                     url,
+                    src_name,
                     headline,
                     lede,
                     thumbnail,

@@ -38,7 +38,7 @@ async function main(uri) {
                 const url = await page.evaluate(a => a.href, title);
                 const headline = await page.evaluate(a => a.innerText, title);
                 //
-
+                let url_src = uri;
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
                 let empty = null;
                 let emptyArr = "";
@@ -51,6 +51,7 @@ async function main(uri) {
                 let isVid = true;
                 let vidLen = empty;
                 add.push({
+                    url_src,
                     url,
                     headline,
                     lede,

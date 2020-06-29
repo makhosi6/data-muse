@@ -12,12 +12,13 @@ process.setMaxListeners(Infinity);
 let add = [];
 let data = [];
 let trends = [];
+let src_name = "KICKOFF";
 let src = "https://cdn.kickoff.com/assets/kickoff-logo@2x-3a7d35049d4a22e56ca2579da5c8d8df0edf67f40a78af4dab3de8f159c69494.png";
 let add_list = [];
 async function main(uri) {
 
     try {
-
+        let url_src = uri;
         const browser = await puppeteer.connect({
             browserWSEndpoint: wsChromeEndpointurl,
             defaultViewport: null
@@ -55,6 +56,8 @@ async function main(uri) {
                 let author = empty;
                 let date = empty;
                 add.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     isVid,
@@ -111,6 +114,8 @@ async function main(uri) {
                         let date = empty;
 
                         data.push({
+                            url_src,
+                            src_name,
                             url,
                             headline,
                             lede,
@@ -146,6 +151,7 @@ async function main(uri) {
                 const headline = await one.$eval('.pod__title > a', a => a.innerText);
                 // const btn = await each.$eval('a.button', a => a.innerText);
                 trends.push({
+                    url_src,
                     "url": link,
                     "headline": headline,
                 })
@@ -184,6 +190,8 @@ async function main(uri) {
                 const teamName = await page_list.evaluate(el => el.textContent, team);
 
                 add_list.push({
+                    url_src,
+                    src_name,
                     src,
                     more,
                     teamNum,
@@ -215,7 +223,6 @@ cron.schedule("0 3 * * *", () => {
 });
 /////
 module.exports = {
-
     "news": add,
     "trends": trends,
     "table list": add_list

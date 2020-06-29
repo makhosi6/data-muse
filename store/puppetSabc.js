@@ -2,6 +2,8 @@ const puppeteer = require("puppeteer");
 const wsChromeEndpointurl = require('../browser');
 const vars = require('./storeVars');
 //
+let src_name = "SABC";
+//
 class Scrapper {
     constructor(uri, cat) {
         this.uri = uri;
@@ -42,9 +44,12 @@ class Scrapper {
                         let tag = category;
                         let catLink = null;
                         let isVid = true;
+                        let url_src = this.uri;
                         let vidLen = catLink;
                         let author = catLink;
                         arrr.push({
+                            url_src,
+                            src_name,
                             url,
                             headline,
                             lede,

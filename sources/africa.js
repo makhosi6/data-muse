@@ -5,12 +5,13 @@ const wsChromeEndpointurl = require('../browser');
 const vars = require('../store/storeVars');
 ///
 process.setMaxListeners(Infinity);
+let src_name = "Africanews";
 //
 let news = [];
 let trending = [];
 async function main(uri) {
     try {
-
+        let url_src = uri;
         const browser = await puppeteer.connect({
             browserWSEndpoint: wsChromeEndpointurl,
         });
@@ -31,6 +32,8 @@ async function main(uri) {
                 //
                 const link = await page.evaluate(a => a.href, ab);
                 trending.push({
+                    url_src,
+                    src_name,
                     "date": date.replace(/(\r\n|\n|\r)/gm, "").trim(),
                     "url": link,
                     "headline": headline.replace(/(\r\n|\n|\r)/gm, "").trim(),
@@ -73,7 +76,10 @@ async function main(uri) {
                 let catLink = empty;
                 let images = emptyArr;
 
+
                 news.push({
+                    url_src,
+                    src_name,
                     url,
                     headline,
                     lede,
@@ -113,8 +119,7 @@ let source = "https://www.africanews.com/";
 cron.schedule("0 */6 * * *", () => {
 
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "Africa fired at:" + Date());
-
+        console.log('\x1b[46m%s\x1b[0m', "Africanews fired at:" + Date());
         main(source);
 
     })();
