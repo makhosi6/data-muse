@@ -5,8 +5,8 @@ const vars = require('./store/storeVars');
     const browser = await puppeteer.launch({
         args: vars.argsArr,
         defaultViewport: null,
-        headless: vars.bool,
-        executablePath: vars.exPath
+        // headless: vars.bool,
+        // executablePath: vars.exPath
     });
     console.log(browser.wsEndpoint())
     module.exports = browser.wsEndpoint();
