@@ -3,7 +3,8 @@ const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 process.setMaxListeners(Infinity);
-let vars = require('../store/storeVars');
+const vars = require('../store/storeVars');
+const Routa = vars.Routa;
 
 // 
 //
@@ -298,7 +299,6 @@ let source_mostPopula = "https://hbr.org/most-popular";
 let source_study = "https://hbr.org/visual-library";
 let source_video = "https://hbr.org/video";
 //
-
 cron.schedule("0 4 * * SUN", () => {
     (() => {
         console.log('\x1b[46m%s\x1b[0m', "HBR fired at:" + Date());
@@ -308,9 +308,11 @@ cron.schedule("0 4 * * SUN", () => {
     })();
 });
 //
-module.exports = {
-    "news": add_news,
-    "most popular": add_mostPopula,
-    "research": add_study,
-    "video": add_video
-};
+Routa.get('/hbr', (req, res) => {
+    res.send({
+        "news": add_news,
+        "most popular": add_mostPopula,
+        "research": add_study,
+        "video": add_video
+    });
+})

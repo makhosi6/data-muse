@@ -2,12 +2,13 @@ require('dotenv').config();
 const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
-const vars = require('../store/storeVars')
-    ///
+const vars = require('../store/storeVars');
+const Routa = vars.Routa;
+///
 process.setMaxListeners(Infinity);
 //
 let add = [];
-let src_name = "";
+let src_name = "W24";
 
 async function main(uri) {
     try {
@@ -104,7 +105,9 @@ cron.schedule("0 4 * * SUN", () => {
     })();
 });
 /////
+Routa.get('/w24', (req, res) => {
+    res.send({
+        "news": add
 
-module.exports = {
-    "news": add
-}
+    });
+})

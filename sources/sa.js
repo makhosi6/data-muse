@@ -1,7 +1,8 @@
 const cron = require("node-cron");
 const puppet = require('../store/saScrapper');
 require('dotenv').config();
-//
+const { Routa } = require('../store/storeVars')
+    //
 process.setMaxListeners(Infinity);
 //
 let sources = {
@@ -41,12 +42,17 @@ cron.schedule("0 3 * * *", () => {
 });
 
 /////
-module.exports = {
+module.exports = {};
+//
+Routa.get('/sa-scrapper', (req, res) => {
+    res.send({
 
-    "business": dataOne.data,
-    "motoring": dataTwo.data,
-    "lifestyle": dataThree.data,
-    "news": dataFour.data,
-    "tech": dataFive.data,
-    "sport": dataSix.data
-};
+        "business": dataOne.data,
+        "motoring": dataTwo.data,
+        "lifestyle": dataThree.data,
+        "news": dataFour.data,
+        "tech": dataFive.data,
+        "sport": dataSix.data
+
+    });
+})

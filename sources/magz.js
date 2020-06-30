@@ -4,6 +4,7 @@ const cron = require("node-cron");
 require('dotenv').config();
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
 const vars = require('../store/storeVars');
+const Routa = vars.Routa;
 
 ///
 process.setMaxListeners(Infinity);
@@ -341,9 +342,13 @@ cron.schedule("0 4 * * SUN", () => {
     })();
 });
 //
-module.exports = {
-    "men lifestyle": add_men,
-    "women lifestyle": add_women,
-    "vogue": add_vogue,
-    "you": add_you
-};
+module.exports = {};
+
+Routa.get('/magz-lifestyle', (req, res) => {
+    res.send({
+        "men lifestyle": add_men,
+        "women lifestyle": add_women,
+        "vogue": add_vogue,
+        "you": add_you
+    });
+})

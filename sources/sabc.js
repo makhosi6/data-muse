@@ -4,6 +4,7 @@ require('dotenv').config();
 const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const vars = require('../store/storeVars');
+const Routa = vars.Routa;
 ///
 process.setMaxListeners(Infinity);
 //
@@ -118,12 +119,14 @@ cron.schedule("0 3 * * *", () => {
     })();
 });
 //
+Routa.get('/sabc', (req, res) => {
+    res.send({
+        "news": add,
+        "business": dataTwo.data,
+        "politics": dataOne.data,
+        "science": dataThree.data,
+        "sport": dataFour.data,
+        "world": dataFive.data
 
-module.exports = {
-    "news": add,
-    "business": dataTwo.data,
-    "politics": dataOne.data,
-    "science": dataThree.data,
-    "sport": dataFour.data,
-    "world": dataFive.data
-};
+    });
+})

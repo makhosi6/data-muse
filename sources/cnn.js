@@ -1,5 +1,6 @@
 require('dotenv').config();
 const cron = require("node-cron");
+const { Routa } = require('../store/storeVars')
 const puppet = require('../store/puppetCnn');
 //
 process.setMaxListeners(Infinity);
@@ -20,11 +21,9 @@ const Four = new Puppet(sources.health, "health");
 const Five = new Puppet(sources.business, "business");
 
 //
-
 cron.schedule("0 */6 * * *", () => {
-
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "CNN fire at:" + Date());
+        console.log('\x1b[46m%s\x1b[0m', "CNN fired at:" + Date());
         //one
         One.puppet();
         //Two
@@ -35,14 +34,17 @@ cron.schedule("0 */6 * * *", () => {
         Four.puppet();
         //Five
         Five.puppet();
-        //////////////
+        ///
     })();
 });
 //
-module.exports = {
-    "world": One.data,
-    "africa": Two.data,
-    "tech": Three.data,
-    "health": Four.data,
-    "business": Five.data
-}
+Routa.get('/cnn', (req, res) => {
+    res.send({
+        "world": One.data,
+        "africa": Two.data,
+        "tech": Three.data,
+        "health": Four.data,
+        "business": Five.data
+
+    });
+});

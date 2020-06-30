@@ -1,43 +1,51 @@
-const express = require('express');
-require('dotenv').config()
-const aljRouta = express.Router();
-const puppet = require('./routes/store/puppetAlj');
-const puppett = require('./routes/store/puppetCnn');
+(function() {
+    const express = require('express');
+    require('dotenv').config()
+    const { Routa } = require('./store/storeVars')
+    const puppet = require('./store/puppetAlj');
+    const puppett = require('./store/puppetCnn');
 
-//
-process.setMaxListeners(Infinity);
-//
-let empty = null;
-let emptyArr = [];
-
-
-let source = {
-        docs: "https://www.aljazeera.com/documentaries/",
-        africa: "https://edition.cnn.com/africa",
-        trending: "https://www.aljazeera.com/",
-        news: "https://www.aljazeera.com/topics/regions/africa.html",
-    }
     //
+    process.setMaxListeners(Infinity);
+    //
+    let empty = null;
+    let emptyArr = [];
 
-const Puppet = puppet.Scrapper;
+    let source = {
+            docs: "https://www.aljazeera.com/documentaries/",
+            africa: "https://edition.cnn.com/africa",
+            trending: "https://www.aljazeera.com/",
+            news: "https://www.aljazeera.com/topics/regions/africa.html",
+        }
+        //
 
-const dataNews = new Puppet(source.news);
-dataNews.puppet();
+    const Puppet = puppet.Scrapper;
 
-//////
-const Puppett = puppett.Scrapper;
+    const dataNews = new Puppet(source.news);
+    dataNews.puppet();
 
-const dataT = new Puppett(source.africa);
-dataT.puppet();
+    //////
+    const Puppett = puppett.Scrapper;
+
+    const dataT = new Puppett(source.africa, "Africa");
+    dataT.puppet();
 
 
-///
-aljRouta.get('/buzzz', (req, res) => {
-    res.send({
+    ///
+    Routa.get('/buzzz', (req, res) => {
+        res.send({
 
-        "aljNews": dataNews.data,
-        "cnn":dataT.data
+            "aljNews": dataNews.data,
+            "cnn": dataT.data
 
-    });
-})
-module.exports = aljRouta;
+        });
+    })
+
+
+
+
+
+    module.exports = {
+        "cnn": dataT.data
+    };
+})();

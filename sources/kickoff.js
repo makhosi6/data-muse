@@ -5,6 +5,7 @@ const puppeteer = require('puppeteer');
 require('dotenv').config();
 const cron = require("node-cron");
 const vars = require('../store/storeVars');
+const Routa = vars.Routa;
 
 ///
 process.setMaxListeners(Infinity);
@@ -16,7 +17,6 @@ let src_name = "KICKOFF";
 let src = "https://cdn.kickoff.com/assets/kickoff-logo@2x-3a7d35049d4a22e56ca2579da5c8d8df0edf67f40a78af4dab3de8f159c69494.png";
 let add_list = [];
 async function main(uri) {
-
     try {
         let url_src = uri;
         const browser = await puppeteer.connect({
@@ -221,9 +221,12 @@ cron.schedule("0 3 * * *", () => {
         main(source);
     })();
 });
-/////
-module.exports = {
-    "news": add,
-    "trends": trends,
-    "table list": add_list
-}
+///
+Routa.get('/kickoff', (req, res) => {
+    res.send({
+        "news": add,
+        "trends": trends,
+        "table list": add_list
+
+    });
+});

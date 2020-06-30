@@ -3,6 +3,7 @@ const puppeteer = require("puppeteer");
 require('dotenv').config();
 const wsChromeEndpointurl = require('../browser');
 const vars = require('../store/storeVars');
+const Routa = vars.Routa;
 ///
 process.setMaxListeners(Infinity);
 let src_name = "Africanews";
@@ -125,8 +126,11 @@ cron.schedule("0 */6 * * *", () => {
     })();
 });
 /////
+Routa.get('/africa', (req, res) => {
+    res.send({
 
-module.exports = {
-    news,
-    trending
-};
+        news,
+        trending
+
+    });
+})

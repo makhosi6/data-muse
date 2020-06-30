@@ -3,11 +3,12 @@ const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 require('dotenv').config();
 const vars = require('../store/storeVars');
+const Routa = vars.Routa;
 ///
 process.setMaxListeners(Infinity);
 //
 let add = [];
-let src_name = "mg";
+let src_name = "M&G";
 
 async function main(uri) {
     try {
@@ -103,8 +104,9 @@ cron.schedule("0 4 * * SUN", () => {
 
     })();
 });
-/////
-
-module.exports = {
-    "lifestyle": add
-};
+//
+Routa.get('/mg/news', (req, res) => {
+    res.send({
+        "lifestyle": add
+    });
+})

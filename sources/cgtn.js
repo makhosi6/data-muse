@@ -3,6 +3,7 @@ require('dotenv').config();
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
+const Routa = vars.Routa;
 ///
 process.setMaxListeners(Infinity);
 //
@@ -90,8 +91,6 @@ async function main(uri_cgtn) {
 }
 let source_cgtn = "https://www.cgtn.com/";
 
-
-
 cron.schedule("0 3 * * *", () => {
 
     (() => {
@@ -101,8 +100,8 @@ cron.schedule("0 3 * * *", () => {
     })();
 });
 /////
-
-module.exports = {
-
-    news
-}
+Routa.get('/cgtn', (req, res) => {
+    res.send({
+        news
+    });
+})

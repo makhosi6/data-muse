@@ -4,7 +4,8 @@ const puppeteer = require('puppeteer');
 require('dotenv').config();
 const puppet = require('../store/puppetEwn');
 const vars = require('../store/storeVars')
-    //
+const Routa = vars.Routa;
+//
 process.setMaxListeners(Infinity);
 ///
 let add_trending = [];
@@ -83,11 +84,15 @@ cron.schedule("0 */6 * * *", () => {
         main(sources.trending);
     })();
 });
-////////
-module.exports = {
-    "news": dataOne.data,
-    "lifestyle": dataTwo.data,
-    "politics": dataThree.data,
-    "sport": dataFour.data,
-    "trending": add_trending
-}
+//
+Routa.get('/ewn', (req, res) => {
+    res.send({
+
+        "news": dataOne.data,
+        "lifestyle": dataTwo.data,
+        "politics": dataThree.data,
+        "sport": dataFour.data,
+        "trending": add_trending
+
+    });
+})

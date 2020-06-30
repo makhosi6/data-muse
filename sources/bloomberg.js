@@ -2,6 +2,7 @@ require('dotenv').config();
 const cron = require("node-cron");
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
 const vars = require('../store/storeVars');
+const Routa = vars.Routa;
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 ///
@@ -99,7 +100,10 @@ cron.schedule("0 3 * * *", () => {
     })();
 });
 //
+Routa.get('/bloomberg', (req, res) => {
+    res.send({
 
-module.exports = {
-    news
-}
+        news
+
+    });
+})

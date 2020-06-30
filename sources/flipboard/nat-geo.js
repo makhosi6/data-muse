@@ -1,6 +1,7 @@
 const cron = require("node-cron");
 const puppet = require('../../store/puppetFlipBoard');
-//
+const { Routa } = require('../../store/storeVars')
+    //
 process.setMaxListeners(Infinity);
 //
 let sources = {
@@ -41,11 +42,14 @@ cron.schedule("0 4 * * SUN", () => {
     })();
 });
 //
-module.exports = {
-    "animals": dataOne.data,
-    "news": dataTwo.data,
-    "photo": dataThree.data,
-    "environnment": dataFour.data,
-    "science": dataFive.data,
-    "travel": dataSix.data
-};
+
+Routa.get('/nat-geo', (req, res) => {
+    res.send({
+        "animals": dataOne.data,
+        "news": dataTwo.data,
+        "photo": dataThree.data,
+        "environnment": dataFour.data,
+        "science": dataFive.data,
+        "travel": dataSix.data
+    });
+})

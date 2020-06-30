@@ -3,6 +3,7 @@ const wsChromeEndpointurl = require('../browser');
 require('dotenv').config();
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars')
+const Routa = vars.Routa;
 
 ///
 process.setMaxListeners(Infinity);
@@ -13,7 +14,6 @@ let src_name = 'Laduma';
 let src = "https://dj0j0ofql4htg.cloudfront.net/assets/dumb/images/soccerladuma-logo.png";
 
 async function main(uri_inter, uri_local) {
-
     try {
         const browser = await puppeteer.connect({
             browserWSEndpoint: wsChromeEndpointurl,
@@ -171,11 +171,10 @@ cron.schedule("0 3 * * *", () => {
     })();
 });
 
+Routa.get('/laduma', (req, res) => {
+    res.send({
+        "news": add_inter,
+        "sport": add_local
 
-/////
-
-module.exports = {
-
-    "news": add_inter,
-    "sport": add_local
-};
+    });
+})

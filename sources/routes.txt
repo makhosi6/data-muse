@@ -12,6 +12,7 @@ TWICE A DAY
 DAILY
 
     api/v1/bloomberg
+    api/v1/hot-trends
     api/v1/citizen
     api/v1/kickoff
     api/v1/sa-scrapper      cron.schedule("0 3 * * *", () => {  })
@@ -25,7 +26,7 @@ WEEKLY
     api/v1/wired-all
     api/v1/enews
     api/v1/foodwine
-    api/v1/flipboard/natgeo                         cron.schedule("0 4 * * SUN", () => {  })
+    api/v1/nat-geo                         cron.schedule("0 4 * * SUN", () => {  })
     api/v1/magz-lifestyle
 
 MONTHLY

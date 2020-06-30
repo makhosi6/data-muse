@@ -5,6 +5,7 @@ const cron = require("node-cron");
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
 const wsChromeEndpointurl = require('../browser');
+const Routa = vars.Routa;
 ///
 process.setMaxListeners(Infinity);
 //
@@ -152,7 +153,10 @@ cron.schedule("0 3 * * *", () => {
     })();
 });
 /////
+Routa.get('/citizen', (req, res) => {
+    res.send({
 
-module.exports = {
-    news
-}
+        news
+
+    });
+})

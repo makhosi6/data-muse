@@ -3,7 +3,8 @@ const cron = require("node-cron");
 const vars = require('../store/storeVars');
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
-///
+const { Routa } = require('../store/storeVars')
+    ///
 process.setMaxListeners(Infinity);
 //
 let trendsHot = [];
@@ -57,12 +58,15 @@ let source = "https://trends.google.com/trends/trendingsearches/daily?geo=ZA";
 cron.schedule("0 */6 * * *", () => {
 
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "TRENDS fire at:" + Date());
+        console.log('\x1b[46m%s\x1b[0m', " HOT TRENDS fired at:" + Date());
         main(source);
     })();
 });
-////
-module.exports = {
-    trendsHot
 
-};
+
+Routa.get('/hot-trends', (req, res) => {
+    res.send({
+        trendsHot
+
+    });
+})

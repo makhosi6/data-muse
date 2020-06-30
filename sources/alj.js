@@ -4,7 +4,7 @@ const cron = require("node-cron");
 const vars = require('../store/storeVars');
 const wsChromeEndpointurl = require('../browser');
 const puppet = require('../store/puppetAlj');
-
+const Routa = vars.Routa;
 //
 process.setMaxListeners(Infinity);
 ///
@@ -248,9 +248,14 @@ cron.schedule("0 */6 * * *", () => {
     })();
 });
 
-module.exports = {
-    "documentaries": add_docs,
-    "africa": dataAfrica.data,
-    "news": dataNews.data,
-    "trending": add_trending
-};
+module.exports = {};
+
+Routa.get('/alj', (req, res) => {
+    res.send({
+        "documentaries": add_docs,
+        "africa": dataAfrica.data,
+        "news": dataNews.data,
+        "trending": add_trending
+
+    });
+})

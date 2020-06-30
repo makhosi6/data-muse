@@ -3,7 +3,8 @@ const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars')
-    //
+const Routa = vars.Routa;
+//
 process.setMaxListeners(Infinity);
 ///
 let add_sport = [];
@@ -255,7 +256,7 @@ async function main(uri_sport, uri_video, uri_business) {
 
 cron.schedule("0 */6 * * *", () => {
     (() => {
-        console.log('\x1b[46m%s\x1b[0m', "ENCA fired at:" + Date());
+        console.log('\x1b[46m%s\x1b[0m', "ENCA fired at: " + Date());
         let source_sport = "https://www.enca.com/sports";
         let source_video = "https://www.enca.com/watch";
         let source_business = "https://www.enca.com/business";
@@ -265,9 +266,13 @@ cron.schedule("0 */6 * * *", () => {
     })();
 });
 //
-module.exports = {
-    "sport": add_sport,
-    "video": add_video,
-    "business": add_business,
-    "trends": add_trends
-}
+Routa.get('/enca', (req, res) => {
+    res.send({
+        "sport": add_sport,
+        "video": add_video,
+        "business": add_business,
+        "trends": add_trends
+
+
+    });
+})

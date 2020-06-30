@@ -1,6 +1,7 @@
 const puppet = require('../store/puppetBbc');
 require('dotenv').config();
 const cron = require("node-cron");
+const { Routa } = require('../store/storeVars')
 process.setMaxListeners(Infinity);
 //
 let sources = {
@@ -41,12 +42,14 @@ cron.schedule("0 */6 * * *", () => {
     })();
 });
 //
+Routa.get('/bbc', (req, res) => {
+    res.send({
+        "africa": dataTwo.data,
+        "news": dataOne.data,
+        "real": dataFour.data,
+        "health": dataThree.data,
+        "sport": dataFive.data,
+        "tech": dataSix.data
 
-module.exports = {
-    "africa": dataTwo.data,
-    "news": dataOne.data,
-    "real": dataFour.data,
-    "health": dataThree.data,
-    "sport": dataFive.data,
-    "tech": dataSix.data
-};
+    });
+});

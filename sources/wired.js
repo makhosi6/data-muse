@@ -30,8 +30,11 @@ cron.schedule("0 4 * * SUN", () => {
     })();
 });
 //
-module.exports = {
-    "science": dataOne.data,
-    "business": dataTwo.data,
-    "lifestyle": dataThree.data
-};
+Routa.get('/wired-all', (req, res) => {
+    res.send({
+
+        "science": dataOne.data,
+        "business": dataTwo.data,
+        "lifestyle": dataThree.data
+    });
+})
