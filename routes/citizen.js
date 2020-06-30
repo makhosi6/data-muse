@@ -1,18 +1,16 @@
-const express = require('express');
-const citizen = express.Router();
+const express = require("express");
+const Routa = express.Router();
 require('dotenv').config();
 const cron = require("node-cron");
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
 const wsChromeEndpointurl = require('../browser');
-const Routa = vars.Routa;
 ///
 process.setMaxListeners(Infinity);
 //
 let news = [];
 let src = "https://citizen.co.za/wp-content/themes/citizen-v5-2/images/citizen_logo_footer_v2.png";
 let src_name = "Citizen";
-
 
 async function main(uri) {
 
@@ -159,4 +157,5 @@ Routa.get('/citizen', (req, res) => {
         news
 
     });
-})
+});
+module.exports = Routa;

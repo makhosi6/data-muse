@@ -3,8 +3,9 @@ const cron = require("node-cron");
 const vars = require('../store/storeVars');
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
-const { Routa } = require('../store/storeVars')
-    ///
+const express = require("express");
+const Routa = express.Router();
+///
 process.setMaxListeners(Infinity);
 //
 let trendsHot = [];
@@ -69,4 +70,5 @@ Routa.get('/hot-trends', (req, res) => {
         trendsHot
 
     });
-})
+});
+module.exports = Routa;

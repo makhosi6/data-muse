@@ -3,7 +3,8 @@ const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 require('dotenv').config();
 const vars = require('../store/storeVars');
-const Routa = vars.Routa;
+const express = require("express");
+const Routa = express.Router();
 ///
 process.setMaxListeners(Infinity);
 //
@@ -109,4 +110,5 @@ Routa.get('/mg/news', (req, res) => {
     res.send({
         "lifestyle": add
     });
-})
+});
+module.exports = Routa;

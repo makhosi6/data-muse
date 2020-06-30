@@ -4,9 +4,8 @@ const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 process.setMaxListeners(Infinity);
 const vars = require('../store/storeVars');
-const Routa = vars.Routa;
-
-// 
+const express = require("express");
+const Routa = express.Router();
 //
 let add_news = [];
 let add_mostPopula = [];
@@ -315,4 +314,5 @@ Routa.get('/hbr', (req, res) => {
         "research": add_study,
         "video": add_video
     });
-})
+});
+module.exports = Routa;

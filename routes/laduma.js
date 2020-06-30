@@ -3,7 +3,8 @@ const wsChromeEndpointurl = require('../browser');
 require('dotenv').config();
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars')
-const Routa = vars.Routa;
+const express = require("express");
+const Routa = express.Router();
 
 ///
 process.setMaxListeners(Infinity);
@@ -177,4 +178,5 @@ Routa.get('/laduma', (req, res) => {
         "sport": add_local
 
     });
-})
+});
+module.exports = Routa;

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const cron = require("node-cron");
-const { Routa } = require('../store/storeVars')
+const express = require("express");
+const Routa = express.Router();
 const puppet = require('../store/puppetCnn');
 //
 process.setMaxListeners(Infinity);
@@ -48,3 +49,4 @@ Routa.get('/cnn', (req, res) => {
 
     });
 });
+module.exports = Routa;

@@ -1,4 +1,6 @@
 const cron = require("node-cron");
+const express = require("express");
+const Routa = express.Router();
 const puppet = require('../store/puppetWired');
 require('dotenv').config();
 ///
@@ -37,4 +39,5 @@ Routa.get('/wired-all', (req, res) => {
         "business": dataTwo.data,
         "lifestyle": dataThree.data
     });
-})
+});
+module.exports = Routa;

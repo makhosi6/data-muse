@@ -2,9 +2,10 @@ const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 require('dotenv').config();
+const express = require("express");
+const Routa = express.Router();
 const puppet = require('../store/puppetEwn');
-const vars = require('../store/storeVars')
-const Routa = vars.Routa;
+const vars = require('../store/storeVars');
 //
 process.setMaxListeners(Infinity);
 ///
@@ -48,7 +49,6 @@ async function main(uri_trending) {
     } catch (error) {
         console.log('\x1b[41m%s\x1b[0m', `From ${uri_trending} Main: ${error}`);
     }
-
 }
 
 let sources = {
@@ -95,4 +95,5 @@ Routa.get('/ewn', (req, res) => {
         "trending": add_trending
 
     });
-})
+});
+module.exports = Routa;

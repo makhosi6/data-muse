@@ -1,6 +1,7 @@
 const cron = require("node-cron");
 const puppet = require('../store/puppetTImes');
-const { Routa } =
+const express = require("express");
+const Routa = express.Router();
 ///
 process.setMaxListeners(Infinity);
 //
@@ -18,7 +19,6 @@ const dataTwo = new Puppet(sources.news);
 //Three
 const dataThree = new Puppet(sources.sport);
 /////
-
 cron.schedule("0 */6 * * *", () => {
 
     (() => {
@@ -39,4 +39,5 @@ Routa.get('/time-live', (req, res) => {
 
 
     });
-})
+});
+module.exports = Routa;

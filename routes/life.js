@@ -3,7 +3,8 @@ const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
-const Routa = vars.Routa;
+const express = require("express");
+const Routa = express.Router();
 ///
 process.setMaxListeners(Infinity);
 //
@@ -110,4 +111,5 @@ Routa.get('/w24', (req, res) => {
         "news": add
 
     });
-})
+});
+module.exports = Routa;

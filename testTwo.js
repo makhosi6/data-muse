@@ -1,10 +1,10 @@
 (function() {
-    const express = require('express');
-    require('dotenv').config()
-    const { Routa } = require('./store/storeVars')
+    const express = require("express");
+    const Routa = express.Router();
+
+    require('dotenv').config();
     const puppet = require('./store/puppetAlj');
     const puppett = require('./store/puppetCnn');
-
     //
     process.setMaxListeners(Infinity);
     //
@@ -26,7 +26,6 @@
 
     //////
     const Puppett = puppett.Scrapper;
-
     const dataT = new Puppett(source.africa, "Africa");
     dataT.puppet();
 
@@ -41,11 +40,5 @@
         });
     })
 
-
-
-
-
-    module.exports = {
-        "cnn": dataT.data
-    };
+    module.exports = Routa;
 })();

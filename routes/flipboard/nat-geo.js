@@ -1,7 +1,8 @@
 const cron = require("node-cron");
 const puppet = require('../../store/puppetFlipBoard');
-const { Routa } = require('../../store/storeVars')
-    //
+const express = require("express");
+const Routa = express.Router();
+//
 process.setMaxListeners(Infinity);
 //
 let sources = {
@@ -52,4 +53,5 @@ Routa.get('/nat-geo', (req, res) => {
         "science": dataFive.data,
         "travel": dataSix.data
     });
-})
+});
+module.exports = Routa;

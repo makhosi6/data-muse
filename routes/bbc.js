@@ -1,7 +1,8 @@
 const puppet = require('../store/puppetBbc');
 require('dotenv').config();
 const cron = require("node-cron");
-const { Routa } = require('../store/storeVars')
+const express = require("express");
+const Routa = express.Router();
 process.setMaxListeners(Infinity);
 //
 let sources = {
@@ -53,3 +54,4 @@ Routa.get('/bbc', (req, res) => {
 
     });
 });
+module.exports = Routa;

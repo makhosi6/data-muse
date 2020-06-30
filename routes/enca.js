@@ -2,8 +2,9 @@ require('dotenv').config();
 const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
-const vars = require('../store/storeVars')
-const Routa = vars.Routa;
+const vars = require('../store/storeVars');
+const express = require("express");
+const Routa = express.Router();
 //
 process.setMaxListeners(Infinity);
 ///
@@ -275,4 +276,5 @@ Routa.get('/enca', (req, res) => {
 
 
     });
-})
+});
+module.exports = Routa;

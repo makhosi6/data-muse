@@ -3,7 +3,8 @@ require('dotenv').config();
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
-const Routa = vars.Routa;
+const express = require("express");
+const Routa = express.Router();
 ///
 process.setMaxListeners(Infinity);
 //
@@ -95,7 +96,6 @@ cron.schedule("0 3 * * *", () => {
 
     (() => {
         console.log('\x1b[46m%s\x1b[0m', "CGTN fired at:" + Date());
-
         main(source_cgtn);
     })();
 });
@@ -104,4 +104,5 @@ Routa.get('/cgtn', (req, res) => {
     res.send({
         news
     });
-})
+});
+module.exports = Routa;

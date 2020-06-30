@@ -4,7 +4,8 @@ require('dotenv').config();
 const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const vars = require('../store/storeVars');
-const Routa = vars.Routa;
+const express = require("express");
+const Routa = express.Router();
 ///
 process.setMaxListeners(Infinity);
 //
@@ -129,4 +130,5 @@ Routa.get('/sabc', (req, res) => {
         "world": dataFive.data
 
     });
-})
+});
+module.exports = Routa;

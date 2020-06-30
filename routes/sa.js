@@ -1,8 +1,9 @@
 const cron = require("node-cron");
 const puppet = require('../store/saScrapper');
 require('dotenv').config();
-const { Routa } = require('../store/storeVars')
-    //
+const express = require("express");
+const Routa = express.Router();
+//
 process.setMaxListeners(Infinity);
 //
 let sources = {
@@ -55,4 +56,5 @@ Routa.get('/sa-scrapper', (req, res) => {
         "sport": dataSix.data
 
     });
-})
+});
+module.exports = Routa;

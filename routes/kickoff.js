@@ -1,11 +1,10 @@
-const express = require('express');
-const kickOff = express.Router();
+const express = require("express");
+const Routa = express.Router();
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 require('dotenv').config();
 const cron = require("node-cron");
 const vars = require('../store/storeVars');
-const Routa = vars.Routa;
 
 ///
 process.setMaxListeners(Infinity);
@@ -230,3 +229,4 @@ Routa.get('/kickoff', (req, res) => {
 
     });
 });
+module.exports = Routa;

@@ -3,7 +3,8 @@ const puppeteer = require("puppeteer");
 require('dotenv').config();
 const wsChromeEndpointurl = require('../browser');
 const vars = require('../store/storeVars');
-const Routa = vars.Routa;
+const express = require("express");
+const Routa = express.Router();
 ///
 process.setMaxListeners(Infinity);
 let src_name = "Africanews";
@@ -133,4 +134,5 @@ Routa.get('/africa', (req, res) => {
         trending
 
     });
-})
+});
+module.exports = Routa;

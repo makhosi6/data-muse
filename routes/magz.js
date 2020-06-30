@@ -4,7 +4,8 @@ const cron = require("node-cron");
 require('dotenv').config();
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
 const vars = require('../store/storeVars');
-const Routa = vars.Routa;
+const express = require("express");
+const Routa = express.Router();
 
 ///
 process.setMaxListeners(Infinity);
@@ -351,4 +352,5 @@ Routa.get('/magz-lifestyle', (req, res) => {
         "vogue": add_vogue,
         "you": add_you
     });
-})
+});
+module.exports = Routa;

@@ -1,5 +1,6 @@
 const cron = require("node-cron");
-const { Routa } = require('../../store/storeVars')
+const express = require("express");
+const Routa = express.Router();
 const puppet = require('../../store/puppetFlipBoard');
 //
 process.setMaxListeners(Infinity);
@@ -22,4 +23,5 @@ Routa.get('/enews', (req, res) => {
         "news": dataOne.data,
 
     });
-})
+});
+module.exports = Routa;

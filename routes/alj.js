@@ -4,7 +4,8 @@ const cron = require("node-cron");
 const vars = require('../store/storeVars');
 const wsChromeEndpointurl = require('../browser');
 const puppet = require('../store/puppetAlj');
-const Routa = vars.Routa;
+const express = require("express");
+const Routa = express.Router();
 //
 process.setMaxListeners(Infinity);
 ///
@@ -258,4 +259,5 @@ Routa.get('/alj', (req, res) => {
         "trending": add_trending
 
     });
-})
+});
+module.exports = Routa;
