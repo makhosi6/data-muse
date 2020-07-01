@@ -85,19 +85,14 @@ setTimeout(() => {
     app.use(cors());
     app.use(bodyParser.json());
     //
-    // app.use((error, req, res, next) => {
-    //     // Sets HTTP status code
-    //     res.status(error.status)
-    //     console.log('====================================');
-    //     console.log(res.statusCode());
-    //     console.log('====================================');
-    //     // Sends response
-    //     res.json({
-    //         status: error.status,
-    //         message: error.message,
-    //         stack: error.stack
-    //     })
-    // });
+    app.use((error, req, res, next) => {
+        res.status(error.status);
+        res.json({
+            status: error.status,
+            message: error.message,
+            stack: error.stack
+        });
+    });
     app.use('/api/v1/', Routa);
     const env = process.env.NODE_ENV;
     const PORT = process.env.PORT;
