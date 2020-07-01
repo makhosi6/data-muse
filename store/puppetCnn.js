@@ -16,8 +16,6 @@ class Scrapper {
                     defaultViewport: null
                 });
                 const page = await browser.newPage();
-                console.log("from browser: ", browser.browserWSEndpoint);
-                console.log("from impport: ", wsChromeEndpointurl)
                 page.setUserAgent(vars.userAgent);
                 await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
                 await page.waitForSelector('.cd__wrapper');

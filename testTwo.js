@@ -15,7 +15,7 @@
             docs: "https://www.aljazeera.com/documentaries/",
             africa: "https://edition.cnn.com/africa",
             trending: "https://www.aljazeera.com/",
-            news: "https://www.aljazeera.com/topics/regions/africa.html",
+            news: "https://www.aljazeer[]a.com/topics/regions/africa.html",
         }
         //
 
