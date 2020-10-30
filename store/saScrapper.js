@@ -44,7 +44,7 @@ class Scrapper {
                         //  
 
                         let empty = null;
-                        let emptyArr = "";
+                        let emptyArr = [];
                         //
                         let tag = empty;
                         let src = "https://www.thesouthafrican.com/wp-content/uploads/2018/08/south_african_news_online.png";

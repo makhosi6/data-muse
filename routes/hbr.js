@@ -55,7 +55,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
 
 
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 //
                 let url_src = url_news;
                 let vidLen = empty;
@@ -134,7 +134,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 }
 
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 let catLink = empty;
                 let vidLen = empty;
                 let isVid = false;
@@ -217,15 +217,15 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 add_study.push({
                     src_name,
                     url_src,
-                    "url": url,
-                    "title": title,
-                    "thumbnail": thumbnail,
+                   url,
+                    title,
+                     thumbnail,
                     "author": all,
                     src,
-                    "subject": subject,
-                    "format": format,
-                    "about": about,
-                    "date": date,
+                   subject,
+                     format,
+                  about,
+                    date,
                 })
 
             } catch (error) {

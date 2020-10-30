@@ -42,7 +42,7 @@ class Scrapper {
 
 
                             let empty = null;
-                            let emptyArr = "";
+                            let emptyArr = [];
                             //
                             let images = emptyArr;
                             let tag = empty;
@@ -61,11 +61,11 @@ class Scrapper {
                                 tag,
                                 images,
                                 src,
-                                "url": url,
-                                "lede": lede,
+                               url,
+                             lede,
                                 "headline": headlineText,
-                                "thumbnail": thumbnail,
-                                "date": date
+                               thumbnail,
+                               date
                             })
                         }
 

@@ -43,7 +43,7 @@ async function main(uri_sport, uri_video, uri_business) {
                 const date = (sec != null || undefined) ? await sec.$eval('span.field-content', span => span.innerText) : null;
 
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
 
                 let catLink = empty;
                 let author = empty;

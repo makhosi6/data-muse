@@ -47,7 +47,7 @@ class Scrapper {
                         let url = await item.$eval('div.topics-sec-item-cont > a', a => a.href);
                         //
                         let empty = null;
-                        let emptyArr = "";
+                        let emptyArr = [];
                         //
                         let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
                         let images = emptyArr;

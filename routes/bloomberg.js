@@ -42,7 +42,7 @@ async function main(uri) {
                 const thumbnail = (get != null || undefined) ? await page.evaluate(img => img.src, get) : null;
                 //
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
 
                 let lede = empty;
                 let author = empty;

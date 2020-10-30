@@ -43,7 +43,7 @@ async function main(uri) {
                 let url_src = uri;
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 //
                 let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
                 let images = emptyArr;

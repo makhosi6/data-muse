@@ -50,7 +50,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 const iHtml = await page_men.evaluate(el => el.innerHTML, cat);
                 //
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 let src = "https://upload.wikimedia.org/wikipedia/commons/8/8b/Men%27s_Health.svg";
                 //
                 let catLink = empty;
@@ -122,7 +122,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let thumbnail = c[0];
                 const iHtml = await page_women.evaluate(el => el.innerHTML, cat);
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 let src = "https://www.womenshealthsa.co.za/wp-content/uploads/2018/01/wh-logo.svg";
                 //
                 let catLink = empty;
@@ -198,7 +198,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let thumbnail = (d == null) ? thumb : d;
                 //
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 let src = "https://img.favpng.com/24/11/2/vogue-logo-magazine-fashion-png-favpng-H83cmbUdKYE8XPb1rZtiVg4j8.jpg";
                 //
                 let date = empty;
@@ -271,7 +271,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 const headline = await page_you.evaluate(a => a.innerText, title);
                 //
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 let url_src = uri_you;
                 let src = "https://pbs.twimg.com/profile_images/463234912493907968/HxL6FPIG_400x400.jpeg";
                 //

@@ -35,8 +35,8 @@ async function main(uri_trending) {
                 add_trending.push({
                     url_src,
                     src_name,
-                    "url": url,
-                    "headline": headline
+                    url,
+                    headline
                 })
 
             } catch (error) {

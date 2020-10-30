@@ -51,7 +51,7 @@ async function main(uri) {
                 let src = "https://bucket.mg.co.za/wp-media/2020/01/74e543ae-logo-white-467.png";
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 let catLink = empty;
                 let tag = category;
                 let images = emptyArr;

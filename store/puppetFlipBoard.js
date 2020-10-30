@@ -57,7 +57,7 @@ class Scrapper {
 
                         let url_src = this.uri;
                         let empty = null;
-                        let emptyArr = "";
+                        let emptyArr = [];
                         //
                         let src_name = this.src;
                         let images = emptyArr;

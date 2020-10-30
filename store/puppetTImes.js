@@ -47,7 +47,7 @@ class Scrapper {
                         const iHtml = await page.evaluate(el => el.innerHTML, item);
                         let src = "https://www.timeslive.co.za/publication/custom/static/logos/timeslive.logo.png";
                         //
-                        let emptyArr = "";
+                        let emptyArr = [];
                         //
                         let images = emptyArr;
                         let tag = category;

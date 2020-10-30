@@ -40,7 +40,7 @@ async function main(uri) {
                 // let para = lede + ledeT;
                 //
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
 
                 let catLink = empty;
                 let author = empty;

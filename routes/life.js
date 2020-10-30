@@ -48,7 +48,7 @@ async function main(uri) {
                 const headline = await item.$eval('span.tf-title', span => span.innerText);
                 //
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 //
                 let catLink = empty;
                 let tag = empty;

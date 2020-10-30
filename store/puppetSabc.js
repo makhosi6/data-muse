@@ -37,7 +37,7 @@ class Scrapper {
                         //
                         const iHtml = await page.evaluate(el => el.innerHTML, item);
                         let category = this.cat;
-                        let emptyArr = "";
+                        let emptyArr = [];
                         //
                         let src = "https://www.sabcnews.com/sabcnews/wp-content/uploads/2018/06/sabc-logo-white-final.png";
                         let images = emptyArr;

@@ -41,7 +41,7 @@ async function main(uri) {
                 //
                 let isVid = (check != null || undefined) ? true : false;
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 //
                 let lede = empty;
                 let category = empty;

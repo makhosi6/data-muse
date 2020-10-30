@@ -33,7 +33,7 @@ class Scrapper {
                         const category = await item.$eval('span.brow-component--micro', span => span.innerText);
 
                         let empty = null;
-                        let emptyArr = "";
+                        let emptyArr = [];
 
                         let lede = empty;
                         let images = emptyArr;

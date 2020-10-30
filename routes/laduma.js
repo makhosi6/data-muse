@@ -42,7 +42,7 @@ async function main(uri_inter, uri_local) {
 
                 //
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 //
                 let lede = empty;
                 let category = empty;

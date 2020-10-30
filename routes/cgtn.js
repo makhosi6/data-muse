@@ -43,7 +43,7 @@ async function main(uri_cgtn) {
                 let headline = (headlineA != null) ? headlineA.trim() : headlineA;
                 //
                 let empty = null;
-                let emptyArr = "";
+                let emptyArr = [];
                 //
                 let catLink = empty;
                 let author = empty;

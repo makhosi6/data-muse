@@ -47,7 +47,7 @@ class Scrapper {
                         const src = 'https://civiliansinconflict.org/wp-content/uploads/2017/09/Colors-CNN-Logo.jpg';
 
                         let empty = null;
-                        let emptyArr = "";
+                        let emptyArr = [];
                         let category = (c == null || undefined) ? this.cat : c;
 
                         let tag = category;
