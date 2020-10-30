@@ -103,8 +103,8 @@ setTimeout(() => {
         });
     });
     app.use('/api/v1/', Routa);
-    const env = process.env.NODE_ENV;
-    const PORT = process.env.PORT;
+    const env = process.env.NODE_ENV || "development";
+    const PORT = process.env.PORT || "9090";
     //Fiv nat-geo uri
     app.listen(PORT, console.log('\x1b[45m%s\x1b[0m', `Running in ${env} mode on port ${PORT}. And ${Routa.length} routes went live on ${Date()}`));
 
@@ -121,9 +121,4 @@ https://www.complex.com/
 --> itemtype="http://schema.org/Person"
 
 
-
-git add . 
-git commit -m "09/08/2020"
-git pull
-git push
 */

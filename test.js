@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 require('dotenv').config();
 
-MongoClient.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
+MongoClient.connect('mongodb://127.0.0.1:27017/', { useNewUrlParser: true, useUnifiedTopology: true }, function(err, db) {
     if (err) throw err;
     var dbo = db.db("museDB");
     console.log("DB Connected");
@@ -28,14 +28,14 @@ MongoClient.connect(process.env.DATABASE, { useNewUrlParser: true, useUnifiedTop
 });
 
 
-let obj = {
-    one: [1, 2, 3, 3, 45, 5],
-    two: [12, 43, 5, 556, 66, 6]
-}
-let big = [];
+// let obj = {
+//     one: [1, 2, 3, 3, 45, 5],
+//     two: [12, 43, 5, 556, 66, 6]
+// }
+// let big = [];
 
-obj.one.map((e) => big.push(e)); //one
-obj.two.map((e) => big.push(e)); //two
+// obj.one.map((e) => big.push(e)); //one
+// obj.two.map((e) => big.push(e)); //two
 
 //big OUTPUT  = [1, 2, 3, 3, 45, 5, 12, 43, 5, 556, 66, 6]
 
