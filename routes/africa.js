@@ -123,12 +123,11 @@ let source = "https://www.africanews.com/";
 
 // cron.schedule("0 */6 * * *", () => {
 
-//         console.log('\x1b[46m%s\x1b[0m', "Africanews fired at:" + Date());
-//         main(source);
+        console.log('\x1b[46m%s\x1b[0m', "Africanews fired at:" + Date());
+        main(source);
 // });
 /////
-console.log('\x1b[46m%s\x1b[0m', "Africanews fired at:" + Date());
-        main(source);
+
 //
 Routa.get('/africa', (req, res) => {
     res.send({

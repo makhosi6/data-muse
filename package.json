@@ -4,6 +4,7 @@
     "description": "node articles puppeteer scrapper",
     "main": "app.js",
     "scripts": {
+        "dev": "nodemon app.js",
         "start": "nodemon app.js"
     },
     "author": "Makhosi",
