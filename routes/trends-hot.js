@@ -56,13 +56,10 @@ async function main(uri) {
 }
 let source = "https://trends.google.com/trends/trendingsearches/daily?geo=ZA";
 
-cron.schedule("0 */6 * * *", () => {
-
-    (() => {
+// cron.schedule("0 */6 * * *", () => {
         console.log('\x1b[46m%s\x1b[0m', " HOT TRENDS fired at:" + Date());
         main(source);
-    })();
-});
+// });
 
 
 Routa.get('/hot-trends', (req, res) => {

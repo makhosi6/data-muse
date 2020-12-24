@@ -68,9 +68,8 @@ const dataThree = new Puppet(sources.politics);
 const dataFour = new Puppet(sources.sport);
 
 
-cron.schedule("0 */6 * * *", () => {
+// cron.schedule("0 */6 * * *", () => {
 
-    (() => {
         console.log("ENEWS fired at:" + Date());
         //One
         dataOne.puppet();
@@ -82,8 +81,7 @@ cron.schedule("0 */6 * * *", () => {
         dataFour.puppet();
 
         main(sources.trending);
-    })();
-});
+// });
 //
 Routa.get('/ewn', (req, res) => {
     res.send({

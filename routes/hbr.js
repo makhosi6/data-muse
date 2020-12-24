@@ -298,14 +298,11 @@ let source_mostPopula = "https://hbr.org/most-popular";
 let source_study = "https://hbr.org/visual-library";
 let source_video = "https://hbr.org/video";
 //
-cron.schedule("0 4 * * SUN", () => {
-    (() => {
+// cron.schedule("0 4 * * SUN", () => {
         console.log('\x1b[46m%s\x1b[0m', "HBR fired at:" + Date());
-        //
         main(source_news, source_mostPopula, source_study, source_video);
 
-    })();
-});
+// });
 //
 Routa.get('/hbr', (req, res) => {
     res.send({

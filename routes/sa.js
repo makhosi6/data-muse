@@ -29,9 +29,7 @@ const dataFive = new Puppet(sources.tech);
 //Six
 const dataSix = new Puppet(sources.sport);
 
-cron.schedule("0 3 * * *", () => {
-
-    (() => {
+// cron.schedule("0 3 * * *", () => {
         console.log('\x1b[46m%s\x1b[0m', "SAan fired at:" + Date());
         dataOne.puppet();
         dataTwo.puppet();
@@ -39,8 +37,7 @@ cron.schedule("0 3 * * *", () => {
         dataFour.puppet();
         dataFive.puppet();
         dataSix.puppet();
-    })();
-});
+// });
 
 /////
 module.exports = {};

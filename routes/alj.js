@@ -239,15 +239,12 @@ const dataAfrica = new Puppet(source.africa);
 const dataNews = new Puppet(source.news);
 
 //
-cron.schedule("0 */6 * * *", () => {
-
-    (() => {
+// cron.schedule("0 */6 * * *", () => {
         console.log('\x1b[46m%s\x1b[0m', "ALJ fired at:" + Date());
         dataAfrica.puppet();
         dataNews.puppet();
         main(source.docs, source.trending);
-    })();
-});
+// });
 
 module.exports = {};
 

@@ -92,14 +92,12 @@ async function main(uri) {
 }
 let source = "https://www.bloomberg.com/africa";
 
-cron.schedule("0 3 * * *", () => {
+// cron.schedule("0 3 * * *", () => {
 
-    (() => {
-        console.log('\x1b[46m%s\x1b[0m', "BLOOMBERG fired at:" + Date());
-
+    console.log('\x1b[46m%s\x1b[0m', "BLOOMBERG fired at:" + Date());
         main(source);
-    })();
-});
+// });
+
 //
 Routa.get('/bloomberg', (req, res) => {
     res.send({

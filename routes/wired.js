@@ -23,14 +23,12 @@ const dataTwo = new Puppet(sources.business);
 //Three
 const dataThree = new Puppet(sources.gear);
 ///
-cron.schedule("0 4 * * SUN", () => {
-    (() => {
+// cron.schedule("0 4 * * SUN", () => {
         console.log('\x1b[46m%s\x1b[0m', "WIRED fired at:" + Date());
         dataOne.puppet();
         dataTwo.puppet();
         dataThree.puppet();
-    })();
-});
+// });
 //
 Routa.get('/wired-all', (req, res) => {
     res.send({

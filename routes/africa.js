@@ -75,7 +75,7 @@ async function main(uri) {
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
                 let empty = null;
                 let emptyArr = [];
-                let src = "https://www.screenafrica.com/wp-content/uploads/2018/04/Africanews-logo.png";
++                let src = "https://www.screenafrica.com/wp-content/uploads/2018/04/Africanews-logo.png";
                 let lede = empty;
                 let author = empty;
                 let tag = empty;
@@ -121,18 +121,15 @@ async function main(uri) {
 }
 let source = "https://www.africanews.com/";
 
+// cron.schedule("0 */6 * * *", () => {
 
-
-cron.schedule("0 */6 * * *", () => {
-
-    (() => {
-        console.log('\x1b[46m%s\x1b[0m', "Africanews fired at:" + Date());
-        main(source);
-
-    })();
-});
+//         console.log('\x1b[46m%s\x1b[0m', "Africanews fired at:" + Date());
+//         main(source);
+// });
 /////
-// @ts-ignore
+console.log('\x1b[46m%s\x1b[0m', "Africanews fired at:" + Date());
+        main(source);
+//
 Routa.get('/africa', (req, res) => {
     res.send({
 
