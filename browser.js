@@ -5,7 +5,7 @@ const vars = require('./store/storeVars');
     const browser = await puppeteer.launch({
         args: vars.argsArr,
         defaultViewport: null,
-        // headless: vars.bool,
+        headless: vars.bool,
         // executablePath: vars.exPath
     });
     console.log({

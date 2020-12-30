@@ -1,6 +1,6 @@
 const vars = require('./storeVars');
 const puppeteer = require("puppeteer");
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 
 let src_name = "Aljazeera";
 //
@@ -10,20 +10,21 @@ class Scrapper {
         this.data = [];
         this.puppet = async function() {
             try {
-                const browser = await puppeteer.connect({
-                    browserWSEndpoint: wsChromeEndpointurl,
-                    defaultViewport: null
-                });
+                const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
                 await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
-                await page.waitForSelector('#btn_showmore_b1_418');
+                await page.waitForSelector('.section-card-list--button');
                 await page.waitFor(9000);
-                await page.click('#btn_showmore_b1_418');
-                await page.waitForSelector('#btn_showmore_b1_418');
+                await page.click('.section-card-list--button');
+                await page.waitForSelector('.section-card-list--button');
                 await page.waitFor(9000);
-                await page.click('#btn_showmore_b1_418');
-                await page.waitForSelector('#btn_showmore_b1_418');
+                await page.click('.section-card-list--button');
+                await page.waitForSelector('.section-card-list--button');
                 await page.waitFor(9000);
                 const items = await page.$$('.topics-sec-item');
                 await page.waitFor(15000);
@@ -47,14 +48,19 @@ class Scrapper {
                         let url = await item.$eval('div.topics-sec-item-cont > a', a => a.href);
                         //
                         let empty = null;
-                        let emptyArr = [];
+                        
                         //
                         let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
-                        let images = emptyArr;
+                        let images = empty;
                         let tag = empty;
                         let author = empty;
                         let url_src = this.uri;
                         //
+                        console.log({
+                            url,
+                            headline,
+                            lede,
+                        });
                         arrr.push({
                             url_src,
                             src_name,
@@ -78,7 +84,7 @@ class Scrapper {
                         })
 
                     } catch (error) {
-                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`)
+                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`)
                     }
                 }
                 this.data = arrr;

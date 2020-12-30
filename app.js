@@ -5,95 +5,98 @@ const cors = require('cors');
 require('dotenv').config();
 
 /*
- TO-DO => REMOVE THE process.setMaxListeners(Infinity);
+ TO-DO => REMOVE THE 
         => AND THE finally {} BLOCK AFTER catch{} BLOCK TO CLOSE A PAGE.
 
 
 */ 
 
 
-//
+
 console.log("wsChromeEndpointurl :", wsChromeEndpointurl);
-//
+
 setTimeout(() => {
-    //ROUTES
-    const test = require('./testTwo.js');
-    const cgtnNews = require('./routes/cgtn');
-    const enews = require('./routes/flipboard/enews')
-    const espn = require('./routes/flipboard/espn');
-    const foodWine = require('./routes/flipboard/foodWine');
-    const natGeo = require('./routes/flipboard/nat-geo');
-    const timesLive = require('./routes/timeslive');
-    const bbcRouter = require('./routes/bbc');
-    const enca = require('./routes/enca');
-    const ewnRouta = require('./routes/ewn');;
-    const hbr = require('./routes/hbr');
-    const cnnRouta = require('./routes/cnn');
-    const wired = require('./routes/wired');
-    const aljRouta = require('./routes/alj');
-    const saNews = require('./routes/sa');
-    const sabcNews = require('./routes/sabc');
-    const mgNews = require('./routes/mAndG');
-    const blomNews = require('./routes/bloomberg');
-    const citizen = require('./routes/citizen');
-    const africa = require('./routes/africa');
-    const laduma = require('./routes/laduma');
-    const w24 = require('./routes/life');
-    const magz = require('./routes/magz');
+    // ROUTES
+     const test = require('./testTwo.js');
+     const cgtnNews = require('./routes/cgtn');
+     const enews = require('./routes/flipboard/enews')
+     const espn = require('./routes/flipboard/espn');
+     const foodWine = require('./routes/flipboard/foodWine');
+     const natGeo = require('./routes/flipboard/nat-geo');
+     const timesLive = require('./routes/timeslive');
+     const bbcRouter = require('./routes/bbc');
+     const enca = require('./routes/enca');
+     const ewnRouta = require('./routes/ewn');;
+     const hbr = require('./routes/hbr');
+     const cnnRouta = require('./routes/cnn');
+     const wired = require('./routes/wired');
+     const aljRouta = require('./routes/alj');
+     const saNews = require('./routes/sa');
+     const sabcNews = require('./routes/sabc');
+     const mgNews = require('./routes/mAndG');
+     const blomNews = require('./routes/bloomberg');
+     const citizen = require('./routes/citizen');
+     const africa = require('./routes/africa');
+     const laduma = require('./routes/laduma');
+     const w24 = require('./routes/life');
+     const magz = require('./routes/magz');
+     const trendsRouta = require('./routes/trends-hot');
     const kickOff = require('./routes/kickoff');
-    const trendsRouta = require('./routes/trends-hot');
-    //
+    
     let Routa = [
-        // test,
+         test,
         /*ewn*/
-        ewnRouta,
+         ewnRouta,
         /*trends*/
-        trendsRouta,
+         trendsRouta,
         /*enews*/
-        enews,
+         enews,
         /*bbc*/
-        bbcRouter,
+         bbcRouter,
         /*HBR*/
-        hbr,
+         hbr,
         /*enca*/
-        enca,
+         enca,
         /*alj*/
-        aljRouta,
+         aljRouta,
         /*sa*/
-        saNews,
+         saNews,
         /*cnn*/
-        cnnRouta,
+         cnnRouta,
         /*WIneFOODF*/
-        foodWine,
+         foodWine,
         /*espnF*/
-        espn,
+         espn,
         /*natGeoF*/
-        natGeo,
+         natGeo,
         /*wired*/
-        wired,
+         wired,
         /*TimesLive*/
-        timesLive,
+         timesLive,
         /*Sabc*/
-        sabcNews,
+         sabcNews,
         /*mgNews*/
-        mgNews,
+         mgNews,
         /*Bloomberg*/
-        blomNews,
-        //*africa*/
-        africa,
+         blomNews,
+       // *africa*/
+         africa,
         /*citizen*/
-        citizen,
+         citizen,
         /*cgtnNews*/
-        cgtnNews,
+         cgtnNews,
         /*magz*/
-        laduma, w24, magz, kickOff
+         laduma,
+          w24, 
+          magz,   
+          kickOff
     ];
 
-    //middleware 
+    // middleware 
     const app = express();
     app.use(cors());
     app.use(bodyParser.json());
-    //
+    
     app.use((error, req, res, next) => {
         res.status(error.status);
         res.json({
@@ -105,7 +108,7 @@ setTimeout(() => {
     app.use('/api/v1/', Routa);
     const env = process.env.NODE_ENV || "development";
     const PORT = process.env.PORT || "9090";
-    //Fiv nat-geo uri
+    // Fiv nat-geo uri
     app.listen(PORT, console.log('\x1b[45m%s\x1b[0m', `Running in ${env} mode on port ${PORT}. And ${Routa.length} routes went live on ${Date()}`));
 
 }, 30000);
@@ -115,10 +118,10 @@ setTimeout(() => {
         "npm": "6.13.4"
     },
 TO SCRAPP
-https://theconversation.com/
-https://www.complex.com/
+https:theconversation.com/
+https:www.complex.com/
 
---> itemtype="http://schema.org/Person"
+--> itemtype="http:schema.org/Person"
 
 
 */

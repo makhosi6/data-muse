@@ -1,6 +1,6 @@
 const vars = require('./storeVars');
 const puppeteer = require('puppeteer');
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 //
 let src_name = "BBC";
 class Scrapper {
@@ -10,10 +10,11 @@ class Scrapper {
         this.puppet = async function() {
             try {
 
-                const browser = await puppeteer.connect({
-                    browserWSEndpoint: wsChromeEndpointurl,
-                    defaultViewport: null
-                });
+                const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
                 await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -50,7 +51,7 @@ class Scrapper {
                         let thumbnail = (value != null) ? value.replace("{width}", "490") : null;
                         //
                         let empty = null;
-                        let emptyArr = [];
+                        
                         //
                         let src = "https://nav.files.bbci.co.uk/orbit/db9d3ece642dbb01f23f791064ec1502/img/blq-orbit-blocks_grey_alpha.png";
                         let tag = category;
@@ -80,7 +81,7 @@ class Scrapper {
 
                         })
                     } catch (error) {
-                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`)
+                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`)
                     }
                 }
                 this.data = arrr;

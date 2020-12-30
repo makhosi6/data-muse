@@ -1,12 +1,12 @@
 require('dotenv').config();
 const cron = require("node-cron");
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
 //
-process.setMaxListeners(Infinity);
+
 ///
 let add_sport = [];
 let add_video = [];
@@ -17,10 +17,11 @@ let src_name = "enca";
 
 async function main(uri_sport, uri_video, uri_business) {
     try {
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-            defaultViewport: null
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page_sport = await browser.newPage();
         page_sport.setUserAgent(vars.userAgent);
         await page_sport.goto(uri_sport, { waitUntil: 'networkidle2', timeout: 0 });
@@ -43,14 +44,14 @@ async function main(uri_sport, uri_video, uri_business) {
                 const date = (sec != null || undefined) ? await sec.$eval('span.field-content', span => span.innerText) : null;
 
                 let empty = null;
-                let emptyArr = [];
+                
 
                 let catLink = empty;
                 let author = empty;
                 let category = empty;
                 let url_src = uri_sport;
                 let tag = category;
-                let images = emptyArr;
+                let images = empty;
                 let vidLen = empty;
                 let isVid = false;
                 //
@@ -78,7 +79,7 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_sport} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_sport} loop: ${error}`)
                 continue;
             }
         }
@@ -107,7 +108,7 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
                 let empty = null;
-                let emptyArr = "";
+                let empty = "";
 
                 let catLink = empty;
                 let author = empty;
@@ -115,7 +116,7 @@ async function main(uri_sport, uri_video, uri_business) {
                 let category = empty;
                 let tag = category;
                 let url_src = uri_video;
-                let images = emptyArr;
+                let images = empty;
                 let vidLen = empty;
                 let isVid = false;
 
@@ -144,7 +145,7 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error}`)
                 continue;
             }
         }
@@ -192,7 +193,7 @@ async function main(uri_sport, uri_video, uri_business) {
                     "headline": headline
                 });
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error}`)
             }
         }
         //
@@ -211,13 +212,13 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
                 let empty = null;
-                let emptyArr = "";
+                let empty = "";
                 let catLink = empty;
                 let author = empty;
                 let category = empty;
                 let url_src = uri_video;
                 let tag = category;
-                let images = emptyArr;
+                let images = empty;
                 let vidLen = empty;
                 let isVid = false;
 
@@ -243,7 +244,7 @@ async function main(uri_sport, uri_video, uri_business) {
                     date
                 });
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_business} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_business} loop: ${error}`)
                 continue;
             }
         }

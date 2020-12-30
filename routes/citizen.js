@@ -4,22 +4,24 @@ require('dotenv').config();
 const cron = require("node-cron");
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
-const wsChromeEndpointurl = require('../browser');
+const generateUniqueId = require('generate-unique-id');
+// const wsChromeEndpointurl = require('../browser');
 ///
-process.setMaxListeners(Infinity);
+
 //
 let news = [];
-let src = "https://citizen.co.za/wp-content/themes/citizen-v5-2/images/citizen_logo_footer_v2.png";
+let src_logo = "https://citizen.co.za/wp-content/themes/citizen-v5-2/images/citizen_logo_footer_v2.png";
 let src_name = "Citizen";
 
 async function main(uri) {
 
     try {
         let url_src = uri;
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-            defaultViewport: null
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -29,107 +31,147 @@ async function main(uri) {
         for (const each of emAll) {
             try {
                 const get = await each.$('.image img');
-                const a = await each.$('.image > a');
+                const a = await each.$('.image-wrapper a');
                 //
+                let  src_url = await page.evaluate(() => location.origin);
                 const thumbnail = await page.evaluate(a => a.src, get);
                 const url = await page.evaluate(a => a.href, a);
                 const headline = await each.$eval('h3 > a', span => span.innerText);
-                const category = await each.$eval('span.category-link > a', a => a.innerText);
+                const tag = await each.$eval('span.category-link > a', a => a.innerText);
+                const catLink = await each.$eval('span.category-link > a', a => a.innerText);
                 const lede = await each.$eval('.excerpt', span => span.innerText);
                 // const ledeT = await each.$eval('span.js-shave', span => span.innerText);
                 // let para = lede + ledeT;
+                const id = generateUniqueId({length: 32});
                 //
                 let empty = null;
-                let emptyArr = [];
-
-                let catLink = empty;
+                let category = "sport";
                 let author = empty;
                 let date = empty;
-                let tag = category;
-                let images = emptyArr;
+                let tags = empty;
+                let images = empty;
                 let vidLen = empty;
                 let isVid = false;
+                let authors = empty;
+                //
+                let subject = empty
+                let format = empty
+                let about = empty;
+               let key = empty
+               
+                let label = empty
+                let type = "strip";
 
                 news.push({
-                    url_src,
-                    src_name,
+                    id,
                     url,
                     headline,
                     lede,
                     thumbnail,
-                    src,
-                    //
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
                     isVid,
-                    vidLen,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
             }
         }
         //
         const items = await page.$$('div.article');
         //
-
         for (const item of items) {
             try {
-
                 //
+             
                 const f = await item.$('a');
                 const image = await item.$('.img-responsive');
                 const cat = await item.$('.category-link > a');
                 //
-                const category = await page.evaluate(div => div.innerText, cat);
+                const tag = await page.evaluate(div => div.innerText, cat);
                 const thumbnail = await page.evaluate(img => img.src, image);
                 const url = await page.evaluate(a => a.href, cat);
                 const headline = await item.$eval('.homelead2-headline-more-stories', a => a.innerText);
                 //
-
+                let  src_url = await page.evaluate(() => location.origin);
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
-
+                const id = generateUniqueId({length: 32});
                 let empty = null;
-                let emptyArr = "";
-
-                let catLink = empty;
+//
+                let catLink = uri;
                 let date = empty;
                 let lede = empty;
                 let author = empty;
-                let images = emptyArr;
-                let tag = category;
+                let authors = empty;
+                let images = empty;
+                let category = tag;
                 let vidLen = empty;
                 let isVid = false;
-
+                //
+                let subject = empty
+                let format = empty
+                let about = empty;
+                
+                //
+                let key = empty
+                let tags = empty
+                let label = empty
+let type = "title-only";
                 news.push({
-                    url_src,
-                    src_name,
+                    id,
                     url,
                     headline,
                     lede,
                     thumbnail,
-                    src,
-                    //
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
                     isVid,
-                    vidLen,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
                 continue;
             }
         }

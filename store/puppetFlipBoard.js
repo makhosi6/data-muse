@@ -1,6 +1,6 @@
 const vars = require('./storeVars');
 const puppeteer = require("puppeteer");
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 //
 
 //
@@ -11,11 +11,18 @@ class Scrapper {
         this.data = [];
         this.puppet = async function() {
             try {
-                const browser = await puppeteer.connect({
-                    browserWSEndpoint: wsChromeEndpointurl,
-                    defaultViewport: null
+                const browser = await puppeteer.launch({
+
+                     defaultViewport: null,
+            headless: false
                 });
+
                 const page = await browser.newPage();
+                await page.setViewport({
+                    width: 1920,
+                    height: 968
+                });
+           
                 page.setUserAgent(vars.userAgent);
                 await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
                 await page.waitForSelector('.item-list');
@@ -24,6 +31,7 @@ class Scrapper {
                 //
                 for (let i = 0; i < items.length; i++) {
                     try {
+                        console.log("-----------------FIRST------------------------");
                         await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
                         await page.waitForSelector('.item-list');
                         const items = await page.$$('.post__section-item-display');
@@ -32,7 +40,8 @@ class Scrapper {
                         // 
                         const para = await item.$('.post__excerpt');
                         const thumbnail = await item.$eval('img', img => img.src);
-                        const src = await item.$eval('.author-avatar__image.image.image--loaded', img => img.src);
+                        console.log({thumbnail});
+                        const src = await item.$eval('header .image--loaded', img => img.src);
                         const headline = await title.$eval('a.internal-link', a => a.innerText);
                         const tagEl = await item.$('a.topic-tag');
                         const tag = (tagEl != null || undefined) ? await item.$eval('a.topic-tag', a => a.innerText) : null;
@@ -64,7 +73,7 @@ class Scrapper {
                         let catLink = empty;
                         let vidLen = empty;
                         let isVid = false;
-
+                        console.log({url});
                         arrr.push({
                             url_src,
                             src_name,
@@ -86,9 +95,11 @@ class Scrapper {
                             author,
                             date
                         });
-
+console.log("-----------------END------------------------");
                     } catch (error) {
-                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`)
+                        
+                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`);
+                        console.log("-----------------END------------------------");
                     }
                 }
                 this.data = arrr;

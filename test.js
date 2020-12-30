@@ -49,18 +49,74 @@ MongoClient.connect('mongodb://127.0.0.1:27017/', { useNewUrlParser: true, useUn
     lede,
     thumbnail,
     //
-    src,
+     url_src,
+    src_logo,
+    src_name
     category,
     catLink,
     tag,
     //
-    images,
+    images, (LAZY LOAD -> https://afarkas.github.io/lazysizes/index.html)
     //
     isVid,
     vidLen,
     //
     author,
-    date
+    date,
+    type
 }
 
 */
+/*
+CATEGORY
+trends
+sport
+business
+politics
+
+TYPES
+ card
+ title-only
+ study
+ //
+ strip
+ trend
+    
+*/
+/*
+[
+
+id,
+url,
+headline,
+lede,
+thumbnail,
+category,
+catLink,
+images,
+//
+key,
+label,
+//
+subject,
+format,
+about,
+//
+src_name,
+src_url,
+src_logo,
+//
+isVid,
+vidLen ,
+//
+type,
+tag,
+tags,
+//
+author,
+authors ,
+date
+
+
+
+]*/

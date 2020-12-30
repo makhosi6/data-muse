@@ -1,4 +1,4 @@
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const cron = require("node-cron");
 require('dotenv').config();
@@ -8,7 +8,7 @@ const express = require("express");
 const Routa = express.Router();
 
 ///
-process.setMaxListeners(Infinity);
+
 //
 let add_men = [];
 let add_women = [];
@@ -17,10 +17,11 @@ let add_you = [];
 async function main(uri_men, uri_women, uri_vogue, uri_you) {
 
     try {
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-            defaultViewport: null
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page_men = await browser.newPage();
         page_men.setUserAgent(vars.userAgent);
         await page_men.goto(uri_men, { waitUntil: 'networkidle2', timeout: 0 });
@@ -50,13 +51,13 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 const iHtml = await page_men.evaluate(el => el.innerHTML, cat);
                 //
                 let empty = null;
-                let emptyArr = [];
+                
                 let src = "https://upload.wikimedia.org/wikipedia/commons/8/8b/Men%27s_Health.svg";
                 //
                 let catLink = empty;
                 let tag = empty;
                 //
-                let images = emptyArr;
+                let images = empty;
                 //
                 let isVid = false;
                 let vidLen = empty;
@@ -89,7 +90,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_men} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_men} loop: ${error}`)
                 continue;
             }
         }
@@ -122,13 +123,13 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let thumbnail = c[0];
                 const iHtml = await page_women.evaluate(el => el.innerHTML, cat);
                 let empty = null;
-                let emptyArr = [];
+                
                 let src = "https://www.womenshealthsa.co.za/wp-content/uploads/2018/01/wh-logo.svg";
                 //
                 let catLink = empty;
                 let tag = empty;
                 //
-                let images = emptyArr;
+                let images = empty;
                 //
                 let isVid = false;
                 let vidLen = empty;
@@ -160,7 +161,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_women} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_women} loop: ${error}`)
                 continue;
             }
         }
@@ -198,7 +199,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let thumbnail = (d == null) ? thumb : d;
                 //
                 let empty = null;
-                let emptyArr = [];
+                
                 let src = "https://img.favpng.com/24/11/2/vogue-logo-magazine-fashion-png-favpng-H83cmbUdKYE8XPb1rZtiVg4j8.jpg";
                 //
                 let date = empty;
@@ -207,7 +208,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 //
                 let url_src = uri_vogue;
                 let src_name = 'vogue';
-                let images = emptyArr;
+                let images = empty;
                 //
                 let isVid = false;
                 let vidLen = empty;
@@ -236,7 +237,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     })
                     //
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_vogue} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_vogue} loop: ${error}`)
                 continue;
             }
         }
@@ -271,7 +272,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 const headline = await page_you.evaluate(a => a.innerText, title);
                 //
                 let empty = null;
-                let emptyArr = [];
+                
                 let url_src = uri_you;
                 let src = "https://pbs.twimg.com/profile_images/463234912493907968/HxL6FPIG_400x400.jpeg";
                 //
@@ -282,7 +283,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let catLink = empty;
                 let tag = category;
                 //
-                let images = emptyArr;
+                let images = empty;
                 //
                 let isVid = false;
                 let vidLen = empty;
@@ -310,7 +311,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_you} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_you} loop: ${error}`)
                 continue;
             }
 

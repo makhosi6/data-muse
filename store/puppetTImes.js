@@ -1,6 +1,6 @@
 const vars = require('./storeVars');
 const puppeteer = require('puppeteer');
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 //
 let src_name = "Timeslive";
 //
@@ -11,10 +11,11 @@ class Scrapper {
         this.puppet = async function() {
             try {
 
-                const browser = await puppeteer.connect({
-                    browserWSEndpoint: wsChromeEndpointurl,
-                    defaultViewport: null
-                });
+                const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
                 await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -47,9 +48,9 @@ class Scrapper {
                         const iHtml = await page.evaluate(el => el.innerHTML, item);
                         let src = "https://www.timeslive.co.za/publication/custom/static/logos/timeslive.logo.png";
                         //
-                        let emptyArr = [];
+                        
                         //
-                        let images = emptyArr;
+                        let images = empty;
                         let tag = category;
                         let catLink = null;
                         let isVid = true;
@@ -79,7 +80,7 @@ class Scrapper {
                             date
                         })
                     } catch (error) {
-                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`)
+                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`)
                         continue;
 
                     }

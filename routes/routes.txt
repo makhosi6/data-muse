@@ -1,40 +1,54 @@
 TWICE A DAY
- 
- const cron = require("node-cron");
+cron.schedule("0 */6 * * *", () => {  })
 
-    api/v1/cnn   
+    api/v1/cnn   ++
     api/v1/africa
-    api/v1/ewn        cron.schedule("0 */6 * * *", () => {  })
+    api/v1/ewn  ++     
     api/v1/alj             
     api/v1/bbc
     api/v1/enca
     api/v1/times-live
+
 DAILY
-
-    api/v1/bloomberg
-    api/v1/hot-trends
-    api/v1/citizen
-    api/v1/kickoff
-    api/v1/sa-scrapper      cron.schedule("0 3 * * *", () => {  })
-    api/v1/laduma
+cron.schedule("0 3 * * *", () => {  })
+    api/v1/bloomberg ++
+    api/v1/hot-trends ++
+    api/v1/citizen ++
+    api/v1/kickoff ++
+    api/v1/sa-scrapper ++     
+    api/v1/laduma ++
     api/v1/espn
-    api/v1/cgtn
-    api/v1/sabc
-WEEKLY
+    api/v1/cgtn ++
+    api/v1/sabc ++
 
+WEEKLY
+cron.schedule("0 4 * * SUN", () => {  })
     api/v1/w24
     api/v1/wired-all
     api/v1/enews
     api/v1/foodwine
-    api/v1/nat-geo                         cron.schedule("0 4 * * SUN", () => {  })
+    api/v1/nat-geo                         
     api/v1/magz-lifestyle
 
 MONTHLY
+ cron.schedule("0 9 1 * *", () => {  })
     api/v1/mg/news
-    api/v1/hbr-all                               cron.schedule("0 9 1 * *", () => {  })
+    api/v1/hbr-all ++                            
 
 
 
-0-9   1
-10 - 99  90
-100 999 - 
+CHECK CATEGORY!!!!!!!!!!!
+MOVE PUPPET METHOD OUT OF THE CONSTRACTOR
+CHECK HOW MANYY ERRORS A PUPPET HAD OVER TIME (put a counter inside the catch block...)
+
+
+
+await page.setRequestInterception(true);
+
+page.on('request', async (req) => {
+    if (req.resourceType() === 'jpeg'||req.resourceType() === 'jpeg' ||req.resourceType() ===  'png' || req.resourceType() === 'javascript'|| req.resourceType() === 'script' || req.resourceType() === 'stylesheet'|| req.resourceType() === 'font') {
+        await req.abort();
+    } else {
+        await req.continue();
+    }
+});

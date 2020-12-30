@@ -1,12 +1,12 @@
 const cron = require("node-cron");
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 require('dotenv').config();
 const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
 ///
-process.setMaxListeners(Infinity);
+
 //
 let add = [];
 let src_name = "M&G";
@@ -14,10 +14,11 @@ let src_name = "M&G";
 async function main(uri) {
     try {
         let url_src = uri;
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-            defaultViewport: null
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -51,10 +52,10 @@ async function main(uri) {
                 let src = "https://bucket.mg.co.za/wp-media/2020/01/74e543ae-logo-white-467.png";
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
                 let empty = null;
-                let emptyArr = [];
+                
                 let catLink = empty;
                 let tag = category;
-                let images = emptyArr;
+                let images = empty;
                 //
                 let isVid = false;
                 let vidLen = empty;
@@ -81,7 +82,7 @@ async function main(uri) {
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
                 continue;
             }
 

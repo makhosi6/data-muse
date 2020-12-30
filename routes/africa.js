@@ -3,12 +3,12 @@
 const cron = require("node-cron");
 const puppeteer = require("puppeteer");
 require('dotenv').config();
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
 ///
-process.setMaxListeners(Infinity);
+
 let src_name = "Africanews";
 //
 let news = [];
@@ -16,9 +16,11 @@ let trending = [];
 async function main(uri) {
     try {
         let url_src = uri;
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -44,7 +46,7 @@ async function main(uri) {
                     "headline": headline.replace(/(\r\n|\n|\r)/gm, "").trim(),
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
 
             }
         }
@@ -74,14 +76,14 @@ async function main(uri) {
                 // @ts-ignore
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
                 let empty = null;
-                let emptyArr = [];
-+                let src = "https://www.screenafrica.com/wp-content/uploads/2018/04/Africanews-logo.png";
+                
+                let src = "https://www.screenafrica.com/wp-content/uploads/2018/04/Africanews-logo.png";
                 let lede = empty;
                 let author = empty;
                 let tag = empty;
                 let category = empty;
                 let catLink = empty;
-                let images = emptyArr;
+                let images = empty;
 
 
                 news.push({
@@ -106,7 +108,7 @@ async function main(uri) {
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
                 continue;
             }
 

@@ -1,27 +1,27 @@
 const express = require("express");
 const Routa = express.Router();
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 require('dotenv').config();
 const cron = require("node-cron");
 const vars = require('../store/storeVars');
+const generateUniqueId = require('generate-unique-id');
 
-///
-process.setMaxListeners(Infinity);
 //
 let add = [];
 let data = [];
 let trends = [];
 let src_name = "KICKOFF";
-let src = "https://cdn.kickoff.com/assets/kickoff-logo@2x-3a7d35049d4a22e56ca2579da5c8d8df0edf67f40a78af4dab3de8f159c69494.png";
+let src_logo = "https://cdn.kickoff.com/assets/kickoff-logo@2x-3a7d35049d4a22e56ca2579da5c8d8df0edf67f40a78af4dab3de8f159c69494.png";
 let add_list = [];
 async function main(uri) {
     try {
         let url_src = uri;
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-            defaultViewport: null
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -33,50 +33,76 @@ async function main(uri) {
         for (const item of items) {
             try {
                 //
+                let  src_url = await page.evaluate(() => location.origin);
                 const get = await item.$('.pod__image img');
+                // x =  await page.evaluate(el => el.innerHTML, item);
                 const check = await item.$('.icon-play.pod__video-icon');
                 const url = await item.$eval('.pod__title > a', a => a.href);
                 const headline = await item.$eval('.pod__title > a', a => a.innerText);
-                const thumbnail = await page.evaluate(div => div.dataset.src, get);
+                const thumbnail = await page.evaluate(div => {div.dataset.src}, get);
+                
                 //
                 let isVid = (check != null || undefined) ? true : false;
                 let empty = null;
-                let emptyArr = [];
+                
                 //
                 let lede = empty;
-                let category = empty;
-                let catLink = empty;
+                let category = "sport";
+                let catLink = uri;
                 let tag = empty;
+                let tags = empty;
                 //
-                let images = emptyArr;
+                let images = empty;
                 //
+                let key = empty
+                let label = empty
+                //
+                let subject = empty
+                let format = empty
+                let about = empty;
+                let type = "title-only";
                 let vidLen = empty;
                 //
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                let authors = empty;
                 let author = empty;
                 let date = empty;
                 add.push({
-                    url_src,
-                    src_name,
+                    id,
                     url,
                     headline,
-                    isVid,
-                    src,
-                    thumbnail,
-                    //
                     lede,
+                    thumbnail,
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
-                    vidLen,
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
+                    isVid,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
                 continue;
             }
         }
@@ -85,6 +111,7 @@ async function main(uri) {
         //
         for (const one of obj) {
             try {
+                let  src_url = await page.evaluate(() => location.origin);
                 let btn = await one.$eval('a.button', a => a.innerText);
                 const pods = await one.$$('.pod');
 
@@ -94,72 +121,96 @@ async function main(uri) {
                         const headline = await each.$eval('.pod__title > a', a => a.innerText);
                         // const btn = await each.$eval('a.button', a => a.innerText);
                         let a = btn.split('More ');
-                        let category = a[1];
+                        let tag = a[1];
+                        const id = generateUniqueId({
+                            length: 32
+                          });
 
                         let empty = null;
-                        let emptyArr = "";
                         //
                         let lede = empty;
-                        let catLink = empty;
-                        let tag = empty;
+                        let catLink = uri;
+                     
                         let thumbnail = empty;
                         //
-                        let images = emptyArr;
+                        let key = empty
+                        let label = empty
+                        //
+                        let tags = empty;
+                        let category = "sport"
+                        let subject = empty
+                        let format = empty
+                        let about = empty;
+                        let images = empty;
                         //
                         let vidLen = empty;
                         let isVid = false;
                         //
                         let author = empty;
+                        let authors = empty;
+                        let type = "strip";
                         let date = empty;
 
                         data.push({
-                            url_src,
-                            src_name,
+                            id,
                             url,
                             headline,
                             lede,
                             thumbnail,
-                            //
-                            src,
                             category,
                             catLink,
-                            tag,
-                            //
                             images,
                             //
+                            key,
+                            label,
+                            //
+                            subject,
+                            format,
+                            about,
+                            //
+                            src_name,
+                            src_url,
+                            src_logo,
+                            //
                             isVid,
-                            vidLen,
+                            vidLen ,
+                            //
+                            type,
+                            tag,
+                            tags,
                             //
                             author,
+                            authors ,
                             date
                         })
                     } catch (error) {
-                        console.log('\x1b[42m%s\x1b[0m', `From ${uri} loopInside: ${error.name}`);
+                        console.log('\x1b[42m%s\x1b[0m', `From ${uri} loopInside: ${error}`);
                     }
                 }
                 data.map((e) => trends.push(e));
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
             }
         }
         //
-        const tr = await page.$$('body > main > section:nth-child(4) > div > div.col-lg-4.col-md-5.col-xs-12 > div > section > div > div.col-xs-12.col-lg-12.col-md-12 > div.row.row--no-margin-bottom.tab-sections--no-images-list > div > div.tab-section:nth-child(1) > div.pod ');
-        for (const one of tr) {
-            try {
-                const link = await one.$eval('.pod__title > a', a => a.href);
-                const headline = await one.$eval('.pod__title > a', a => a.innerText);
-                // const btn = await each.$eval('a.button', a => a.innerText);
-                trends.push({
-                    url_src,
-                    "url": link,
-                    "headline": headline,
-                })
-            } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+        // const tr = await page.$$('body > main > section:nth-child(4) > div > div.col-lg-4.col-md-5.col-xs-12 > div > section > div > div.col-xs-12.col-lg-12.col-md-12 > div.row.row--no-margin-bottom.tab-sections--no-images-list > div > div.tab-section:nth-child(1) > div.pod ');
+        // for (const one of tr) {
+        //     try {
+        //         let  src_url = await page.evaluate(() => location.origin);
+        //         const url = await one.$eval('.pod__title > a', a => a.href);
+        //         const headline = await one.$eval('.pod__title > a', a => a.innerText);
+        //         // const btn = await each.$eval('a.button', a => a.innerText);
+        //         trends.push({
+        //             url_src,
+        //             "url": link,
+        //             "headline": headline,
+        //         })
+        //     } catch (error) {
+        //         console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
 
-            }
-        }
-        await page.close();
+        //     }
+        // }
+        // await page.close();
         //
         const page_list = await browser.newPage();
         page_list.setUserAgent(vars.userAgent);
@@ -175,6 +226,7 @@ async function main(uri) {
         for (const item of items_list) {
             try {
                 //
+                let  src_url = await page.evaluate(() => location.origin);
                 const num = await item.$('td:nth-child(2)');
                 const teamlogo = await item.$('td:nth-child(3) > img');
                 const team = await item.$('td:nth-child(3)');
@@ -189,9 +241,9 @@ async function main(uri) {
                 const teamName = await page_list.evaluate(el => el.textContent, team);
 
                 add_list.push({
-                    url_src,
+                    src_url,
                     src_name,
-                    src,
+                    src_logo,
                     more,
                     teamNum,
                     teamImg,
@@ -201,7 +253,7 @@ async function main(uri) {
                     teamName
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
                 continue;
             }
         }

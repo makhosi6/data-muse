@@ -2,24 +2,26 @@ require('dotenv').config()
 const puppeteer = require('puppeteer');
 const cron = require("node-cron");
 const vars = require('../store/storeVars');
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 const puppet = require('../store/puppetAlj');
 const express = require("express");
 const Routa = express.Router();
 //
-process.setMaxListeners(Infinity);
+
 ///
 let add_docs = [];
 let add_trending = [];
 //
 let empty = null;
-let emptyArr = [];
+
 
 async function main(uri_docs, uri_trending) {
     try {
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page_docs = await browser.newPage();
         page_docs.setUserAgent(vars.userAgent);
         await page_docs.goto(uri_docs, { waitUntil: 'networkidle2', timeout: 0 });
@@ -44,7 +46,7 @@ async function main(uri_docs, uri_trending) {
                 //
 
                 let category = (tagText === null) ? "documentary" : tagText;
-                let images = emptyArr;
+                let images = empty;
                 let isVid = true;
                 let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
                 let author = empty;
@@ -102,7 +104,7 @@ async function main(uri_docs, uri_trending) {
                 let end = category.replace(/ /g, "_");
                 let category = (a === null) ? "documentary" : a;
                 tag.push(end);
-                let images = emptyArr;
+                let images = empty;
                 let isVid = true;
                 let author = empty;
                 let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
@@ -129,7 +131,7 @@ async function main(uri_docs, uri_trending) {
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_docs} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_docs} loop: ${error}`)
             }
         }
         //LOOP three 
@@ -153,7 +155,7 @@ async function main(uri_docs, uri_trending) {
                 l
                 //
                 let category = (tagText === null) ? "documentary" : tagText;
-                let images = emptyArr;
+                let images = empty;
                 let isVid = true;
                 let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
                 let author = empty;
@@ -181,7 +183,7 @@ async function main(uri_docs, uri_trending) {
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_docs} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_docs} loop: ${error}`)
                 continue;
             }
             // page
@@ -211,7 +213,7 @@ async function main(uri_docs, uri_trending) {
                     headline
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_trending} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_trending} loop: ${error}`)
                 continue;
             }
 

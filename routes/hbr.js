@@ -1,8 +1,9 @@
 require('dotenv').config();
 const cron = require("node-cron");
-const wsChromeEndpointurl = require('../browser');
+const generateUniqueId = require('generate-unique-id');
+// const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
-process.setMaxListeners(Infinity);
+
 const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
@@ -11,22 +12,23 @@ let add_news = [];
 let add_mostPopula = [];
 let add_study = [];
 let add_video = [];
+let empty = null;
 let src_name = 'HBR';
-let src = "https://www.logolynx.com/images/logolynx/s_e5/e5f4b05f3bb630f8179f1dc505dea803.png";
+let src_logo = "https://hbr.org/resources/css/images/HBR_logo_black.svg";
+
 async function main(url_news, uri_mostPopula, uri_study, uri_video) {
     try {
 
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-            defaultViewport: null
-        });
+           const browser = await puppeteer.launch({
+           defaultViewport: null,
+            headless: false
+    });
         const page_news = await browser.newPage();
         page_news.setUserAgent(vars.userAgent);
         await page_news.goto(url_news, { waitUntil: 'networkidle2', timeout: 0 });
         await page_news.waitForSelector('.stream-item');
         await page_news.waitFor(13000);
         const items_news = await page_news.$$('.stream-item.overflow-hidden');
-
         //
         for (const item of items_news) {
             try {
@@ -36,57 +38,63 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 const tag = await item.$eval('a.topic', a => a.innerText);
                 const category = await item.$eval('span.content-type', span => span.innerText)
                 const a = await item.$('.byline-list');
-                const authors = (a != null || undefined) ? await a.$$('li') : null;
+                const x = (a != null || undefined) ? await a.$$('li') : null;
                 const lede = await item.$eval('div.dek', div => div.innerText);
                 const url = await head.$eval('a', a => a.href);
                 const headline = await head.$eval('a', a => a.innerText);
                 let utiliti = await item.$('.stream-utility');
                 const date = await utiliti.$eval('li.pubdate', li => li.innerText);
-                //
-                let author = [];
-                if (authors != null) {
-                    for (const autha of authors) {
+              
+                let authors = [];
+                let author = empty;
+                if (x != null) {
+                    for (const autha of x) {
                         let value = await page_news.evaluate(li => li.innerText, autha)
-                        author.push(value);
+                        authors.push(value);
                     }
                 } else {
-                    author.push(null)
+                    authors = null;
                 }
-
-
-                let empty = null;
-                let emptyArr = [];
+                const id = generateUniqueId({
+                    length: 32
+                  });
                 //
-                let url_src = url_news;
+                let type = "card";
+                let src_url =  await page_news.evaluate(() => location.origin);
                 let vidLen = empty;
                 let isVid = false;
-                let catLink = empty;
-                let images = emptyArr;
+                let catLink = url_news;
+                let images = empty;
+                let tags = empty;
 
                 add_news.push({
-                    url_src,
-                    src_name,
+                    id,
                     url,
                     headline,
                     lede,
                     thumbnail,
-                    src,
-                    //
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
                     isVid,
-                    vidLen,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 })
 
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${url_news} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${url_news} loop: ${error}`)
                 continue;
             }
         }
@@ -118,51 +126,66 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 const tag = await item.$eval('a.topic', a => a.innerText);
                 const category = await item.$eval('span.content-type', span => span.innerText)
                 const a = await item.$('.byline-list');
-                const authors = await a.$$('li');
+                const x = await a.$$('li');
                 const lede = await item.$eval('div.dek', div => div.innerText);
                 const url = await head.$eval('a', a => a.href);
                 const headline = await head.$eval('a', a => a.innerText);
                 let utiliti = await item.$('.stream-utility');
                 const date = await utiliti.$eval('li.pubdate', li => li.innerText);
                 //
-                let author = [];
-                let url_src = uri_mostPopula;
-
-                for (const autha of authors) {
-                    let value = await page_mostPopula.evaluate(li => li.innerText, autha)
-                    author.push(value);
+                let authors = [];
+                let src_url =  await page_mostPopula.evaluate(() => location.origin);
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                
+                if (x != null) {
+                    for (const autha of x) {
+                        let value = await page_mostPopula.evaluate(li => li.innerText, autha)
+                        authors.push(value);
+                    }
+                } else {
+                    authors = null;
                 }
-
+                //
                 let empty = null;
-                let emptyArr = [];
-                let catLink = empty;
+                let images = empty;
+                let author = empty;
+                let tags = empty;
+                let type = "card";
+                
+                let catLink = uri_mostPopula;
                 let vidLen = empty;
                 let isVid = false;
                 //
                 add_mostPopula.push({
-                    src_name,
+                    id,
                     url,
-                    url_src,
                     headline,
                     lede,
                     thumbnail,
-                    //
-                    src,
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
                     isVid,
-                    vidLen,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 })
 
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_mostPopula} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_mostPopula} loop: ${error}`)
                 continue;
             }
         }
@@ -194,42 +217,71 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 const a = await item.$('.byline-list');
                 const subj = await item.$('div.hide-small > p:nth-child(6)');
                 const ft = await item.$('div.hide-small > p:nth-child(8)');
-                const authors = (a != null || undefined) ? await a.$$('li') : null;
-                let url_src = uri_study;
+                const x = (a != null || undefined) ? await a.$$('li') : null;
+                let src_url =  await page_study.evaluate(() => location.origin);
+                const id = generateUniqueId({
+                    length: 32
+                  });
                 //
                 const thumbnail = (image != null || undefined) ? await item.$eval('img', img => img.src) : null;
                 const headline = await h4.$eval('a', a => a.innerText);
                 const url = await h4.$eval('a', a => a.href);
                 const about = await item.$eval('p.product-text.mbs', p => p.innerText);
-                let author = [];
-                if (authors != null) {
-                    for (const autha of authors) {
+                let authors = [];
+                if (x != null) {
+                    for (const autha of x) {
                         let value = await page_study.evaluate(li => li.innerText, autha)
-                        author.push(value);
+                        authors.push(value);
                     }
                 } else {
-                    author.push(null)
+                    authors = empty;
                 }
                 const date = await item.$eval('time', time => time.innerText);
                 const subject = await page_study.evaluate(p => p.innerText, subj)
                 const format = await page_study.evaluate(p => p.innerText, ft)
-
+                let vidLen = empty;
+                let isVid = false;
+                let catLink = url_news;
+                let images = empty;
+                let lede = empty;
+                let tags = empty;
+              let type = empty;
+             let  tag = empty;
+             let author = empty;
+                let category = empty;
+                
                 add_study.push({
+                    id,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    category,
+                    catLink,
+                    images,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
                     src_name,
-                    url_src,
-                   url,
-                    title,
-                     thumbnail,
-                    "author": all,
-                    src,
-                   subject,
-                     format,
-                  about,
-                    date,
+                    src_url,
+                    src_logo,
+                    //
+                    isVid,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
+                    //
+                    author,
+                    authors ,
+                    date
                 })
 
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_study} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_study} loop: ${error}`)
                 continue;
             }
         }
@@ -248,46 +300,73 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
         //
         for (const item of items_video) {
             try {
-                let url_src = uri_video;
-                const headline = await item.$('.mbn');
+                let src_url =  await page_video.evaluate(() => location.origin);
+                const h1 = await item.$('.mbn');
                 const wrapper = await item.$('.pubdate');
-                const url = (headline != null || undefined) ? await headline.$eval('a', a => a.href) : null;
-                const headlineText = (headline != null || undefined) ? await headline.$eval('a', a => a.innerText) : null;
+                const url = (h1 != null || undefined) ? await h1.$eval('a', a => a.href) : null;
+                const headline = (h1 != null || undefined) ? await h1.$eval('a', a => a.innerText) : null;
                 const thumbnail = await item.$eval('img', img => img.src);
                 const vidLen = (wrapper != null || undefined) ? await item.$eval('li.text-gray', li => li.innerText) : null;
                 const date = (wrapper != null || undefined) ? await item.$eval('li.pubdate', li => li.innerText) : null;
                 //
-
                 const pam = await item.$('.pam');
                 const a = (pam != null || undefined) ? await pam.$eval('stream-item', a => a.dataset.authors) : null;
-                const b = (pam != null || undefined) ? await pam.$eval('stream-item', b => b.dataset.summary) : null;
-                const c = (pam != null || undefined) ? await pam.$eval('stream-item', c => c.dataset.topic) : null;
+                const lede = (pam != null || undefined) ? await pam.$eval('stream-item', b => b.dataset.summary) : null;
+                const category = (pam != null || undefined) ? await pam.$eval('stream-item', c => c.dataset.topic) : null;
 
                 let pub = a.split(";");
-
-                let credit = (pub == "") ? null : pub;
-
+                let catLink = uri_video;
+                let author = (pub == "") ? null : pub;
+                const id = generateUniqueId({
+                    length: 32
+                });
+                let images = empty;
+                let isVid = empty;
+                let subject = empty;
+                let format = empty;
+                let about = empty;
+                let tag = empty;
+                let tags = empty;
+                let authors = empty;
+                let type = "card"
 
                 add_video.push({
-                    url_src,
+                    id,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    category,
+                    catLink,
+                    images,
+                    //
                     src_name,
-                    "url": url,
-                    "headline": headlineText,
-                    "lede": b,
-                    src,
-                    "thumbnail": thumbnail,
-                    "author": credit,
-                    "category": c,
-                    "vidLen": vidLen,
-                    "date": date
-                })
+                    src_url,
+                    src_logo,
+                    //
+                    isVid,
+                    vidLen ,
+                    //
+                    subject,
+                    format,
+                    about,
+
+                    //
+                    type,
+                    tag,
+                    tags,
+                    //
+                    author,
+                    authors ,
+                    date
+                });
 
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error}`)
                 continue;
             }
         }
-        console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_video}`);
+        console.log('\x1b[43m%s\x1b[0m', `Done: ${url_news}`);
         await page_video.close();
     } catch (error) {
         console.log('\x1b[41m%s\x1b[0m', `From ${uri_video} Main: ${error}`);

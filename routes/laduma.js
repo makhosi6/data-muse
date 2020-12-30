@@ -1,31 +1,33 @@
 const cron = require("node-cron");
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 require('dotenv').config();
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars')
 const express = require("express");
+const generateUniqueId = require('generate-unique-id');
 const Routa = express.Router();
 
 ///
-process.setMaxListeners(Infinity);
+
 //
 let add_inter = [];
 let add_local = [];
 let src_name = 'Laduma';
-let src = "https://dj0j0ofql4htg.cloudfront.net/assets/dumb/images/soccerladuma-logo.png";
+let src_logo = "https://dj0j0ofql4htg.cloudfront.net/assets/dumb/images/soccerladuma-logo.png";
 
 async function main(uri_inter, uri_local) {
     try {
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-            defaultViewport: null
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page_inter = await browser.newPage();
         page_inter.setUserAgent(vars.userAgent);
         await page_inter.goto(uri_inter, { waitUntil: 'networkidle2', timeout: 0 });
         await page_inter.waitForSelector('.pod');
         const items_inter = await page_inter.$$('.pod');
-        await page_inter.waitFor(125000);
+        await page_inter.waitFor(30000);
         //
         for (const item of items_inter) {
             try {
@@ -42,44 +44,69 @@ async function main(uri_inter, uri_local) {
 
                 //
                 let empty = null;
-                let emptyArr = [];
+                
                 //
                 let lede = empty;
-                let category = empty;
+                let category = "sport";
                 let catLink = empty;
                 let tag = empty;
+                let tags = empty;
                 //
-                let images = emptyArr;
+                let images = empty;
                 //
                 let isVid = false;
                 let vidLen = empty;
                 //
                 let author = empty;
-                let url_src = uri_inter;
+                let authors = empty;
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                let src_url = await page_inter.evaluate(() => location.origin);
+                //
+                let key = empty;
+                let label = empty;
+                let type = "title-only";
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
+                
                 //
                 add_inter.push({
-                    src_name,
-                    url_src,
+                    id,
                     url,
                     headline,
                     lede,
                     thumbnail,
-                    //
-                    src,
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
                     isVid,
-                    vidLen,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error}`)
                 continue;
 
             }
@@ -91,7 +118,7 @@ async function main(uri_inter, uri_local) {
         await page_local.goto(uri_local, { waitUntil: 'networkidle2', timeout: 0 });
         await page_local.waitForSelector('.pod');
         const items_local = await page_local.$$('.pod');
-        await page_local.waitFor(125000);
+        await page_local.waitFor(30000);
         //
         for (const item of items_local) {
             try {
@@ -108,45 +135,67 @@ async function main(uri_inter, uri_local) {
                 //
 
                 let empty = null;
-                let emptyArr = "";
                 //
                 let lede = empty;
-                let category = empty;
+                let category = "sport";
                 let catLink = empty;
                 let tag = empty;
+                let tags = empty;
                 //
-                let images = emptyArr;
+                let images = empty;
                 //
+                let type = "title-only";
                 let isVid = false;
                 let vidLen = empty;
                 //
+                let key = empty;
+                let label = empty;
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
                 let author = empty;
-                let url_src = uri_local;
+                let authors = empty;
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                let src_url = await page_local.evaluate(() => location.origin);
                 //
                 //
                 add_local.push({
-                    url_src,
-                    src_name,
+                    id,
                     url,
                     headline,
                     lede,
                     thumbnail,
-                    //
-                    src,
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
                     isVid,
-                    vidLen,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_local} loop: ${error}`)
                 continue;
             }
 

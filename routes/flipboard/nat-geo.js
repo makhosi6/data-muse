@@ -3,7 +3,7 @@ const puppet = require('../../store/puppetFlipBoard');
 const express = require("express");
 const Routa = express.Router();
 //
-process.setMaxListeners(Infinity);
+
 //
 let sources = {
         animals: "https://flipboard.com/@nationalgeographic/animals-et7cccbnz",
@@ -17,17 +17,17 @@ let sources = {
     //
 const Puppet = puppet.Scrapper;
 //one
-const dataOne = new Puppet(sources.animals, "nationalgeographic");
+const dataOne = new Puppet(sources.animals, "national geographic");
 //two
-const dataTwo = new Puppet(sources.news, "nationalgeographic");
+const dataTwo = new Puppet(sources.news, "national geographic");
 //three
-const dataThree = new Puppet(sources.photo, "nationalgeographic");
+const dataThree = new Puppet(sources.photo, "national geographic");
 //four
-const dataFour = new Puppet(sources.enviro, "nationalgeographic");
+const dataFour = new Puppet(sources.enviro, "national geographic");
 //five
-const dataFive = new Puppet(sources.science, "nationalgeographic");
+const dataFive = new Puppet(sources.science, "national geographic");
 //six
-const dataSix = new Puppet(sources.travel, "nationalgeographic");
+const dataSix = new Puppet(sources.travel, "national geographic");
 
 // cron.schedule("0 4 * * SUN", () => {
         console.log('\x1b[46m%s\x1b[0m', "NAT_GEO fired at:" + Date());

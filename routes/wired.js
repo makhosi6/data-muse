@@ -4,7 +4,7 @@ const Routa = express.Router();
 const puppet = require('../store/puppetWired');
 require('dotenv').config();
 ///
-process.setMaxListeners(Infinity);
+
 
 //
 let sources = {

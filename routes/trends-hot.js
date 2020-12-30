@@ -1,22 +1,24 @@
 require('dotenv').config();
 const cron = require("node-cron");
 const vars = require('../store/storeVars');
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
+const generateUniqueId = require('generate-unique-id');
 const express = require("express");
 const Routa = express.Router();
 ///
-process.setMaxListeners(Infinity);
+
 //
-let trendsHot = [];
+let trends = [];
 
 async function main(uri) {
     try {
 
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-            defaultViewport: null
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -33,15 +35,73 @@ async function main(uri) {
                 //
                 const url = await page.evaluate(a => a.href, link);
                 const headline = await page.evaluate(a => a.innerText, hed);
+                const id = generateUniqueId({
+                    length: 32
+                });
                 //
+                    let empty = null;
+                    let lede = empty;
+                    let thumbnail = empty;
+                    let category = empty;
+                    let catLink = empty;
+                    let images = empty;
+                    let src_name = empty;
+                    let src_url = empty;
+                    let src_logo = empty;
+                    //
+                    let isVid = empty;
+                    let vidLen = empty;
+                    //
+                    let subject = empty;
+                    let format = empty;
+                    let about = empty;
+                    
+                    //
+                    let type = "trend";
+                    let tag = empty;
+                    let tags = empty;
+                    //
+                    let author = empty;
+                    let authors = empty;
+                    let date = empty;
 
-                trendsHot.push({
-                    "url": url,
+                trends.push({
+                    id,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    category,
+                    catLink,
+                    images,
+                    //
                     "key": Math.floor(Math.random() * 13400000),
                     "label": headline,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
+                    isVid,
+                    vidLen ,
+                    //
+                    subject,
+                    format,
+                    about,
+                    
+                    //
+                    type,
+                    tag,
+                    tags,
+                    //
+                    author,
+                    authors ,
+                    date
+                    //
+                 
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
                 continue;
             }
 
@@ -64,7 +124,7 @@ let source = "https://trends.google.com/trends/trendingsearches/daily?geo=ZA";
 
 Routa.get('/hot-trends', (req, res) => {
     res.send({
-        trendsHot
+        trends
 
     });
 });

@@ -1,20 +1,21 @@
 const vars = require('./storeVars');
 const puppeteer = require("puppeteer");
-const wsChromeEndpointurl = require('../browser');
-//
-let src_name = "EWN";
+const generateUniqueId = require('generate-unique-id');
+// const wsChromeEndpointurl = require('../browser');
 //
 class Scrapper {
-    constructor(uri) {
+    constructor(uri, category) {
         this.uri = uri;
+        this.category = category;
         this.data = [];
         this.puppet = async function() {
             try {
 
-                const browser = await puppeteer.connect({
-                    browserWSEndpoint: wsChromeEndpointurl,
-                    defaultViewport: null
-                });
+                const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
                 await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -28,49 +29,79 @@ class Scrapper {
                         const left = await item.$('.left');
                         if ((check == null) && (left == null)) {
 
-                            const headline = await item.$('h4');
+                            const h1 = await item.$('h4');
                             const image = await item.$('img');
                             const thumbnail = (image != null || undefined) ? await item.$eval('img', img => img.src) : null;
-                            const url = await headline.$eval('a', a => a.href);
+                            const url = await h1.$eval('a', a => a.href);
                             //
-                            const headlineText = await headline.$eval('a', a => a.innerText);
+                            const headline = await h1.$eval('a', a => a.innerText);
                             //
                             const para = await item.$('p.lead');
                             const lede = (para != null || undefined) ? await item.$eval('p', p => p.innerText) : null;
                             const date = await item.$eval('abbr', abbr => abbr.innerText);
-                            let src = "https://ewn.co.za/site/design/img/ewn-logo.png";
-
-
+                            let src_logo = "https://ewn.co.za/site/design/img/ewn-logo.png";
+                            let src_name = "EWN";
+                            let  src_url = await page.evaluate(() => location.origin);
+                            let type = "card";
                             let empty = null;
-                            let emptyArr = [];
+                          
+                            const id = generateUniqueId({
+                              length: 32
+                            });
+                             
                             //
-                            let images = emptyArr;
+                            let images = empty
+                            let category = this.category;
                             let tag = empty;
-                            let catLink = empty;
-                            let url_src = this.uri;
+                            let tags = empty;
+                            let catLink = this.uri;
                             let author = empty;
+                            let authors = empty;
                             let vidLen = empty;
                             let isVid = false;
+                            let key = empty;
+                            let label = empty;
+                            //
+                            let subject = empty;
+                            let format = empty;
+                            let about = empty;
                             arrr.push({
-                                url_src,
-                                src_name,
-                                vidLen,
-                                isVid,
-                                author,
+                                id,
+                                url,
+                                headline,
+                                lede,
+                                thumbnail,
+                                category,
                                 catLink,
-                                tag,
                                 images,
-                                src,
-                               url,
-                             lede,
-                                "headline": headlineText,
-                               thumbnail,
-                               date
+                                //
+                                key,
+                                label,
+                                //
+                                subject,
+                                format,
+                                about,
+                                //
+                                src_logo,
+                                src_name,
+                                src_url,
+                                //
+                                isVid,
+                                vidLen ,
+                                //
+                                type,
+                                tag,
+                                tags,
+                                //
+                                author,
+                                authors ,
+                                date
+                                 
                             })
                         }
 
                     } catch (error) {
-                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`)
+                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`)
                         continue;
                     }
 

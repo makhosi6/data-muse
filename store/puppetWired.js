@@ -1,7 +1,7 @@
 const vars = require('./storeVars');
 const puppeteer = require("puppeteer");
 // const wsChromeEndpointurl = "ws://127.0.0.1:61959/devtools/browser/2615c84a-4bda-4059-9998-dba89fbde12a";
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 
 //
 let src_name = "Wired";
@@ -12,10 +12,11 @@ class Scrapper {
         this.data = [];
         this.puppet = async function() {
             try {
-                const browser = await puppeteer.connect({
-                    browserWSEndpoint: wsChromeEndpointurl,
-                    defaultViewport: null
-                });
+                const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
                 await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -33,10 +34,10 @@ class Scrapper {
                         const category = await item.$eval('span.brow-component--micro', span => span.innerText);
 
                         let empty = null;
-                        let emptyArr = [];
+                        
 
                         let lede = empty;
-                        let images = emptyArr;
+                        let images = empty;
                         let url_src = this.uri;
                         let tag = empty;
                         let date = empty;
@@ -67,7 +68,7 @@ class Scrapper {
                             date
                         })
                     } catch (error) {
-                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`)
+                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`)
                         continue;
                     }
                 }

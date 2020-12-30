@@ -3,7 +3,7 @@ require('dotenv').config();
 const cron = require("node-cron");
 const express = require("express");
 const Routa = express.Router();
-process.setMaxListeners(Infinity);
+
 //
 let sources = {
         news: "https://www.bbc.com/news/business",

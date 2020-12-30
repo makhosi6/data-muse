@@ -1,29 +1,31 @@
 const puppeteer = require('puppeteer');
 const puppet = require('../store/puppetSabc');
 require('dotenv').config();
+const generateUniqueId = require('generate-unique-id');
 const cron = require("node-cron");
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
 ///
-process.setMaxListeners(Infinity);
+
 //
 let add = [];
 
 async function main(uri) {
 
     try {
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-            defaultViewport: null
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
         await page.waitForSelector('.ppc');
         const items = await page.$$('.ppc');
-        await page.waitFor(125000);
+        await page.waitFor(30000);
         //
         for (const item of items) {
             try {
@@ -31,49 +33,74 @@ async function main(uri) {
                 const cat = await item.$('.home_page_category > a');
                 const image = await item.$('.category-image > img');
                 const title = await item.$('.category-title > a');
-
+                const images = (image != null) ? await item.$eval('.category-image > img', img => img.srcset) : null;
                 //
                 const thumbnail = await page.evaluate(img => img.src, image);
                 const date = await item.$eval('p.ppc-first-post-date', p => p.innerText);
                 const lede = await item.$eval('p.ppc-first-post-excerpt', p => p.innerText);
                 const category = await page.evaluate(a => a.innerText, cat);
+                const catLink = await page.evaluate(a => a.href, cat);
                 const url = await page.evaluate(a => a.href, title);
                 const headline = await page.evaluate(a => a.innerText, title);
                 //
-                let url_src = uri;
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
                 let empty = null;
-                let emptyArr = [];
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                   
                 //
-                let src = "https://www.aljazeera.com/assets/images/AljazeeraLogo.png";
-                let images = emptyArr;
-                let tag = empty;
-                let catLink = empty;
+                let  src_name = "SABC";
+                let  src_url = await page.evaluate(() => location.origin);
+                let src_logo = "https://www.sabcnews.com/sabcnews/wp-content/uploads/2018/06/sabc-logo-white-final.png";
+                let tag = category;
+                let tags = empty;
                 let author = empty;
-                let isVid = true;
+                let authors = empty;
+                let isVid = false;
                 let vidLen = empty;
+                //
+                let key = empty;
+                let label = empty;
+                let type = "card";
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
                 add.push({
-                    url_src,
+                    id,
                     url,
                     headline,
                     lede,
                     thumbnail,
-                    src,
-                    //
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
                     isVid,
-                    vidLen,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
                 continue;
             }
         }

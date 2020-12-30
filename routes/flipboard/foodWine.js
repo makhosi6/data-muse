@@ -3,7 +3,7 @@ const puppet = require('../../store/puppetFlipBoard');
 const express = require("express");
 const Routa = express.Router();
 //
-process.setMaxListeners(Infinity);
+
 //
 let sources = {
         news: "https://flipboard.com/@foodandwine",

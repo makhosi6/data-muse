@@ -3,7 +3,7 @@ const puppet = require('../store/puppetTImes');
 const express = require("express");
 const Routa = express.Router();
 ///
-process.setMaxListeners(Infinity);
+
 //
 let sources = {
         business: "https://www.timeslive.co.za/sunday-times/business/",

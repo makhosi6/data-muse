@@ -6,17 +6,17 @@
     const puppet = require('./store/puppetAlj');
     const puppett = require('./store/puppetCnn');
     //
-    process.setMaxListeners(Infinity);
+    
     //
     let empty = null;
-    let emptyArr = [];
+    
 
     let source = {
             docs: "https://www.aljazeera.com/documentaries/",
             africa: "https://edition.cnn.com/africa",
             trending: "https://www.aljazeera.com/",
-            news: "https://www.aljazeer[]a.com/topics/regions/africa.html",
-        }
+            news: "https://www.aljazeera.com/topics/regions/africa.html",
+        };
         //
 
     const Puppet = puppet.Scrapper;

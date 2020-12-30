@@ -4,7 +4,7 @@ const express = require("express");
 const Routa = express.Router();
 const puppet = require('../store/puppetCnn');
 //
-process.setMaxListeners(Infinity);
+
 //
 let sources = {
         world: "https://edition.cnn.com/world",
@@ -37,7 +37,7 @@ const Five = new Puppet(sources.business, "business");
         Five.puppet();
         ///
    
-});
+// });
 //
 Routa.get('/cnn', (req, res) => {
     res.send({

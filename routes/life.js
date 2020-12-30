@@ -1,34 +1,35 @@
 require('dotenv').config();
 const cron = require("node-cron");
-const wsChromeEndpointurl = require('../browser');
+// const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
 ///
-process.setMaxListeners(Infinity);
+
 //
 let add = [];
 let src_name = "W24";
 
 async function main(uri) {
     try {
-        const browser = await puppeteer.connect({
-            browserWSEndpoint: wsChromeEndpointurl,
-            defaultViewport: null
-        });
+           const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
         await page.waitForSelector('#load-more-button');
         await page.click('#load-more-button');
-        await page.waitFor(33000);
+        await page.waitFor(63000);
         await page.click('#load-more-button');
-        await page.waitFor(33000);
+        await page.waitFor(63000);
         await page.click('#load-more-button');
-        await page.waitFor(33000);
+        await page.waitFor(63000);
         await page.click('#load-more-button');
-        await page.waitFor(33000);
+        await page.waitFor(63000);
         await page.click('#load-more-button');
 
         //
@@ -48,12 +49,12 @@ async function main(uri) {
                 const headline = await item.$eval('span.tf-title', span => span.innerText);
                 //
                 let empty = null;
-                let emptyArr = [];
+                
                 //
                 let catLink = empty;
                 let tag = empty;
                 //
-                let images = emptyArr;
+                let images = empty;
                 //
                 let isVid = false;
                 let vidLen = empty;
@@ -83,7 +84,7 @@ async function main(uri) {
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.name}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
                 continue;
             }
 

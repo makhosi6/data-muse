@@ -1,20 +1,23 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
 const vars = require('./storeVars');
-const wsChromeEndpointurl = require('../browser');
+const generateUniqueId = require('generate-unique-id');
+
+// const wsChromeEndpointurl = require('../browser');
 //
 let src_name = "CNN";
 class Scrapper {
-    constructor(uri, cat) {
+    constructor(uri, category) {
         this.uri = uri;
-        this.cat = cat;
+        this.category = category;
         this.data = [];
         this.puppet = async function() {
             try {
-                const browser = await puppeteer.connect({
-                    browserWSEndpoint: wsChromeEndpointurl,
-                    defaultViewport: null
-                });
+                const browser = await puppeteer.launch({
+      
+         defaultViewport: null,
+            headless: false
+    });
                 const page = await browser.newPage();
                 page.setUserAgent(vars.userAgent);
                 await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -44,46 +47,71 @@ class Scrapper {
                         const thumbnail = ((media != null || undefined) && (image != null || undefined)) ? await media.$eval('img', img => img.dataset.src) : null;
                         let j = await item.$('.cnn-badge-icon');
 
-                        const src = 'https://civiliansinconflict.org/wp-content/uploads/2017/09/Colors-CNN-Logo.jpg';
+                        const src_logo = 'https://dnh0aphdpud22.cloudfront.net/social_avatars/f709e3e81b14933db09763a3.jpg';
 
                         let empty = null;
-                        let emptyArr = [];
-                        let category = (c == null || undefined) ? this.cat : c;
-
-                        let tag = category;
+                        
+                        let tag = (c == null || undefined) ? this.cat : c;
+                      
+                        const id = generateUniqueId({
+                          length: 32
+                        });
+                         
+                        let category = this.category;
                         let lede = empty;
+                        let tags = empty;
+                        let key = empty;
+                        let label = empty;
+                        //
+                        let subject = empty;
+                        let format = empty;
+                        let about = empty;
+                        let type = "title-only"
                         let date = empty;
                         let author = empty;
+                        let authors = empty;
                         let vidLen = empty;
-                        let catLink = empty;
-                        let url_src = this.uri;
-                        let images = emptyArr;
+                        let catLink = this.uri;
+                        let  src_url = await page.evaluate(() => location.origin);
+                        let images = empty;
 
                         arrr.push({
-                            url_src,
-                            src_name,
+                            id,
                             url,
                             headline,
                             lede,
                             thumbnail,
-                            //
                             category,
                             catLink,
-                            tag,
-                            src,
-                            //
                             images,
                             //
+                            key,
+                            label,
+                            //
+                            subject,
+                            format,
+                            about,
+                            //
+                            src_name,
+                            src_logo,
+                            src_url,
+                            //
                             isVid,
-                            vidLen,
+                            vidLen ,
+                            //
+                            type,
+                            tag,
+                            tags,
                             //
                             author,
+                            authors ,
                             date
                         })
 
 
+
                     } catch (error) {
-                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error.name}`)
+                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`)
                     }
                 }
                 this.data = arrr;

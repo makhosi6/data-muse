@@ -3,7 +3,7 @@ const express = require("express");
 const Routa = express.Router();
 const puppet = require('../../store/puppetFlipBoard');
 //
-process.setMaxListeners(Infinity);
+
 const Puppet = puppet.Scrapper;
 let source = "https://flipboard.com/@enews";
 const dataOne = new Puppet(source, "eNews");
