@@ -2,18 +2,17 @@ require('dotenv').config();
 const cron = require("node-cron");
 // const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
+const generateUniqueId = require('generate-unique-id');
 const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
-//
-
 ///
 let add_sport = [];
 let add_video = [];
 let add_business = [];
 let add_trends = [];
-let src = "https://www.enca.com/sites/all/themes/custom/enca/images/eNCA_logo.svg";
-let src_name = "enca";
+let src_logo = "https://www.enca.com/sites/all/themes/custom/enca/images/eNCA_logo.svg";
+let src_name = "eNCA";
 
 async function main(uri_sport, uri_video, uri_business) {
     try {
@@ -31,7 +30,6 @@ async function main(uri_sport, uri_video, uri_business) {
         //
         for (const item of items_sport) {
             try {
-
                 const head = await item.$('h2');
                 const image = await item.$('img');
                 const sec = await item.$('.para-section-author');
@@ -42,38 +40,61 @@ async function main(uri_sport, uri_video, uri_business) {
                 const url = (head != null || undefined) ? await head.$eval('a', a => a.href) : null;
                 const lede = (para != null || undefined) ? await para.$eval('div.field-content', div => div.innerText) : null;
                 const date = (sec != null || undefined) ? await sec.$eval('span.field-content', span => span.innerText) : null;
-
+                let src_url = await page_sport.evaluate(() => location.origin);
                 let empty = null;
                 
 
-                let catLink = empty;
-                let author = empty;
-                let category = empty;
-                let url_src = uri_sport;
+                let catLink = uri_sport;
+                let category = "sport";
+                const id = generateUniqueId({
+                    length: 32
+                  });
                 let tag = category;
                 let images = empty;
                 let vidLen = empty;
                 let isVid = false;
                 //
+                let author = empty;
+                let authors = empty;
+                let tags = empty;
+                let key = empty;
+                let label = empty;
+                let type = "card";
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
+                //
                 (url === null) ? false: add_sport.push({
-                    url_src,
-                    src_name,
+                    id,
                     url,
                     headline,
                     lede,
                     thumbnail,
-                    src,
-                    //
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
                     isVid,
-                    vidLen,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 });
 
@@ -105,42 +126,63 @@ async function main(uri_sport, uri_video, uri_business) {
                 const thumbnail = (image != null || undefined) ? await item.$eval('img', img => img.src) : null;
                 const url = (head != null || undefined) ? await head.$eval('a', a => a.href) : null;
                 const lede = (para != null || undefined) ? await para.$eval('div.field-content', div => div.innerText) : null;
-
+                let src_url = await page_video.evaluate(() => location.origin);
 
                 let empty = null;
-                let empty = "";
-
+                const id = generateUniqueId({
+                    length: 32
+                  });
                 let catLink = empty;
                 let author = empty;
                 let date = empty;
-                let category = empty;
+                let category = "video";
                 let tag = category;
-                let url_src = uri_video;
+              
                 let images = empty;
                 let vidLen = empty;
-                let isVid = false;
+                let isVid = true;
+                 //
+                 let authors = empty;
+                 let tags = empty;
+                 let type = "card";
+                 let key = empty;
+                 let label = empty;
+                 //
+                 let subject = empty;
+                 let format = empty;
+                 let about = empty;
 
                 (url === null) ? false: add_video.push({
-                    url_src,
-                    src_name,
+                    id,
                     url,
                     headline,
                     lede,
                     thumbnail,
-                    src,
-                    //
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
+                    //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
                     //
                     isVid,
                     vidLen,
                     //
+                    type,
+                    tag,
+                    tags,
+                    //
                     author,
+                    authors ,
                     date
-
                 });
 
 
@@ -150,7 +192,7 @@ async function main(uri_sport, uri_video, uri_business) {
             }
         }
         //
-        await page_video.close();
+    
 
         const page_business = await browser.newPage();
         page_business.setUserAgent(vars.userAgent);
@@ -159,41 +201,150 @@ async function main(uri_sport, uri_video, uri_business) {
         const wrapper = await page_business.$x('//*[@id="block-views-block-test-business-listing-view-block-4"]/div/div');
         const items_business = await page_business.$$('.views-row');
         await page_business.waitFor(5000);
-        const trends = await page_sport.$$('.view-content > .trending-list');
-        const latest = await page_sport.$$('.trending-story-wrapper > .trending-list');
+        const trends = await page_business.$$('.view-content > .trending-list');
+        const latest = await page_business.$$('.trending-story-wrapper > .trending-list');
+        let empty = null;
         //
         for (const trend of latest) {
-            const link = await trend.$('a');
-            const hed = await trend.$('h4');
-            //
-            let url = (link != null || undefined) ? await page_sport.evaluate(a => a.href, link) : null;
-            let headline = (hed != null || undefined) ? await page_sport.evaluate(a => a.innerText, hed) : null;
-            let url_src = uri_video;
+            // const link = await trend.$('a');
+            // const hed = await trend.$('h4');
+            // //
+            // const id = generateUniqueId({
+            //     length: 32
+            //   });
+            // let url = (link != null || undefined) ? await page_sport.evaluate(a => a.href, link) : null;
+            // let headline = (hed != null || undefined) ? await page_sport.evaluate(a => a.innerText, hed) : null;
+            // let src_url = await page_business.evaluate(() => location.origin);
+            //  //
+            //  let catLink = empty;
+            //  let author = empty;
+            //  let date = empty;
+            //  let category = empty;
+            //  let tag = category;
+            //  let images = empty;
+            //  //
+            //  let vidLen = empty;
+            //  let isVid = false;
+            //  //
+            //  let authors = empty;
+            //  let tags = empty;
+            //  let type = "card";
+            //  let key = empty;
+            //  let label = empty;
+            //  let lede = empty;
+            //  //
+            //  let thumbnail = empty;
+            //  let subject = empty;
+            //  let format = empty;
+            //  let about = empty;
 
-            add_trends.push({
-                src_name,
-                url_src,
-                "url": url,
-                "headline": headline
-            });
+
+            // add_business.push({
+            //     id,
+            //     url,
+            //     headline,
+            //     lede,
+            //     thumbnail,
+            //     category,
+            //     catLink,
+            //     images,
+            //     //
+            //     key,
+            //     label,
+            //     //
+            //     subject,
+            //     format,
+            //     about,
+            //     //
+            //     src_name,
+            //     src_url,
+            //     src_logo,
+            //     //
+            //     isVid,
+            //     vidLen ,
+            //     //
+            //     type,
+            //     tag,
+            //     tags,
+            //     //
+            //     author,
+            //     authors ,
+            //     date
+            // });
         }
         //
-        await page_sport.close();
+    
         for (const trend of trends) {
             try {
                 const link = await trend.$('a');
                 //
-                let url = (link != null || undefined) ? await page_sport.evaluate(a => a.innerText, link) : null;
-                let headline = (link != null || undefined) ? await page_sport.evaluate(a => a.href, link) : null;
-                let url_src = uri_sport;
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                let url = (link != null || undefined) ? await page_business.evaluate(a => a.innerText, link) : null;
+                let headline = (link != null || undefined) ? await page_business.evaluate(a => a.href, link) : null;
+                let src_url = await page_business.evaluate(() => location.origin);
+                let empty = null;
+            //
+                let lede = empty;
+                let thumbnail = empty;
+                let category = empty;
+                let catLink = empty;
+                let images = empty;
+                //
+                let key = empty;
+                let label = empty;
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
+          
+                //
+                let isVid = empty;
+                let vidLen = empty;
+                //
+                let type = "trend";
+                let tag = empty;
+                let tags = empty;
+                //
+                let author = empty;
+                let authors = empty;
+                let date = empty;
+
                 add_trends.push({
+                    id,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    category,
+                    catLink,
+                    images,
+                    //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
                     src_name,
-                    "url": url,
-                    url_src,
-                    "headline": headline
+                    src_url,
+                    src_logo,
+                    //
+                    isVid,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
+                    //
+                    author,
+                    authors,
+                    date
                 });
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri_video} loop: ${error}`)
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri_business} loop: ${error}`)
             }
         }
         //
@@ -212,35 +363,59 @@ async function main(uri_sport, uri_video, uri_business) {
 
 
                 let empty = null;
-                let empty = "";
-                let catLink = empty;
+                
+                let catLink = uri_business;
                 let author = empty;
-                let category = empty;
-                let url_src = uri_video;
+                let authors = empty;
+                let category = "business";
+                let src_url = await page_business.evaluate(() => location.origin);
                 let tag = category;
+                let tags = empty;
                 let images = empty;
                 let vidLen = empty;
                 let isVid = false;
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                 //
+                 let type = "card"
+                 let key = empty;
+                 let label = empty;
+                 //
+                 let subject = empty;
+                 let format = empty;
+                 let about = empty;
 
                 (url === null) ? false: add_business.push({
-                    url_src,
-                    src_name,
+                    id,
                     url,
                     headline,
                     lede,
                     thumbnail,
-                    src,
-                    //
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
                     isVid,
-                    vidLen,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 });
             } catch (error) {
@@ -249,6 +424,9 @@ async function main(uri_sport, uri_video, uri_business) {
             }
         }
         //
+        // console.log({page});
+        await page_sport.close();
+        await page_video.close(); 
         await page_business.close();
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri_business}`);
     } catch (error) {
@@ -263,8 +441,6 @@ let source_video = "https://www.enca.com/watch";
 let source_business = "https://www.enca.com/business";
 //
 main(source_sport, source_video, source_business);
-
-// });
 //
 Routa.get('/enca', (req, res) => {
     res.send({
@@ -272,8 +448,6 @@ Routa.get('/enca', (req, res) => {
         "video": add_video,
         "business": add_business,
         "trends": add_trends
-
-
     });
 });
 module.exports = Routa;

@@ -5,8 +5,8 @@ cron.schedule("0 */6 * * *", () => {  })
     api/v1/africa
     api/v1/ewn  ++     
     api/v1/alj             
-    api/v1/bbc
-    api/v1/enca
+    api/v1/bbc ++
+    api/v1/enca ++
     api/v1/times-live
 
 DAILY

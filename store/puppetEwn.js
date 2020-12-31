@@ -41,7 +41,7 @@ class Scrapper {
                             const date = await item.$eval('abbr', abbr => abbr.innerText);
                             let src_logo = "https://ewn.co.za/site/design/img/ewn-logo.png";
                             let src_name = "EWN";
-                            let  src_url = await page.evaluate(() => location.origin);
+                            let src_url = await page.evaluate(() => location.origin);
                             let type = "card";
                             let empty = null;
                           
@@ -87,14 +87,14 @@ class Scrapper {
                                 src_url,
                                 //
                                 isVid,
-                                vidLen ,
+                                vidLen,
                                 //
                                 type,
                                 tag,
                                 tags,
                                 //
                                 author,
-                                authors ,
+                                authors,
                                 date
                                  
                             })

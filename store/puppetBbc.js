@@ -1,5 +1,6 @@
 const vars = require('./storeVars');
 const puppeteer = require('puppeteer');
+const generateUniqueId = require('generate-unique-id');
 // const wsChromeEndpointurl = require('../browser');
 //
 let src_name = "BBC";
@@ -50,35 +51,56 @@ class Scrapper {
                         const category = (slc == "programmes") ? "programmes" : cat;
                         let thumbnail = (value != null) ? value.replace("{width}", "490") : null;
                         //
+                        let type = "card";
+                        let  src_url = await page.evaluate(() => location.origin);
                         let empty = null;
-                        
+                        let tags = empty;
                         //
-                        let src = "https://nav.files.bbci.co.uk/orbit/db9d3ece642dbb01f23f791064ec1502/img/blq-orbit-blocks_grey_alpha.png";
+                        let src_logo = "https://nav.files.bbci.co.uk/orbit/db9d3ece642dbb01f23f791064ec1502/img/blq-orbit-blocks_grey_alpha.png";
                         let tag = category;
                         let author = empty;
-                        let url_src = this.uri;
+                        let authors = empty;
+                        let key = empty;
+                        let label = empty;
+                        //
+                        let subject = empty;
+                        let format = empty;
+                        let about = empty;
+                        const id = generateUniqueId({
+                            length: 32
+                          });
                         //
                         arrr.push({
-                            src_name,
-                            url_src,
+                            id,
                             url,
-                            src,
                             headline,
                             lede,
                             thumbnail,
-                            //
                             category,
                             catLink,
-                            tag,
-                            //
                             images,
                             //
+                            key,
+                            label,
+                            //
+                            subject,
+                            format,
+                            about,
+                            //
+                            src_name,
+                            src_url,
+                            src_logo,
+                            //
                             isVid,
-                            vidLen,
+                            vidLen ,
+                            //
+                            type,
+                            tag,
+                            tags,
                             //
                             author,
+                            authors,
                             date
-
                         })
                     } catch (error) {
                         console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`)
