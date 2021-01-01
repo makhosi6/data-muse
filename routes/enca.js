@@ -281,8 +281,8 @@ async function main(uri_sport, uri_video, uri_business) {
                 const id = generateUniqueId({
                     length: 32
                   });
-                let url = (link != null || undefined) ? await page_business.evaluate(a => a.innerText, link) : null;
-                let headline = (link != null || undefined) ? await page_business.evaluate(a => a.href, link) : null;
+                let headline = (link != null || undefined) ? await page_business.evaluate(a => a.innerText, link) : null;
+                let url = (link != null || undefined) ? await page_business.evaluate(a => a.href, link) : null;
                 let src_url = await page_business.evaluate(() => location.origin);
                 let empty = null;
             //
