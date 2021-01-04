@@ -17,11 +17,11 @@ let sources = {
 
 const Puppet = puppet.Scrapper;
 //one
-const dataOne = new Puppet(sources.science);
+const dataOne = new Puppet(sources.science, "science");
 //Two
-const dataTwo = new Puppet(sources.business);
+const dataTwo = new Puppet(sources.business, "business");
 //Three
-const dataThree = new Puppet(sources.gear);
+const dataThree = new Puppet(sources.gear, "lifestyle");
 ///
 // cron.schedule("0 4 * * SUN", () => {
         console.log('\x1b[46m%s\x1b[0m', "WIRED fired at:" + Date());

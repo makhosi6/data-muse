@@ -23,6 +23,7 @@ class Scrapper {
                 await page.waitForSelector('.gs-c-promo');
                 const items = await page.$$('.gs-c-promo');
                 await page.waitFor(5000);
+                // let st = "";
                 //
                 let arrr = [];
                 //
@@ -34,13 +35,14 @@ class Scrapper {
                         const el = await body.$('.nw-c-promo-meta');
                         const cont = await body.$('.qa-time');
                         const sect = (body != null || undefined) ? await body.$('.gs-c-section-link') : null;
+                        // st = await page.evaluate(el => el.innerHTML, item);
                         //
                         const mediaLink = (media != null || undefined) ? await media.$eval('img', img => img.src) : null;
                         const value = (mediaLink != null || undefined) ? await item.$eval('img', img => img.dataset.src) : null;
                         const images = (mediaLink != null || undefined) ? await item.$eval('img', img => img.srcset) : null;
                         const url = (body != null || undefined) ? await body.$eval('a', a => a.href) : null;
                         const headline = (body != null || undefined) ? await body.$eval('h3', h3 => h3.innerText) : null;
-                        const date = (el != null || undefined) ? await body.$eval('span.qa-status-date-output', span => span.innerText) : null;
+                        const date = (el != null || undefined) ? await body.$eval('time > .gs-u-vh', span => span.innerText) : null;
                         const vidLen = (cont != null) ? await body.$eval('span.qa-onscreen', span => span.innerText) : null;
                         const isVid = (vidLen != null || undefined) ? true : false;
                         const cat = (el != null || undefined) ? await sect.$eval('span', span => span.innerText) : null;

@@ -1,5 +1,6 @@
 const vars = require('./storeVars');
 const puppeteer = require("puppeteer");
+const generateUniqueId = require('generate-unique-id');
 // const wsChromeEndpointurl = "ws://127.0.0.1:61959/devtools/browser/2615c84a-4bda-4059-9998-dba89fbde12a";
 // const wsChromeEndpointurl = require('../browser');
 
@@ -7,8 +8,9 @@ const puppeteer = require("puppeteer");
 let src_name = "Wired";
 //
 class Scrapper {
-    constructor(uri) {
+    constructor(uri, cat) {
         this.uri = uri;
+        this.cat = cat;
         this.data = [];
         this.puppet = async function() {
             try {
@@ -31,40 +33,63 @@ class Scrapper {
                         const url = await item.$eval('a', a => a.href);
                         const headline = await item.$eval('h2', h2 => h2.innerText);
                         const author = await item.$eval('a.byline-component__link', a => a.innerText);
-                        const category = await item.$eval('span.brow-component--micro', span => span.innerText);
+                        const tag = await item.$eval('span.brow-component--micro', span => span.innerText);
 
                         let empty = null;
-                        
-
+                        let tags = empty;
+                        let authors = empty;
+                        let category = this.cat;
                         let lede = empty;
                         let images = empty;
-                        let url_src = this.uri;
-                        let tag = empty;
+                        let src_url = await page.evaluate(() => location.origin);
                         let date = empty;
-                        let isVid = empty;
+                        let isVid = false;
                         let vidLen = empty;
-                        let catLink = empty;
-                        let src = "https://www.wired.com/images/icons/logo-black.svg";
+                        let catLink = this.uri;
+                        let src_logo = "https://www.wired.com/images/icons/logo-black.svg";
+                        //
+                        const id = generateUniqueId({
+                            length: 32
+                          });
+                           
+                        let key = empty;
+                        let label = empty;
+                        let type = "title-only"
+                        //
+                        let subject = empty;
+                        let format = empty;
+                        let about = empty;
 
                         arrr.push({
-                            src_name,
-                            url_src,
+                            id,
                             url,
                             headline,
                             lede,
                             thumbnail,
-                            src,
-                            //
                             category,
                             catLink,
-                            tag,
-                            //
                             images,
                             //
+                            key,
+                            label,
+                            //
+                            subject,
+                            format,
+                            about,
+                            //
+                            src_name,
+                            src_url,
+                            src_logo,
+                            //
                             isVid,
-                            vidLen,
+                            vidLen ,
+                            //
+                            type,
+                            tag,
+                            tags,
                             //
                             author,
+                            authors ,
                             date
                         })
                     } catch (error) {

@@ -1,15 +1,14 @@
-//@ts-check
-//@ts-ignore
 const cron = require("node-cron");
 const puppeteer = require("puppeteer");
 require('dotenv').config();
+const generateUniqueId = require('generate-unique-id');
 // const wsChromeEndpointurl = require('../browser');
 const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
 ///
-
 let src_name = "Africanews";
+let src_logo = "https://www.screenafrica.com/wp-content/uploads/2018/04/Africanews-logo.png";
 //
 let news = [];
 let trending = [];
@@ -32,18 +31,74 @@ async function main(uri) {
             try {
                 const time = await each.$('time');
                 const ab = await each.$('a');
-                const date = (time != null || undefined) ? await page.evaluate(i => i.textContent, time) : null;
+                const d = (time != null || undefined) ? await page.evaluate(i => i.textContent, time) : null;
+                const date = await d.replace(/(\r\n|\n|\r)/gm, "").trim();
                 //
-                // @ts-ignore
-                const headline = await each.$eval('h3 > a', a => a.innerText);
+                const type = "trend"
+                const h1 = await each.$eval('h3 > a', a => a.innerText);
+                const headline = await h1.replace(/(\r\n|\n|\r)/gm, "").trim();
+                let src_url = await page.evaluate(() => location.origin);
                 //
-                const link = await page.evaluate(a => a.href, ab);
+                const url = await page.evaluate(a => a.href, ab);
+                const empty = null;
+                //
+              
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                let lede = empty;
+                let thumbnail = empty;
+                let category = empty;
+                let catLink = empty;
+                let images = empty;
+                //
+                let key = empty;
+                let label = empty;
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
+               
+                let isVid = false;
+                let vidLen = empty
+                //
+                let tag = empty;
+                let tags = empty;
+                //
+                let author = empty;
+                let authors = empty;
+                //
                 trending.push({
-                    url_src,
+                    id,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    category,
+                    catLink,
+                    images,
+                    //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
                     src_name,
-                    "date": date.replace(/(\r\n|\n|\r)/gm, "").trim(),
-                    "url": link,
-                    "headline": headline.replace(/(\r\n|\n|\r)/gm, "").trim(),
+                    src_url,
+                    src_logo,
+                    //
+                    isVid,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
+                    //
+                    author,
+                    authors ,
+                    date
                 })
             } catch (error) {
                 console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
@@ -51,60 +106,80 @@ async function main(uri) {
             }
         }
         //
-        const items = await page.$$('article');
+        const items = await page.$$('article.teaser');
         //
-
         for (const item of items) {
             try {
                 //
                 const timeStamp = await item.$('.boxPlay--duration');
                 const e = await item.$('img');
-                // @ts-ignore
                 const f = await item.$('.teaser__title');
                 const time = await item.$('time');
                 //
                 const url = await page.evaluate(a => a.href, item);
                 const head = await item.$eval('.teaser__title', a => a.textContent);
                 const d = (time != null || undefined) ? await page.evaluate(i => i.textContent, time) : null;
-                const date = await d.trim();
-                // @ts-ignore
+                const date = (d!==null)? await d.trim():null;
+                
                 const thumbnail = (e != null || undefined) ? await item.$eval('img', img => img.src) : null;
                 const vidLen = (timeStamp != null || undefined) ? await page.evaluate(a => a.innerText, timeStamp) : null;
                 const isVid = (timeStamp != null || undefined) ? true : false;
                 //
+                let type = (thumbnail===null)?"title-only":"strip";
                 let headline = head.trim();
-                // @ts-ignore
                 const iHtml = await page.evaluate(el => el.innerHTML, item);
+                let src_url = await page.evaluate(() => location.origin);
                 let empty = null;
                 
-                let src = "https://www.screenafrica.com/wp-content/uploads/2018/04/Africanews-logo.png";
+                const id = generateUniqueId({
+                    length: 32
+                  });
                 let lede = empty;
-                let author = empty;
                 let tag = empty;
+                let tags = empty;
                 let category = empty;
                 let catLink = empty;
                 let images = empty;
-
+                //
+                let author = empty;
+                let authors = empty;
+                let key = empty;
+                let label = empty;
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
 
                 news.push({
-                    url_src,
-                    src_name,
+                    id,
                     url,
                     headline,
                     lede,
                     thumbnail,
-                    src,
-                    //
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
                     //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
                     isVid,
-                    vidLen,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
                     //
                     author,
+                    authors ,
                     date
                 })
             } catch (error) {
