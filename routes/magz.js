@@ -69,7 +69,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let lede = empty;
 
                 add_men.push({
-                    url,
+                    url,  
                     url_src,
                     src_name,
                     headline,

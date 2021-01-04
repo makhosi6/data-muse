@@ -10,6 +10,7 @@ const Routa = express.Router();
 
 //
 let x = "";
+let y = "";
 let add = [];
 let src_name = "M&G";
 
@@ -42,7 +43,21 @@ async function main(uri) {
                 const para = await item.$('.td-excerpt');
                 const cat = await item.$('.td-post-category');
                 //
-                const thumb = await page.evaluate(a => a.style.backgroundImage, e);
+                const thumb = await page.evaluate(a => a.style.backgroundImage, e) || await item.$eval('.td-image-wrap > span', img => img.dataset.bg);
+                let a;
+                let b;
+                let c;
+                let thumbnail;
+                if(thumb.includes('url("')){
+                  
+                    a = (thumb !== null  || thumb !== undefined) ? thumb.split('url("') : null;
+                    b = a[1];
+                    c = (thumb !== null || thumb !== undefined) ? b.split('")') : null;
+                    thumbnail = (thumb !== null) ? c[0] : null;
+                } else{
+                    thumbnail = thumb;
+                }
+                
                 const author = (cred != null || undefined) ? await page.evaluate(a => a.innerText, cred) : null;
                 const date = (time != null || undefined) ? await page.evaluate(time => time.innerText, time) : null;
                 const url = await page.evaluate(a => a.href, get);
@@ -50,10 +65,6 @@ async function main(uri) {
                 const lede = (para != null || undefined) ? await item.$eval('.td-excerpt', div => div.innerText) : null;
                 const tag = (cat != null || undefined) ? await item.$eval('.td-post-category', a => a.innerText) : null;
                 //
-                let a = (thumb !== null  || thumb !== undefined) ? thumb.split('url("') : null;
-                let b = a[1];
-                let c = (thumb !== null || thumb !== undefined) ? b.split('")') : null;
-                let thumbnail = (thumb !== null) ? c[0] : null;
                 let src_logo = "https://bucket.mg.co.za/wp-media/2020/01/74e543ae-logo-white-467.png";
               
                 let src_url = await page.evaluate(() => location.origin);
@@ -74,7 +85,7 @@ async function main(uri) {
                 let key = empty;
                 let tags = empty;
                 let label = empty;
-                let type = (thumb !== null) ? "title-only" : "strip";
+                let type = ((thumb !== null) &&(thumb !== undefined)) ? "title-only" : "strip";
                 //
                 let subject = empty;
                 let format = empty;
@@ -113,11 +124,9 @@ async function main(uri) {
                     date
                 })
             } catch (error) {
-                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
-                console.log({x});
+                console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`);
                 continue;
             }
-
         }
         //
         await page.close();

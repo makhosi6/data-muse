@@ -15,9 +15,9 @@ cron.schedule("0 3 * * *", () => {  })
     api/v1/hot-trends ++
     api/v1/citizen ++
     api/v1/kickoff ++
-    api/v1/sa-scrapper ++     
+    api/v1/sa-scrapper ++ 
     api/v1/laduma ++
-    api/v1/espn
+    api/v1/espn 
     api/v1/cgtn ++
     api/v1/sabc ++
 
@@ -27,12 +27,12 @@ cron.schedule("0 4 * * SUN", () => {  })
     api/v1/wired-all ++
     api/v1/enews
     api/v1/foodwine
-    api/v1/nat-geo                         
-    api/v1/magz-lifestyle
+    api/v1/nat-geo               
+    api/v1/magz-lifestyle 
 
 MONTHLY
  cron.schedule("0 9 1 * *", () => {  })
-    api/v1/mg/news
+    api/v1/mg/news ++
     api/v1/hbr-all ++                            
 
 
