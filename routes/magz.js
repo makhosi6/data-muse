@@ -3,6 +3,7 @@ const puppeteer = require('puppeteer');
 const cron = require("node-cron");
 require('dotenv').config();
 const scrollPageToBottom = require('puppeteer-autoscroll-down');
+const generateUniqueId = require('generate-unique-id');
 const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
@@ -14,6 +15,8 @@ let add_men = [];
 let add_women = [];
 let add_vogue = [];
 let add_you = [];
+let category = "lifestyle";
+
 async function main(uri_men, uri_women, uri_vogue, uri_you) {
 
     try {
@@ -27,10 +30,10 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         await page_men.goto(uri_men, { waitUntil: 'networkidle2', timeout: 0 });
         await page_men.waitForSelector('article.post');
         let myVar = setInterval(() =>
-            scrollPageToBottom(page_men), 100);
-        await page_men.waitFor(5300);
+            scrollPageToBottom(page_men), 200);
+        await page_men.waitFor(1500);
         clearInterval(myVar);
-        await page_men.waitFor(32300);
+        await page_men.waitFor(5000);
         ///
         const items_men = await page_men.$$('article.post');
         //
@@ -41,7 +44,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 //
                 const url = await item.$eval('.uk-panel-title', a => a.href);
                 const headline = await item.$eval('.uk-panel-title', a => a.innerText);
-                const category = (cat != null || undefined) ? await page_men.evaluate(a => a.innerText, cat) : null;
+                const tag = (cat != null || undefined) ? await page_men.evaluate(a => a.innerText, cat) : null;
                 const thumb = await page_men.evaluate(div => div.style.backgroundImage, get);
                 //
                 let a = thumb.split('url("');
@@ -51,42 +54,64 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 const iHtml = await page_men.evaluate(el => el.innerHTML, cat);
                 //
                 let empty = null;
-                
-                let src = "https://upload.wikimedia.org/wikipedia/commons/8/8b/Men%27s_Health.svg";
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                let src_logo = "https://upload.wikimedia.org/wikipedia/commons/8/8b/Men%27s_Health.svg";
                 //
-                let catLink = empty;
-                let tag = empty;
+                let src_url = await page_men.evaluate(() => location.origin);
+                let catLink = uri_men;
+                let tags = empty;
                 //
                 let images = empty;
                 //
                 let isVid = false;
                 let vidLen = empty;
                 //
-                let url_src = uri_men;
                 let src_name = 'men health';
-                let author = empty;
+                let type = "title-only";
                 let date = empty;
+                let author = empty;
+                let authors = empty;
                 let lede = empty;
+                //
+                let key = empty;
+                let label = empty;
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
 
                 add_men.push({
-                    url,  
-                    url_src,
-                    src_name,
+                    id,
+                    url,
                     headline,
                     lede,
                     thumbnail,
-                    //
-                    src,
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
+                    //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
                     //
                     isVid,
                     vidLen,
                     //
+                    type,
+                    tag,
+                    tags,
+                    //
                     author,
+                    authors,
                     date
                 })
             } catch (error) {
@@ -102,9 +127,9 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         await page_women.waitForSelector('article.post');
         let myVar_women = setInterval(() =>
             scrollPageToBottom(page_women), 100);
-        await page_women.waitFor(5300);
+        await page_women.waitFor(1500);
         clearInterval(myVar_women);
-        await page_women.waitFor(32300);
+        await page_women.waitFor(15000);
         const items_women = await page_women.$$('article.post');
         for (const item of items_women) {
             try {
@@ -114,7 +139,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 //
                 const url = await item.$eval('.uk-panel-title', a => a.href);
                 const headline = await item.$eval('.uk-panel-title', a => a.innerText);
-                const category = (cat != null || undefined) ? await page_women.evaluate(a => a.innerText, cat) : null;
+                const tag = (cat != null || undefined) ? await page_women.evaluate(a => a.innerText, cat) : null;
                 const thumb = await page_women.evaluate(div => div.style.backgroundImage, get);
                 //
                 let a = thumb.split('url("');
@@ -123,41 +148,64 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let thumbnail = c[0];
                 const iHtml = await page_women.evaluate(el => el.innerHTML, cat);
                 let empty = null;
-                
-                let src = "https://www.womenshealthsa.co.za/wp-content/uploads/2018/01/wh-logo.svg";
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                let src_logo = "https://www.womenshealthsa.co.za/wp-content/uploads/2018/01/wh-logo.svg";
                 //
                 let catLink = empty;
-                let tag = empty;
+                let tags = empty;
                 //
                 let images = empty;
                 //
-                let isVid = false;
-                let vidLen = empty;
-                //
-                let src_name = 'womens health';
-                let url_src = uri_women;
                 let author = empty;
+                let authors = empty;
+                let src_url = await page_women.evaluate(() => location.origin);
+                let src_name = 'womens health';
                 let date = empty;
                 let lede = empty;
+                //
+                let type = "title-only";
+          
+                let vidLen = empty;
+                let isVid = false;
+                let key = empty;
+                let label = empty;
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
+                //
                 add_women.push({
+                    id,
                     url,
-                    url_src,
                     headline,
                     lede,
-                    src_name,
                     thumbnail,
-                    //
-                    src,
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
+                    //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
                     //
                     isVid,
                     vidLen,
                     //
+                    type,
+                    tag,
+                    tags,
+                    //
                     author,
+                    authors,
                     date
                 })
             } catch (error) {
@@ -173,10 +221,11 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         await page_vogue.goto(uri_vogue, { waitUntil: 'networkidle2', timeout: 0 });
         await page_vogue.waitForSelector('[data-test-id="TeaserBasic"]');
         const items_vogue = await page_vogue.$$('[data-test-id="TeaserBasic"]');
-        await page_vogue.waitFor(125000);
+        await page_vogue.waitFor(15000);
         ////
         for (const item of items_vogue) {
             try {
+                let src_url = await page_vogue.evaluate(() => location.origin);
                 const anchor = await item.$('[data-test-id="Anchor"]');
                 const image = await item.$('[data-test-id="Img"]');
                 const imageTwo = await item.$('noscript');
@@ -184,14 +233,16 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 const name = await item.$('[data-test-id="Name"]');
                 const cat = await item.$('[data-test-id="KickerText"]');
                 //
-
+              
                 const thumb = (image != null || undefined) ? await page_vogue.evaluate(img => img.src, image) : await page_vogue.evaluate(img => img.innerHTML, imageTwo);
                 const url = (anchor != null || undefined) ? await page_vogue.evaluate(a => a.href, anchor) : null;
                 const headline = (head != null || undefined) ? await page_vogue.evaluate(p => p.innerText, head) : null;
-                const category = (cat != null || undefined) ? await page_vogue.evaluate(p => p.innerText, cat) : null;
+                const tag = (cat != null || undefined) ? await page_vogue.evaluate(p => p.innerText, cat) : null;
                 const author = (name != null || undefined) ? await page_vogue.evaluate(p => p.innerText, name) : null;
                 //
-
+                const id = generateUniqueId({
+                    length: 32
+                  });
                 let a = (image == null) ? thumb.split('src="') : null;
                 let b = (image == null) ? a[1] : null;
                 let c = (image == null) ? b.split('" srcSet="') : null;
@@ -199,41 +250,61 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let thumbnail = (d == null) ? thumb : d;
                 //
                 let empty = null;
+                let type = "title-only";
                 
-                let src = "https://img.favpng.com/24/11/2/vogue-logo-magazine-fashion-png-favpng-H83cmbUdKYE8XPb1rZtiVg4j8.jpg";
+                let src_logo = "https://img.favpng.com/24/11/2/vogue-logo-magazine-fashion-png-favpng-H83cmbUdKYE8XPb1rZtiVg4j8.jpg";
                 //
                 let date = empty;
                 let catLink = empty;
-                let tag = category;
                 //
-                let url_src = uri_vogue;
                 let src_name = 'vogue';
                 let images = empty;
                 //
                 let isVid = false;
                 let vidLen = empty;
+                //
+                let authors = empty;
+                let tags = empty;
+                let key = empty;
+            
+                let label = empty;
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
 
                 let lede = empty;
                 add_vogue.push({
-                        url,
-                        url_src,
-                        src_name,
-                        headline,
-                        lede,
-                        thumbnail,
-                        //
-                        src,
-                        category,
-                        catLink,
-                        tag,
-                        //
-                        images,
-                        //
-                        isVid,
-                        vidLen,
-                        //
-                        author,
-                        date
+                    id,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    category,
+                    catLink,
+                    images,
+                    //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
+                    isVid,
+                    vidLen,
+                    //
+                    type,
+                    tag,
+                    tags,
+                    //
+                    author,
+                    authors,
+                    date
                     })
                     //
             } catch (error) {
@@ -245,69 +316,83 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         const page_you = await browser.newPage();
         page_you.setUserAgent(vars.userAgent);
         await page_you.goto(uri_you, { waitUntil: 'networkidle2', timeout: 0 });
-        await page_you.waitForSelector('#load_more');
-        await page_you.click('#load_more');
-        await page_you.waitFor(33000);
-        await page_you.click('#load_more');
-        await page_you.waitFor(33000);
-        await page_you.click('#load_more');
-        await page_you.waitFor(33000);
-        await page_you.click('#load_more');
-        await page_you.waitFor(33000);
-        await page_you.click('#load_more');
-
+        await page_you.waitForSelector('article');
+       
+        await page_you.waitFor(5000);
+        let src_url = await page_you.evaluate(() => location.origin);
+      
         //
-        const items_you = await page_you.$$('.article_item');
-        await page_you.waitFor(125000);
+        await page_you.waitFor(15000);
+        const items_you = await page_you.$$('article.article_item');
         //
         for (const item of items_you) {
             try {
                 //
-                const image = await item.$('#lnkListingImage > img');
-                const title = await item.$('h3 > a#lnkListingTitle');
+                const image = await item.$('.article-item__image > img');
+                const title = await item.$('.article-item__title > span');
                 //
-                const url = await item.$eval('a#lnkListingTitle', a => a.href);
+                const url = await item.$eval('a.article-item--url', a => a.href);
                 const thumbnail = await page_you.evaluate(img => img.src, image);
-                const lede = await item.$eval('p', p => p.innerText);
+                const date = await item.$eval('p.article-item__date', p => p.innerText);
                 const headline = await page_you.evaluate(a => a.innerText, title);
                 //
                 let empty = null;
-                
-                let url_src = uri_you;
-                let src = "https://pbs.twimg.com/profile_images/463234912493907968/HxL6FPIG_400x400.jpeg";
+                const id = generateUniqueId({
+                    length: 32
+                  });
+                let src_logo = "https://pbs.twimg.com/profile_images/463234912493907968/HxL6FPIG_400x400.jpeg";
                 //
-                let date = empty;
-                let author = empty;
-                let category = empty;
                 let src_name = 'YOU';
-                let catLink = empty;
-                let tag = category;
+                let tag = empty;
+                let tags = empty;
+                let type = "title-only";
+                let catLink = uri_you;
                 //
                 let images = empty;
                 //
                 let isVid = false;
                 let vidLen = empty;
+                let author = empty;
+                let authors = empty;
+            
+                let key = empty;
+                let label = empty;
+                //
+                let subject = empty;
+                let format = empty;
+                let about = empty;
 
                 //
                 add_you.push({
-                    src_name,
+                    id,
                     url,
-                    url_src,
                     headline,
                     lede,
                     thumbnail,
-                    //
-                    src,
                     category,
                     catLink,
-                    tag,
-                    //
                     images,
+                    //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
                     //
                     isVid,
                     vidLen,
                     //
+                    type,
+                    tag,
+                    tags,
+                    //
                     author,
+                    authors,
                     date
                 })
             } catch (error) {
@@ -335,14 +420,14 @@ let source_women = "https://www.womenshealthsa.co.za/";
 let source_vogue = "https://www.vogue.co.uk/";
 let source_you = "https://www.news24.com/You";
 ///
-cron.schedule("0 4 * * SUN", () => {
+// cron.schedule("0 4 * * SUN", () => {
     (() => {
         console.log('\x1b[46m%s\x1b[0m', "MAGZ fired at:" + Date());
         //
         main(source_men, source_women, source_vogue, source_you);
 
     })();
-});
+// });
 //
 module.exports = {};
 

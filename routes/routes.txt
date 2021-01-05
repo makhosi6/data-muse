@@ -28,7 +28,7 @@ cron.schedule("0 4 * * SUN", () => {  })
     api/v1/enews
     api/v1/foodwine
     api/v1/nat-geo               
-    api/v1/magz-lifestyle 
+    api/v1/magz-lifestyle ++
 
 MONTHLY
  cron.schedule("0 9 1 * *", () => {  })
@@ -38,6 +38,7 @@ MONTHLY
 
 
 CHECK CATEGORY!!!!!!!!!!!
+CATEGORY DOESN't show on the ui so its determined by mee. 
 MOVE PUPPET METHOD OUT OF THE CONSTRACTOR
 CHECK HOW MANYY ERRORS A PUPPET HAD OVER TIME (put a counter inside the catch block...)
 

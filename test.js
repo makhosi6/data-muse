@@ -107,14 +107,14 @@ src_url,
 src_logo,
 //
 isVid,
-vidLen ,
+vidLen,
 //
 type,
 tag,
 tags,
 //
 author,
-authors ,
+authors,
 date
 
 
