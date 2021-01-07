@@ -17,6 +17,7 @@
         "generate-unique-id": "^2.0.1",
         "node-cron": "^2.0.3",
         "nodemon": "^2.0.4",
+        "os": "^0.1.1",
         "puppeteer": "^3.0.0",
         "puppeteer-autoscroll-down": "^0.1.5",
         "scroll-into-view": "^1.14.2"

@@ -98,9 +98,11 @@ class Scrapper {
                                 date
                                  
                             })
+                            console.log("-----------------END------------------------");
                         }
 
                     } catch (error) {
+                        console.log("-----------------END------------------------");
                         console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`)
                         continue;
                     }
