@@ -1,7 +1,7 @@
 const cron = require("node-cron");
 require('dotenv').config();
 const generateUniqueId = require('generate-unique-id');
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
 const express = require("express");
@@ -13,11 +13,10 @@ let news = [];
 let src_name = "CGTN";
 async function main(uri_cgtn) {
     try {
-           const browser = await puppeteer.launch({
-      
-         defaultViewport: null,
-            headless: false
-    });
+          const browser = await puppeteer.connect({
+        browserWSEndpoint: wsChromeEndpointurl,
+        defaultViewport: null,
+      });
         const page_cgtn = await browser.newPage();
         page_cgtn.setUserAgent(vars.userAgent);
         await page_cgtn.goto(uri_cgtn, { waitUntil: 'networkidle2', timeout: 0 });
@@ -121,11 +120,11 @@ async function main(uri_cgtn) {
 }
 let source_cgtn = "https://www.cgtn.com/";
 
-// cron.schedule("0 3 * * *", () => {
+cron.schedule("0 3 * * *", () => {
 
         console.log('\x1b[46m%s\x1b[0m', "CGTN fired at:" + Date());
      main(source_cgtn);
-// });
+});
 
 /////
 Routa.get('/cgtn', (req, res) => {

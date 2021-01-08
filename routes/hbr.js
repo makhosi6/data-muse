@@ -1,7 +1,7 @@
 require('dotenv').config();
 const cron = require("node-cron");
 const generateUniqueId = require('generate-unique-id');
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 
 const vars = require('../store/storeVars');
@@ -19,9 +19,9 @@ let src_logo = "https://hbr.org/resources/css/images/HBR_logo_black.svg";
 async function main(url_news, uri_mostPopula, uri_study, uri_video) {
     try {
 
-           const browser = await puppeteer.launch({
-           defaultViewport: null,
-            headless: false
+             const browser = await puppeteer.connect({
+      browserWSEndpoint: wsChromeEndpointurl,
+      defaultViewport: null,
     });
         const page_news = await browser.newPage();
         page_news.setUserAgent(vars.userAgent);
@@ -377,11 +377,11 @@ let source_mostPopula = "https://hbr.org/most-popular";
 let source_study = "https://hbr.org/visual-library";
 let source_video = "https://hbr.org/video";
 //
-// cron.schedule("0 4 * * SUN", () => {
+cron.schedule("0 4 * * SUN", () => {
         console.log('\x1b[46m%s\x1b[0m', "HBR fired at:" + Date());
         main(source_news, source_mostPopula, source_study, source_video);
 
-// });
+});
 //
 Routa.get('/hbr', (req, res) => {
     res.send({

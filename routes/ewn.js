@@ -1,5 +1,5 @@
 const cron = require("node-cron");
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const generateUniqueId = require('generate-unique-id');
 const puppeteer = require('puppeteer');
 require('dotenv').config();
@@ -17,11 +17,10 @@ let empty = null;
 async function main(uri_trending) {
     try {
         let url_src = uri_trending;
-           const browser = await puppeteer.launch({
-      
-         defaultViewport: null,
-            headless: false
-    });
+          const browser = await puppeteer.connect({
+        browserWSEndpoint: wsChromeEndpointurl,
+        defaultViewport: null,
+      });
         const page_trending = await browser.newPage();
         page_trending.setUserAgent(vars.userAgent);
         await page_trending.goto(uri_trending, { waitUntil: 'networkidle2', timeout: 0 });
@@ -134,7 +133,7 @@ const dataThree = new Puppet(sources.politics, "politics");
 const dataFour = new Puppet(sources.sport,"sports");
 
 
-// cron.schedule("0 */6 * * *", () => {
+cron.schedule("0 */6 * * *", () => {
 
         console.log('\x1b[46m%s\x1b[0m', "EWN fired at:" + Date());
         //One
@@ -147,7 +146,7 @@ const dataFour = new Puppet(sources.sport,"sports");
         dataFour.puppet();
 
         main(sources.trending);
-// });
+});
 //
 Routa.get('/ewn', (req, res) => {
     res.send({

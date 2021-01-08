@@ -1,4 +1,4 @@
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const cron = require("node-cron");
 require('dotenv').config();
@@ -20,11 +20,10 @@ let category = "lifestyle";
 async function main(uri_men, uri_women, uri_vogue, uri_you) {
 
     try {
-           const browser = await puppeteer.launch({
-      
-         defaultViewport: null,
-            headless: false
-    });
+          const browser = await puppeteer.connect({
+        browserWSEndpoint: wsChromeEndpointurl,
+        defaultViewport: null,
+      });
         const page_men = await browser.newPage();
         page_men.setUserAgent(vars.userAgent);
         await page_men.goto(uri_men, { waitUntil: 'networkidle2', timeout: 0 });
@@ -420,16 +419,12 @@ let source_women = "https://www.womenshealthsa.co.za/";
 let source_vogue = "https://www.vogue.co.uk/";
 let source_you = "https://www.news24.com/You";
 ///
-// cron.schedule("0 4 * * SUN", () => {
-    (() => {
+cron.schedule("0 4 * * SUN", () => {
         console.log('\x1b[46m%s\x1b[0m', "MAGZ fired at:" + Date());
-        //
         main(source_men, source_women, source_vogue, source_you);
 
-    })();
-// });
+});
 //
-module.exports = {};
 
 Routa.get('/magz-lifestyle', (req, res) => {
     res.send({

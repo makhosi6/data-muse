@@ -1,5 +1,5 @@
 const cron = require("node-cron");
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 require('dotenv').config();
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars')
@@ -17,11 +17,10 @@ let src_logo = "https://dj0j0ofql4htg.cloudfront.net/assets/dumb/images/soccerla
 
 async function main(uri_inter, uri_local) {
     try {
-           const browser = await puppeteer.launch({
-      
-         defaultViewport: null,
-            headless: false
-    });
+          const browser = await puppeteer.connect({
+        browserWSEndpoint: wsChromeEndpointurl,
+        defaultViewport: null,
+      });
         const page_inter = await browser.newPage();
         page_inter.setUserAgent(vars.userAgent);
         await page_inter.goto(uri_inter, { waitUntil: 'networkidle2', timeout: 0 });
@@ -213,11 +212,10 @@ let source_inter = "https://www.soccerladuma.co.za/news/articles/international/l
 let source_local = "https://www.soccerladuma.co.za/news/articles/local/landing";
 
 
-// cron.schedule("0 3 * * *", () => {
-
+cron.schedule("0 3 * * *", () => {
         console.log('\x1b[46m%s\x1b[0m', "LADUMA fired at:" + Date());
         main(source_inter, source_local);
-// });
+});
 
 Routa.get('/laduma', (req, res) => {
     res.send({

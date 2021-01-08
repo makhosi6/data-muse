@@ -1,132 +1,133 @@
-const express = require('express');
-const puppeteer = require('puppeteer');
-const vars = require('./storeVars');
-const generateUniqueId = require('generate-unique-id');
+const express = require("express");
+const puppeteer = require("puppeteer");
+const vars = require("./storeVars");
+const generateUniqueId = require("generate-unique-id");
 
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require("../browser");
 //
 let src_name = "CNN";
 class Scrapper {
-    constructor(uri, category) {
-        this.uri = uri;
-        this.category = category;
-        this.data = [];
-        this.puppet = async function() {
-            try {
-                const browser = await puppeteer.launch({
-      
-         defaultViewport: null,
-            headless: false
-    });
-                const page = await browser.newPage();
-                page.setUserAgent(vars.userAgent);
-                await page.goto(this.uri, { waitUntil: 'networkidle2', timeout: 0 });
-                await page.waitForSelector('.cd__wrapper');
-                const items = await page.$$('.cd__wrapper');
-                //
-                let arrr = [];
-                await page.waitFor(5000);
-                for (const item of items) {
-                    try {
-                        const sub = await item.$('.cd__content');
-                        // CATEGORY
-                        const subText = await sub.$eval('h3', h3 => h3.dataset.analytics);
-                        const str = await subText.split("_");
-                        const first = await str[0];
-                        const sec = await str[2];
-                        const c = (first != "") ? await first : null;
-                        const isVid = (sec == "video") ? true : false;
-                        //VALUES
-                        const head = await item.$('.cd__headline');
-                        const media = await item.$('.media');
-                        //
-                        const headline = await head.$eval('span', span => span.innerText);
-                        const url = await head.$eval('a', a => a.href);
-                        const mediaLink = (media != null || undefined) ? await media.$eval('a', a => a.href) : null;
-                        const image = (media != null || undefined) ? await media.$('.media__image') : null;
-                        const thumbnail = ((media != null || undefined) && (image != null || undefined)) ? await media.$eval('img', img => img.dataset.src) : null;
-                        let j = await item.$('.cnn-badge-icon');
+  constructor(uri, category) {
+    this.uri = uri;
+    this.category = category;
+    this.data = [];
+  }
+  async puppet() {
+    try {
+      const browser = await puppeteer.connect({
+        browserWSEndpoint: wsChromeEndpointurl,
+        defaultViewport: null,
+      });
+      const page = await browser.newPage();
+      page.setUserAgent(vars.userAgent);
+      await page.goto(this.uri, { waitUntil: "networkidle2", timeout: 0 });
+      await page.waitForSelector(".cd__wrapper");
+      const items = await page.$$(".cd__wrapper");
+      //
+      let arrr = [];
+      await page.waitFor(5000);
+      for (const item of items) {
+        try {
+          const sub = await item.$(".cd__content");
+          // CATEGORY
+          const subText = await sub.$eval("h3", (h3) => h3.dataset.analytics);
+          const str = await subText.split("_");
+          const first = await str[0];
+          const sec = await str[2];
+          const c = first != "" ? await first : null;
+          const isVid = sec == "video" ? true : false;
+          //VALUES
+          const head = await item.$(".cd__headline");
+          const media = await item.$(".media");
+          //
+          const headline = await head.$eval("span", (span) => span.innerText);
+          const url = await head.$eval("a", (a) => a.href);
+          const mediaLink =
+            media != null || undefined
+              ? await media.$eval("a", (a) => a.href)
+              : null;
+          const image =
+            media != null || undefined ? await media.$(".media__image") : null;
+          const thumbnail =
+            (media != null || undefined) && (image != null || undefined)
+              ? await media.$eval("img", (img) => img.dataset.src)
+              : null;
+          let j = await item.$(".cnn-badge-icon");
 
-                        const src_logo = 'https://dnh0aphdpud22.cloudfront.net/social_avatars/f709e3e81b14933db09763a3.jpg';
+          const src_logo =
+            "https://dnh0aphdpud22.cloudfront.net/social_avatars/f709e3e81b14933db09763a3.jpg";
 
-                        let empty = null;
-                        
-                        let tag = (c == null || undefined) ? this.cat : c;
-                      
-                        const id = generateUniqueId({
-                          length: 32
-                        });
-                         
-                        let category = this.category;
-                        let lede = empty;
-                        let tags = empty;
-                        let key = empty;
-                        let label = empty;
-                        //
-                        let subject = empty;
-                        let format = empty;
-                        let about = empty;
-                        let type = "title-only"
-                        let date = empty;
-                        let author = empty;
-                        let authors = empty;
-                        let vidLen = empty;
-                        let catLink = this.uri;
-                        let  src_url = await page.evaluate(() => location.origin);
-                        let images = empty;
+          let empty = null;
 
-                        arrr.push({
-                            id,
-                            url,
-                            headline,
-                            lede,
-                            thumbnail,
-                            category,
-                            catLink,
-                            images,
-                            //
-                            key,
-                            label,
-                            //
-                            subject,
-                            format,
-                            about,
-                            //
-                            src_name,
-                            src_logo,
-                            src_url,
-                            //
-                            isVid,
-                            vidLen ,
-                            //
-                            type,
-                            tag,
-                            tags,
-                            //
-                            author,
-                            authors ,
-                            date
-                        })
+          let tag = c == null || undefined ? this.cat : c;
 
+          const id = generateUniqueId({
+            length: 32,
+          });
 
+          let category = this.category;
+          let lede = empty;
+          let tags = empty;
+          let key = empty;
+          let label = empty;
+          //
+          let subject = empty;
+          let format = empty;
+          let about = empty;
+          let type = "title-only";
+          let date = empty;
+          let author = empty;
+          let authors = empty;
+          let vidLen = empty;
+          let catLink = this.uri;
+          let src_url = await page.evaluate(() => location.origin);
+          let images = empty;
 
-                    } catch (error) {
-                        console.log('\x1b[42m%s\x1b[0m', `From ${this.uri} loop: ${error}`)
-                    }
-                }
-                this.data = arrr;
-                await page.close()
-                console.log('\x1b[43m%s\x1b[0m', `Done: ${this.uri}`);
-
-            } catch (error) {
-                console.log('\x1b[41m%s\x1b[0m', `From ${this.uri} Main: ${error}`);
-            }
-
-            return this.data
+          arrr.push({
+            id,
+            url,
+            headline,
+            lede,
+            thumbnail,
+            category,
+            catLink,
+            images,
+            //
+            key,
+            label,
+            //
+            subject,
+            format,
+            about,
+            //
+            src_name,
+            src_logo,
+            src_url,
+            //
+            isVid,
+            vidLen,
+            //
+            type,
+            tag,
+            tags,
+            //
+            author,
+            authors,
+            date,
+          });
+        } catch (error) {
+          console.log("\x1b[42m%s\x1b[0m", `From ${this.uri} loop: ${error}`);
         }
+      }
+      this.data = arrr;
+      await page.close();
+      console.log("\x1b[43m%s\x1b[0m", `Done: ${this.uri}`);
+    } catch (error) {
+      console.log("\x1b[41m%s\x1b[0m", `From ${this.uri} Main: ${error}`);
     }
+  }
 }
 
 module.exports = {
-    Scrapper: Scrapper
+  Scrapper: Scrapper,
 };

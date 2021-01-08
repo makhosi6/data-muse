@@ -18,11 +18,11 @@ const dataOne = new Puppet(sources.news, "foodandwine");
 const dataTwo = new Puppet(sources.recipe, "foodandwine");
 
 //////
-// cron.schedule("0 4 * * SUN", () => {
+cron.schedule("0 4 * * SUN", () => {
         console.log('\x1b[46m%s\x1b[0m', "FOODWINE fired at:" + Date());
         dataOne.puppet();
         dataTwo.puppet();
-// });
+});
 
 //
 Routa.get('/foodwine', (req, res) => {

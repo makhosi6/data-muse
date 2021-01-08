@@ -2,7 +2,7 @@ require('dotenv').config()
 const puppeteer = require('puppeteer');
 const cron = require("node-cron");
 const vars = require('../store/storeVars');
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const puppet = require('../store/puppetAlj');
 const express = require("express");
 const Routa = express.Router();
@@ -22,13 +22,13 @@ const dataSport = new Puppet(source.sport, "sport");
 const dataNews = new Puppet(source.news, "Science and Technology");
 
 //
-// cron.schedule("0 */6 * * *", () => {
+cron.schedule("0 */6 * * *", () => {
         console.log('\x1b[46m%s\x1b[0m', "ALJ fired at:" + Date());
         dataAfrica.puppet();
         dataNews.puppet();
         dataSport.puppet();
         // main(source.docs, source.trending);
-// });
+});
 
 Routa.get('/alj', (req, res) => {
     res.send({

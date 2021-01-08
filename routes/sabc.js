@@ -3,7 +3,7 @@ const puppet = require('../store/puppetSabc');
 require('dotenv').config();
 const generateUniqueId = require('generate-unique-id');
 const cron = require("node-cron");
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
@@ -15,11 +15,10 @@ let add = [];
 async function main(uri) {
 
     try {
-           const browser = await puppeteer.launch({
-      
-         defaultViewport: null,
-            headless: false
-    });
+          const browser = await puppeteer.connect({
+        browserWSEndpoint: wsChromeEndpointurl,
+        defaultViewport: null,
+      });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -133,7 +132,7 @@ const dataFour = new Puppet(sources.sport, 'sport');
 //five
 const dataFive = new Puppet(sources.world, 'world');
 ///
-// cron.schedule("0 3 * * *", () => {
+cron.schedule("0 3 * * *", () => {
         console.log('\x1b[46m%s\x1b[0m', "SABC fired at:" + Date());
         main(sources.news);
         dataOne.puppet();
@@ -141,7 +140,7 @@ const dataFive = new Puppet(sources.world, 'world');
         dataThree.puppet();
         dataFour.puppet();
         dataFive.puppet();
-// });
+});
 //
 Routa.get('/sabc', (req, res) => {
     res.send({

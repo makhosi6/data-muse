@@ -1,6 +1,6 @@
 require('dotenv').config();
 const cron = require("node-cron");
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const generateUniqueId = require('generate-unique-id');
 const vars = require('../store/storeVars');
@@ -16,11 +16,10 @@ let src_name = "eNCA";
 
 async function main(uri_sport, uri_video, uri_business) {
     try {
-           const browser = await puppeteer.launch({
-      
-         defaultViewport: null,
-            headless: false
-    });
+          const browser = await puppeteer.connect({
+        browserWSEndpoint: wsChromeEndpointurl,
+        defaultViewport: null,
+      });
         const page_sport = await browser.newPage();
         page_sport.setUserAgent(vars.userAgent);
         await page_sport.goto(uri_sport, { waitUntil: 'networkidle2', timeout: 0 });
@@ -434,13 +433,15 @@ async function main(uri_sport, uri_video, uri_business) {
     }
 }
 
-// cron.schedule("0 */6 * * *", () => {
-console.log('\x1b[46m%s\x1b[0m', "ENCA fired at: " + Date());
 let source_sport = "https://www.enca.com/sports";
 let source_video = "https://www.enca.com/watch";
 let source_business = "https://www.enca.com/business";
 //
-main(source_sport, source_video, source_business);
+cron.schedule("0 */6 * * *", () => {
+    console.log('\x1b[46m%s\x1b[0m', "ENCA fired at: " + Date());
+    main(source_sport, source_video, source_business);
+});
+//
 //
 Routa.get('/enca', (req, res) => {
     res.send({

@@ -5,7 +5,7 @@ const vars = require('../store/storeVars');
 const express = require("express");
 const Routa = express.Router();
 const generateUniqueId = require('generate-unique-id');
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 ///
 
@@ -15,9 +15,9 @@ let news = [];
 async function main(uri) {
     try {
 
-           const browser = await puppeteer.launch({
-           defaultViewport: null,
-            headless: false
+             const browser = await puppeteer.connect({
+      browserWSEndpoint: wsChromeEndpointurl,
+      defaultViewport: null,
     });
         const page = await browser.newPage();
         await page.setViewport({
@@ -122,11 +122,11 @@ async function main(uri) {
 }
 let source = "https://www.bloomberg.com/africa";
 
-// cron.schedule("0 3 * * *", () => {
+cron.schedule("0 3 * * *", () => {
 
     console.log('\x1b[46m%s\x1b[0m', "BLOOMBERG fired at:" + Date());
         main(source);
-// });
+});
 
 //
 Routa.get('/bloomberg', (req, res) => {

@@ -19,14 +19,13 @@ const dataTwo = new Puppet(sources.news);
 //Three
 const dataThree = new Puppet(sources.sport);
 /////
-// cron.schedule("0 */6 * * *", () => {
-
+cron.schedule("0 */6 * * *", () => {
         console.log('\x1b[46m%s\x1b[0m', "TIMES-LIVES fired at:" + Date());
         dataTwo.puppet();
         dataOne.puppet();
         dataThree.puppet();
 
-// });
+});
 
 //
 Routa.get('/time-live', (req, res) => {

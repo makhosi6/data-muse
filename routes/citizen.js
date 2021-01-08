@@ -5,7 +5,7 @@ const cron = require("node-cron");
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
 const generateUniqueId = require('generate-unique-id');
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 ///
 
 //
@@ -17,11 +17,10 @@ async function main(uri) {
 
     try {
         let url_src = uri;
-           const browser = await puppeteer.launch({
-      
-         defaultViewport: null,
-            headless: false
-    });
+          const browser = await puppeteer.connect({
+        browserWSEndpoint: wsChromeEndpointurl,
+        defaultViewport: null,
+      });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -184,11 +183,11 @@ let type = "title-only";
 }
 let source = "https://citizen.co.za/";
 
-// cron.schedule("0 3 * * *", () => {
+cron.schedule("0 3 * * *", () => {
 
         console.log('\x1b[46m%s\x1b[0m', "CITIZEN fired at:" + Date());
         main(source);
-// });
+});
 ///
   
         //

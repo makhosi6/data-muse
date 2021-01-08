@@ -22,7 +22,7 @@ const Four = new Puppet(sources.health, "health");
 const Five = new Puppet(sources.business, "business");
 
 //
-// cron.schedule("0 */6 * * *", () => {
+cron.schedule("0 */6 * * *", () => {
   
         console.log('\x1b[46m%s\x1b[0m', "CNN fired at:" + Date());
         //one
@@ -37,7 +37,7 @@ const Five = new Puppet(sources.business, "business");
         Five.puppet();
         ///
    
-// });
+});
 //
 Routa.get('/cnn', (req, res) => {
     res.send({

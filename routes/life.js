@@ -1,6 +1,6 @@
 require('dotenv').config();
 const cron = require("node-cron");
-// const wsChromeEndpointurl = require('../browser');
+const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
 const vars = require('../store/storeVars');
 const express = require("express");
@@ -13,11 +13,10 @@ let src_name = "W24";
 
 async function main(uri) {
     try {
-           const browser = await puppeteer.launch({
-      
-         defaultViewport: null,
-            headless: false
-    });
+          const browser = await puppeteer.connect({
+        browserWSEndpoint: wsChromeEndpointurl,
+        defaultViewport: null,
+      });
         const page = await browser.newPage();
         page.setUserAgent(vars.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
@@ -90,7 +89,6 @@ async function main(uri) {
 
         }
         //
-
         console.log('\x1b[43m%s\x1b[0m', `Done: ${uri}`);
         await page.close();
     } catch (error) {
@@ -99,10 +97,10 @@ async function main(uri) {
 }
 let source = "https://www.w24.co.za/";
 
-// cron.schedule("0 4 * * SUN", () => {
+cron.schedule("0 4 * * SUN", () => {
         console.log('\x1b[46m%s\x1b[0m', "W24 fired at:" + Date());
         main(source);
-// });
+});
 /////
 Routa.get('/w24', (req, res) => {
     res.send({
