@@ -17,7 +17,7 @@ console.log("wsChromeEndpointurl :", wsChromeEndpointurl);
 
 setTimeout(() => {
     // ROUTES
-     const test = require('./testTwo.js');
+    //  const test = require('./testTwo.js');
      const cgtnNews = require('./routes/cgtn');
      const enews = require('./routes/flipboard/enews')
      const espn = require('./routes/flipboard/espn');
@@ -38,13 +38,13 @@ setTimeout(() => {
      const citizen = require('./routes/citizen');
      const africa = require('./routes/africa');
      const laduma = require('./routes/laduma');
-     const w24 = require('./routes/life');
+    //  const w24 = require('./routes/life');
      const magz = require('./routes/magz');
      const trendsRouta = require('./routes/trends-hot');
     const kickOff = require('./routes/kickoff');
     
     let Routa = [
-         test,
+        //  test,
         /*ewn*/
          ewnRouta,
         /*trends*/
@@ -87,7 +87,7 @@ setTimeout(() => {
          cgtnNews,
         /*magz*/
          laduma,
-          w24, 
+        //   w24, 
           magz,   
           kickOff
     ];
@@ -109,7 +109,7 @@ setTimeout(() => {
     const env = process.env.NODE_ENV || "development";
     const PORT = process.env.PORT || "9090";
     // Fiv nat-geo uri
-    app.listen(PORT, console.log('\x1b[45m%s\x1b[0m', `Running in ${env} mode on port ${PORT}. And ${Routa.length} routes went live on ${Date()}`));
+    app.listen(PORT, console.log('\x1b[45m%s\x1b[0m', `Running in ${env} mode on port ${PORT} (http://localhost:9090). ${Routa.length} routes went live on ${Date()}`));
 
 }, 30000);
 /*
