@@ -120,3 +120,49 @@ date
 
 
 ]*/
+
+
+   let obj = {
+     source: "http://www.bbc.com/health",
+     count: 23,
+     latest: "Mon Jan 18 2021 20:13:55",
+     main_errors: {
+       count: 6,
+       latest: "Mon Jan 18 2021 20:13:55",
+       logs: [
+         {
+           current: "Mon Jan 18 2021 20:13:55",
+           error: "Timeout error:0000",
+           number: 3,
+         },
+         {},
+       ],
+     },
+     loop_errors: {
+       count: 6,
+       latest: "Mon Jan 18 2021 20:13:55",
+       logs: [
+         {
+           current: "Mon Jan 18 2021 20:13:55",
+           error: "Timeout error:0000",
+           number: 3,
+         },
+         {},
+       ],
+     },
+     logs: [
+       {
+         current: "Mon Jan 18 2021 20:13:55",
+         data:
+           '{"id":"50s8n9tpafs5tnl1hs2lap1vqtri1kw6","url":"https://citizen.co.za/news/south-africa/local-news/2421175/r12m-bronkhorstspruit-hospital-upgrade-makes-no-sense/","headline":"R12m Bronkhorstspruit hospital upgrade ‘makes no sense’","lede":"Last June, BMW Germany announced the company would partner with the government to upgrade…","thumbnail":"https://citizen.co.za/wp-content/uploads/2018/02/bronks-389x259.jpg?x79228","category":"sport","catLink":"local news","images":null,"key":null,"label":null,"subject":null,"format":null,"about":null,"src_name":"Citizen","src_url":"https://citizen.co.za","src_logo":"https://citizen.co.za/wp-content/themes/citizen-v5-2/images/citizen_logo_footer_v2.png","isVid":false,"vidLen":null,"type":"strip","tag":"local news","tags":null,"author":null,"authors":null,"date":null}',
+         error: null,
+         number: 9,
+       },
+       {
+         current: "Mon Jan 18 2021 20:13:55",
+         data: null,
+         error: "Missing selector",
+         number: 3,
+       },
+     ],
+   };
