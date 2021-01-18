@@ -66,7 +66,7 @@ async function main(uri) {
                 let subject = empty;
                 let format = empty;
                 let about = empty;
-                add.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -132,7 +132,7 @@ const dataFour = new Puppet(sources.sport, 'sport');
 //five
 const dataFive = new Puppet(sources.world, 'world');
 ///
-cron.schedule("0 3 * * *", () => {
+// cron.schedule("0 3 * * *", () => {
         console.log('\x1b[46m%s\x1b[0m', "SABC fired at:" + Date());
         main(sources.news);
         dataOne.puppet();
@@ -140,7 +140,7 @@ cron.schedule("0 3 * * *", () => {
         dataThree.puppet();
         dataFour.puppet();
         dataFive.puppet();
-});
+// });
 //
 Routa.get('/sabc', (req, res) => {
     res.send({

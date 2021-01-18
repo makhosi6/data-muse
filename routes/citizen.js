@@ -14,10 +14,9 @@ let src_logo = "https://citizen.co.za/wp-content/themes/citizen-v5-2/images/citi
 let src_name = "Citizen";
 
 async function main(uri) {
-
     try {
-        let url_src = uri;
-          const browser = await puppeteer.connect({
+     
+        const browser = await puppeteer.connect({
         browserWSEndpoint: wsChromeEndpointurl,
         defaultViewport: null,
       });
@@ -60,8 +59,39 @@ async function main(uri) {
                
                 let label = empty
                 let type = "strip";
-
-                news.push({
+               await vars.interfaceAPI({
+                    id,
+                    url,
+                    headline,
+                    lede,
+                    thumbnail,
+                    category,
+                    catLink,
+                    images,
+                    //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
+                    //
+                    src_name,
+                    src_url,
+                    src_logo,
+                    //
+                    isVid,
+                    vidLen ,
+                    //
+                    type,
+                    tag,
+                    tags,
+                    //
+                    author,
+                    authors,
+                    date
+                });
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -136,8 +166,8 @@ async function main(uri) {
                 let key = empty
                 let tags = empty
                 let label = empty
-let type = "title-only";
-                news.push({
+                let type = "title-only";
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,

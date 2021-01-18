@@ -59,7 +59,6 @@ class Scrapper {
           });
           //
           let catLink = empty;
-          let src_name = "SABC";
           let src_url = await page.evaluate(() => location.origin);
           let src_logo =
             "https://www.sabcnews.com/sabcnews/wp-content/uploads/2018/06/sabc-logo-white-final.png";
@@ -80,7 +79,7 @@ class Scrapper {
           //
 
           //
-          arrr.push({
+          await vars.interfaceAPI({
             id,
             url,
             headline,

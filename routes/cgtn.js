@@ -73,7 +73,7 @@ async function main(uri_cgtn) {
                 let src_logo = "https://ui.cgtn.com/static/ng/resource/images/icon/logo@3x.png";
 
                 //
-                news.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -125,7 +125,6 @@ cron.schedule("0 3 * * *", () => {
         console.log('\x1b[46m%s\x1b[0m', "CGTN fired at:" + Date());
      main(source_cgtn);
 });
-
 /////
 Routa.get('/cgtn', (req, res) => {
     res.send({

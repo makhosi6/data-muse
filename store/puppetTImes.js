@@ -70,7 +70,7 @@ class Scrapper {
           let date = catLink;
           console.log("nina");
           //
-          arrr.push({
+          await vars.interfaceAPI({
             url_src,
             src_name,
             url,

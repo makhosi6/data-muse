@@ -111,7 +111,7 @@ class Scrapper {
           let tags = empty;
           let type = "card";
           //
-          arrr.push({
+          await vars.interfaceAPI({
             id,
             url,
             headline,

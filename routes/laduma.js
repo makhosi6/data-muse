@@ -72,7 +72,7 @@ async function main(uri_inter, uri_local) {
                 let about = empty;
                 
                 //
-                add_inter.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -132,7 +132,6 @@ async function main(uri_inter, uri_local) {
                 let a = (time != null || undefined) ? time.split("\n") : null;
                 let date = (a != null) ? a[1].replace(/(\r\n|\n|\r)/gm, "").trim() : null;
                 //
-
                 let empty = null;
                 //
                 let lede = empty;
@@ -161,7 +160,7 @@ async function main(uri_inter, uri_local) {
                 let src_url = await page_local.evaluate(() => location.origin);
                 //
                 //
-                add_local.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,

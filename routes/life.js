@@ -61,7 +61,7 @@ async function main(uri) {
                 let author = empty;
                 let date = empty;
                 // let b = (a != null) ? a[1].replace(/(\r\n|\n|\r)/gm, "").trim() : null;
-                add.push({
+                await vars.interfaceAPI({
                     url_src,
                     src_name,
                     url,

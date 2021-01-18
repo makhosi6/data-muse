@@ -116,7 +116,7 @@ class Scrapper {
           let vidLen = empty;
           let isVid = false;
 
-          arrr.push({
+          await vars.interfaceAPI({
             id,
             url,
             headline,

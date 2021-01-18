@@ -67,7 +67,7 @@ class Scrapper {
           let format = empty;
           let about = empty;
 
-          arrr.push({
+          await vars.interfaceAPI({
             id,
             url,
             headline,

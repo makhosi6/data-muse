@@ -106,7 +106,7 @@ class Scrapper {
             length: 32,
           });
           //
-          arrr.push({
+         await vars.interfaceAPI({
             id,
             url,
             headline,

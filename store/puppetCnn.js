@@ -83,7 +83,7 @@ class Scrapper {
           let src_url = await page.evaluate(() => location.origin);
           let images = empty;
 
-          arrr.push({
+          await vars.interfaceAPI({
             id,
             url,
             headline,

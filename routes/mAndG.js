@@ -106,7 +106,7 @@ async function main(uri) {
         let format = empty;
         let about = empty;
 
-        add.push({
+        await vars.interfaceAPI({
           id,
           url,
           headline,

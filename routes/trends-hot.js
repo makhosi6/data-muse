@@ -69,7 +69,7 @@ async function main(uri) {
         let authors = empty;
         let date = empty;
 
-        trends.push({
+        await vars.interfaceAPI({
           id,
           url,
           headline,

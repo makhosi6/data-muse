@@ -81,7 +81,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let format = empty;
                 let about = empty;
 
-                add_men.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -175,7 +175,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let format = empty;
                 let about = empty;
                 //
-                add_women.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -273,7 +273,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let about = empty;
 
                 let lede = empty;
-                add_vogue.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -362,7 +362,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
                 let about = empty;
 
                 //
-                add_you.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,

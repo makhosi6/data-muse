@@ -67,7 +67,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 let images = empty;
                 let tags = empty;
 
-                add_news.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -153,12 +153,19 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 let author = empty;
                 let tags = empty;
                 let type = "card";
-                
+                //
+                let key= empty;
+                let label= empty;
+                //
+                let subject= empty;
+                let format= empty;
+                let about= empty;
+                //
                 let catLink = uri_mostPopula;
                 let vidLen = empty;
                 let isVid = false;
                 //
-                add_mostPopula.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -167,6 +174,13 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                     category,
                     catLink,
                     images,
+                    //
+                    key,
+                    label,
+                    //
+                    subject,
+                    format,
+                    about,
                     //
                     src_name,
                     src_url,
@@ -245,12 +259,12 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 let images = empty;
                 let lede = empty;
                 let tags = empty;
-              let type = empty;
+              let type = "title-only";
              let  tag = empty;
              let author = empty;
                 let category = empty;
                 
-                add_study.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -330,7 +344,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
                 let authors = empty;
                 let type = "card"
 
-                add_video.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,

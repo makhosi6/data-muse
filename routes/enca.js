@@ -64,7 +64,7 @@ async function main(uri_sport, uri_video, uri_business) {
                 let format = empty;
                 let about = empty;
                 //
-                (url === null) ? false: add_sport.push({
+                (url === null) ? false: await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -151,7 +151,7 @@ async function main(uri_sport, uri_video, uri_business) {
                  let format = empty;
                  let about = empty;
 
-                (url === null) ? false: add_video.push({
+                (url === null) ? false: await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -310,7 +310,7 @@ async function main(uri_sport, uri_video, uri_business) {
                 let authors = empty;
                 let date = empty;
 
-                add_trends.push({
+                await vars.interfaceAPI({
                     id,
                     url,
                     headline,
@@ -385,7 +385,7 @@ async function main(uri_sport, uri_video, uri_business) {
                  let format = empty;
                  let about = empty;
 
-                (url === null) ? false: add_business.push({
+                (url === null) ? false: await vars.interfaceAPI({
                     id,
                     url,
                     headline,
