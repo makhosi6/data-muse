@@ -2,13 +2,24 @@ require('dotenv').config();
 const cron = require("node-cron");
 const wsChromeEndpointurl = require('../browser');
 const puppeteer = require('puppeteer');
-const vars = require('../store/storeVars');
+const helpers = require('../store/helpers');
 const express = require("express");
 const Routa = express.Router();
 ///
-
-//
-let add = [];
+let processes = {
+    main: {
+      latest: {
+        number: 0,
+      },
+      logs: [],
+    },
+    children: {
+      latest: {
+        number: 0,
+      },
+      logs: [],
+    },
+  };
 let src_name = "W24";
 
 async function main(uri) {
@@ -18,7 +29,7 @@ async function main(uri) {
         defaultViewport: null,
       });
         const page = await browser.newPage();
-        page.setUserAgent(vars.userAgent);
+        page.setUserAgent(helpers.userAgent);
         await page.goto(uri, { waitUntil: 'networkidle2', timeout: 0 });
         await page.waitForSelector('#load-more-button');
         await page.click('#load-more-button');
@@ -61,7 +72,7 @@ async function main(uri) {
                 let author = empty;
                 let date = empty;
                 // let b = (a != null) ? a[1].replace(/(\r\n|\n|\r)/gm, "").trim() : null;
-                await vars.interfaceAPI({
+                await helpers.interfaceAPI({
                     url_src,
                     src_name,
                     url,

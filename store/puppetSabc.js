@@ -1,31 +1,46 @@
 const puppeteer = require("puppeteer");
 const generateUniqueId = require("generate-unique-id");
 const wsChromeEndpointurl = require("../browser");
-const vars = require("./storeVars");
+const helpers = require("./helpers");
 //
 let src_name = "SABC";
 //
-
 class Scrapper {
   constructor(uri, cat) {
     this.uri = uri;
     this.cat = cat;
-    this.data = [];
+    this.processes = {
+      main: {
+        latest: {
+          number: 0,
+        },
+        logs: [],
+      },
+      children: {
+        latest: {
+          number: 0,
+        },
+        logs: [],
+      },
+    };
   }
   async puppet() {
     try {
+      ////src
+      this.processes.source = uri;
+      //
       const browser = await puppeteer.connect({
         browserWSEndpoint: wsChromeEndpointurl,
         defaultViewport: null,
       });
       const page = await browser.newPage();
-      page.setUserAgent(vars.userAgent);
+      page.setUserAgent(helpers.userAgent);
       await page.goto(this.uri, { waitUntil: "networkidle2", timeout: 0 });
       await page.waitFor(30000);
       await page.waitForSelector(".sabc_cat_list_item");
       const items = await page.$$(".sabc_cat_list_item");
       await page.waitFor(5000);
-      let arrr = [];
+
       //
       for (const item of items) {
         try {
@@ -79,7 +94,7 @@ class Scrapper {
           //
 
           //
-          await vars.interfaceAPI({
+          let data = {
             id,
             url,
             headline,
@@ -110,18 +125,57 @@ class Scrapper {
             author,
             authors,
             date,
-          });
+          };
+          await helpers.interfaceAPI(data);
+          /////log
+          let e = {
+            current: helpers.timestamp(),
+            error: null,
+            data: JSON.stringify(data),
+            number: this.processes.children.latest.number + 1,
+          };
+          this.processes.children.latest = e;
+          this.processes.children.logs.push(e);
+          ////
         } catch (error) {
           console.log("\x1b[42m%s\x1b[0m", `From ${this.uri} loop: ${error}`);
+          /////log
+          let e = {
+            current: helpers.timestamp(),
+            error: error.message,
+            data: null,
+            number: this.processes.children.latest.number + 1,
+          };
+          this.processes.children.latest = e;
+          this.processes.children.logs.push(e);
+          ////
           continue;
         }
       }
       //
-      this.data = arrr;
+      ////log
+      let e = {
+        current: helpers.timestamp(),
+        error: null,
+        number: this.processes.main.latest.number + 1,
+      };
+      this.processes.main.latest = e;
+      this.processes.main.logs.push(e);
+      ////
       await page.close();
       console.log("\x1b[43m%s\x1b[0m", `Done: ${this.uri}`);
     } catch (error) {
       console.log("\x1b[41m%s\x1b[0m", `From ${this.uri} Main: ${error}`);
+      ////log
+      let e = {
+        current: helpers.timestamp(),
+        error: error.message,
+        number: this.processes.main.latest.number + 1,
+      };
+
+      this.processes.main.latest = e;
+      this.processes.main.logs.push(e);
+      ///
     }
   }
 }

@@ -27,9 +27,9 @@ cron.schedule("0 4 * * SUN", () => {
 //
 Routa.get("/wired-all", (req, res) => {
   res.send({
-    science: dataOne.data,
-    business: dataTwo.data,
-    lifestyle: dataThree.data,
+    science: dataOne.processes,
+    business: dataTwo.processes,
+    lifestyle: dataThree.processes,
   });
 });
 module.exports = Routa;

@@ -1,12 +1,12 @@
 const puppeteer = require('puppeteer');
-const vars = require('./store/storeVars');
+const helpers = require('./store/helpers');
 //
 (async function() {
     const browser = await puppeteer.launch({
-        args: vars.argsArr,
+        args: helpers.argsArr,
         defaultViewport: null,
-        headless: vars.bool,
-        // executablePath: vars.exPath
+        headless: helpers.bool,
+        // executablePath: helpers.exPath
     });
     console.log({
         "Browser Info": {

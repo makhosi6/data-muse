@@ -1,4 +1,4 @@
-const vars = require("./storeVars");
+const helpers = require("./helpers");
 const puppeteer = require("puppeteer");
 const generateUniqueId = require("generate-unique-id");
 const wsChromeEndpointurl = require("../browser");
@@ -9,10 +9,26 @@ class Scrapper {
   constructor(uri, cat) {
     this.uri = uri;
     this.cat = cat;
-    this.data = [];
+    this.processes = {
+      main: {
+        latest: {
+          number: 0,
+        },
+        logs: [],
+      },
+      children: {
+        latest: {
+          number: 0,
+        },
+        logs: [],
+      },
+    };
   }
   async puppet() {
     try {
+      ////src
+      this.processes.source = uri;
+      //
       console.log("new Puppet");
       const browser = await puppeteer.connect({
         browserWSEndpoint: wsChromeEndpointurl,
@@ -24,11 +40,11 @@ class Scrapper {
         height: 968,
       });
 
-      page.setUserAgent(vars.userAgent);
+      page.setUserAgent(helpers.userAgent);
       await page.goto(this.uri, { waitUntil: "networkidle2", timeout: 0 });
       await page.waitForSelector(".item-list");
       const items = await page.$$(".post__section-item-display");
-      let arrr = [];
+
       let src_logo = "";
       //
       for (let i = 0; i < items.length; i++) {
@@ -115,8 +131,7 @@ class Scrapper {
           let catLink = this.uri;
           let vidLen = empty;
           let isVid = false;
-
-          await vars.interfaceAPI({
+          let data = {
             id,
             url,
             headline,
@@ -147,16 +162,56 @@ class Scrapper {
             author,
             authors,
             date,
-          });
+          };
+          await helpers.interfaceAPI(data);
+          /////log
+          let e = {
+            current: helpers.timestamp(),
+            error: null,
+            data: JSON.stringify(data),
+            number: this.processes.children.latest.number + 1,
+          };
+          this.processes.children.latest = e;
+          this.processes.children.logs.push(e);
+          ////
         } catch (error) {
           console.log("\x1b[42m%s\x1b[0m", `From ${this.uri} loop: ${error}`);
+          /////log
+          let e = {
+            current: helpers.timestamp(),
+            error: error.message,
+            data: null,
+            number: this.processes.children.latest.number + 1,
+          };
+          this.processes.children.latest = e;
+          this.processes.children.logs.push(e);
+          ////
+          continue;
         }
       }
-      this.data = arrr;
+      ////log
+      let e = {
+        current: helpers.timestamp(),
+        error: null,
+        number: this.processes.main.latest.number + 1,
+      };
+      this.processes.main.latest = e;
+      this.processes.main.logs.push(e);
+      ////
       await page.close();
       console.log("\x1b[43m%s\x1b[0m", `Done: ${this.uri}`);
     } catch (error) {
       console.log("\x1b[41m%s\x1b[0m", `From ${this.uri} Main: ${error}`);
+      ////log
+      let e = {
+        current: helpers.timestamp(),
+        error: error.message,
+        number: this.processes.main.latest.number + 1,
+      };
+
+      this.processes.main.latest = e;
+      this.processes.main.logs.push(e);
+      ///
     }
   }
 }

@@ -1,22 +1,26 @@
-const vars = require("./storeVars");
+const helpers = require("./helpers");
 const puppeteer = require("puppeteer");
 const generateUniqueId = require("generate-unique-id");
 const wsChromeEndpointurl = require("../browser");
 //
 let src_name = "BBC";
+
 class Scrapper {
   constructor(uri) {
     this.uri = uri;
-    this.data = [];
+    this.processes = [];
   }
   async puppet() {
     try {
+        ////src
+        this.processes.source = uri;
+        //
       const browser = await puppeteer.connect({
         browserWSEndpoint: wsChromeEndpointurl,
         defaultViewport: null,
       });
       const page = await browser.newPage();
-      page.setUserAgent(vars.userAgent);
+      page.setUserAgent(helpers.userAgent);
       await page.goto(this.uri, { waitUntil: "networkidle2", timeout: 0 });
       await page.waitFor(15000);
       await page.waitForSelector(".gs-c-promo");
@@ -24,7 +28,7 @@ class Scrapper {
       await page.waitFor(5000);
       // let st = "";
       //
-      let arrr = [];
+    
       //
       for (const item of items) {
         try {
@@ -45,7 +49,7 @@ class Scrapper {
               : null;
           const value =
             mediaLink != null || undefined
-              ? await item.$eval("img", (img) => img.dataset.src)
+              ? await item.$eval("img", (img) => img.processesset.src)
               : null;
           const images =
             mediaLink != null || undefined
@@ -106,7 +110,7 @@ class Scrapper {
             length: 32,
           });
           //
-         await vars.interfaceAPI({
+          let data = {
             id,
             url,
             headline,
@@ -137,16 +141,55 @@ class Scrapper {
             author,
             authors,
             date,
-          });
+          };
+         await helpers.interfaceAPI(data);
+            /////log
+            let e = {
+              current: helpers.timestamp(),
+              error: null,
+              data: JSON.stringify(data),
+              number: this.processes.children.latest.number + 1,
+            };
+            this.processes.children.latest = e;
+            this.processes.children.logs.push(e);
+            ////
         } catch (error) {
           console.log("\x1b[42m%s\x1b[0m", `From ${this.uri} loop: ${error}`);
+           /////log
+           let e = {
+            current: helpers.timestamp(),
+            error: error.message,
+            data: null,
+            number: this.processes.children.latest.number + 1,
+          };
+          this.processes.children.latest = e;
+          this.processes.children.logs.push(e);
+          ////
         }
       }
-      this.data = arrr;
+       ////log
+       let e = {
+        current: helpers.timestamp(),
+        error: null,
+        number: this.processes.main.latest.number + 1,
+      };
+      this.processes.main.latest = e;
+      this.processes.main.logs.push(e);
+      ////
       await page.close();
       console.log("\x1b[43m%s\x1b[0m", `Done: ${this.uri}`);
     } catch (error) {
       console.log("\x1b[41m%s\x1b[0m", `From ${this.uri} Main: ${error}`);
+      ////log
+      let e = {
+        current: helpers.timestamp(),
+        error: error.message,
+        number: this.processes.main.latest.number + 1,
+      };
+
+      this.processes.main.latest = e;
+      this.processes.main.logs.push(e);
+      ///
     }
   }
 }

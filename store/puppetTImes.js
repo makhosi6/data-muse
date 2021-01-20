@@ -1,4 +1,4 @@
-const vars = require("./storeVars");
+const helpers = require("./helpers");
 const puppeteer = require("puppeteer");
 const wsChromeEndpointurl = require("../browser");
 
@@ -8,7 +8,20 @@ let src_name = "Timeslive";
 class Scrapper {
   constructor(uri) {
     this.uri = uri;
-    this.data = [];
+    this.processes = {
+      main: {
+        latest: {
+          number: 0,
+        },
+        logs: [],
+      },
+      children: {
+        latest: {
+          number: 0,
+        },
+        logs: [],
+      },
+    };
   }
   async puppet() {
     try {
@@ -17,14 +30,14 @@ class Scrapper {
         defaultViewport: null,
       });
       const page = await browser.newPage();
-      page.setUserAgent(vars.userAgent);
+      page.setUserAgent(helpers.userAgent);
       await page.goto(this.uri, { waitUntil: "networkidle2", timeout: 0 });
       await page.waitForSelector(".link");
       const items = await page.$$(".link");
       await page.waitFor(30000);
       //
       console.log("0ne");
-      let arrr = [];
+    
       //
       for (const item of items) {
         try {
@@ -69,8 +82,9 @@ class Scrapper {
           let author = catLink;
           let date = catLink;
           console.log("nina");
+          
           //
-          await vars.interfaceAPI({
+          let data ={
             url_src,
             src_name,
             url,
@@ -90,14 +104,15 @@ class Scrapper {
             //
             author,
             date,
-          });
+          }
+          await helpers.interfaceAPI(data);
+
           console.log({ thumbnail });
         } catch (error) {
           console.log("\x1b[42m%s\x1b[0m", `From ${this.uri} loop: ${error}`);
           continue;
         }
       }
-      this.data = arrr;
       await page.close();
       console.log("\x1b[43m%s\x1b[0m", `Done: ${this.uri}`);
     } catch (error) {

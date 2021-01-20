@@ -3,7 +3,7 @@ const puppeteer = require("puppeteer");
 require("dotenv").config();
 const generateUniqueId = require("generate-unique-id");
 const wsChromeEndpointurl = require("../browser");
-const vars = require("../store/storeVars");
+const helpers = require("../store/helpers");
 const express = require("express");
 const Routa = express.Router();
 ///
@@ -11,17 +11,33 @@ let src_name = "Africanews";
 let src_logo =
   "https://www.screenafrica.com/wp-content/uploads/2018/04/Africanews-logo.png";
 //
-let news = [];
-let trending = [];
+let processes = {
+  main: {
+    latest: {
+      number: 0,
+    },
+    logs: [],
+  },
+  children: {
+    latest: {
+      number: 0,
+    },
+    logs: [],
+  },
+};
+
 async function main(uri) {
   try {
+    ////src
+    processes.source = uri;
+    ///
     const browser = await puppeteer.connect({
       browserWSEndpoint: wsChromeEndpointurl,
       defaultViewport: null,
     });
 
     const page = await browser.newPage();
-    page.setUserAgent(vars.userAgent);
+    page.setUserAgent(helpers.userAgent);
     await page.goto(uri, { waitUntil: "networkidle2", timeout: 0 });
     await page.waitFor(125000);
     await page.waitForSelector("article");
@@ -71,7 +87,7 @@ async function main(uri) {
         let author = empty;
         let authors = empty;
         //
-        await vars.interfaceAPI({
+        let data = {
           id,
           url,
           headline,
@@ -102,9 +118,30 @@ async function main(uri) {
           author,
           authors,
           date,
-        });
+        };
+        await helpers.interfaceAPI(data);
+        /////log
+        let e = {
+          current: helpers.timestamp(),
+          error: null,
+          data: JSON.stringify(data),
+          number: processes.children.latest.number + 1,
+        };
+        processes.children.latest = e;
+        processes.children.logs.push(e);
+        ////
       } catch (error) {
         console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error}`);
+        /////log
+        let e = {
+          current: helpers.timestamp(),
+          error: error.message,
+          data: null,
+          number: processes.children.latest.number + 1,
+        };
+        processes.children.latest = e;
+        processes.children.logs.push(e);
+        ////
       }
     }
     //
@@ -160,8 +197,7 @@ async function main(uri) {
         let subject = empty;
         let format = empty;
         let about = empty;
-
-        await vars.interfaceAPI({
+        let data = {
           id,
           url,
           headline,
@@ -192,30 +228,70 @@ async function main(uri) {
           author,
           authors,
           date,
-        });
+        };
+
+        await helpers.interfaceAPI(data);
+        /////log
+        let e = {
+          current: helpers.timestamp(),
+          error: null,
+          data: JSON.stringify(data),
+          number: processes.children.latest.number + 1,
+        };
+        processes.children.latest = e;
+        processes.children.logs.push(e);
+        ////
       } catch (error) {
         console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error}`);
+        /////log
+        let e = {
+          current: helpers.timestamp(),
+          error: error.message,
+          data: null,
+          number: processes.children.latest.number + 1,
+        };
+        processes.children.latest = e;
+        processes.children.logs.push(e);
+        ////
         continue;
       }
     }
     //
+    ////log
+    let e = {
+      current: helpers.timestamp(),
+      error: null,
+      number: processes.main.latest.number + 1,
+    };
+    processes.main.latest = e;
+    processes.main.logs.push(e);
+    ////
     await page.close();
     console.log("\x1b[43m%s\x1b[0m", `Done: ${uri}`);
   } catch (error) {
     console.log("\x1b[41m%s\x1b[0m", `From ${uri} Main: ${error}`);
+    ////log
+    let e = {
+      current: helpers.timestamp(),
+      error: error.message,
+      number: processes.main.latest.number + 1,
+    };
+
+    processes.main.latest = e;
+    processes.main.logs.push(e);
+    ///
   }
 }
 let source = "https://www.africanews.com/";
 
 cron.schedule("0 */6 * * *", () => {
-console.log("\x1b[46m%s\x1b[0m", "Africanews fired at:" + Date());
-main(source);
+  console.log("\x1b[46m%s\x1b[0m", "Africanews fired at:" + Date());
+  main(source);
 });
 /////
 Routa.get("/africa", (req, res) => {
   res.send({
-    news,
-    trending,
+    processes,
   });
 });
 module.exports = Routa;

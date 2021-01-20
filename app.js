@@ -23,8 +23,8 @@ setTimeout(() => {
     //  const espn = require('./routes/flipboard/espn');
     //  const foodWine = require('./routes/flipboard/foodWine');
     //  const natGeo = require('./routes/flipboard/nat-geo');
-    //  const timesLive = require('./routes/timeslive');
-     const bbcRouter = require('./routes/bbc');
+    // // const timesLive = require('./routes/timeslive');
+    //  const bbcRouter = require('./routes/bbc');
     //  const enca = require('./routes/enca');
     //  const ewnRouta = require('./routes/ewn');;
     //  const hbr = require('./routes/hbr');
@@ -34,7 +34,7 @@ setTimeout(() => {
     //  const saNews = require('./routes/sa');
     //  const sabcNews = require('./routes/sabc');
     //  const mgNews = require('./routes/mAndG');
-    //  const blomNews = require('./routes/bloomberg');
+     const blomNews = require('./routes/bloomberg');
     //  const citizen = require('./routes/citizen');
     //  const africa = require('./routes/africa');
     //  const laduma = require('./routes/laduma');
@@ -52,7 +52,7 @@ setTimeout(() => {
     //     /*enews*/
     //      enews,
     //     /*bbc*/
-         bbcRouter,
+        //  bbcRouter,
     //     /*HBR*/
     //      hbr,
     //     /*enca*/
@@ -72,13 +72,13 @@ setTimeout(() => {
     //     /*wired*/
     //      wired,
     //     /*TimesLive*/
-    //      timesLive,
+    //     // timesLive,
     //     /*Sabc*/
     //      sabcNews,
     //     /*mgNews*/
     //      mgNews,
     //     /*Bloomberg*/
-    //      blomNews,
+         blomNews,
     //    // *africa*/
     //      africa,
     //     /*citizen*/

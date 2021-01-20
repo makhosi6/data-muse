@@ -1,16 +1,16 @@
 const cron = require("node-cron");
-const puppet = require('../store/puppetTImes');
+const puppet = require("../store/puppetTImes");
 const express = require("express");
 const Routa = express.Router();
 ///
 
 //
 let sources = {
-        business: "https://www.timeslive.co.za/sunday-times/business/",
-        news: "https://www.timeslive.co.za/",
-        sport: "https://www.timeslive.co.za/sport/"
-    }
-    //
+  business: "https://www.timeslive.co.za/sunday-times/business/",
+  news: "https://www.timeslive.co.za/",
+  sport: "https://www.timeslive.co.za/sport/",
+};
+//
 const Puppet = puppet.Scrapper;
 //one
 const dataOne = new Puppet(sources.business);
@@ -20,21 +20,18 @@ const dataTwo = new Puppet(sources.news);
 const dataThree = new Puppet(sources.sport);
 /////
 cron.schedule("0 */6 * * *", () => {
-        console.log('\x1b[46m%s\x1b[0m', "TIMES-LIVES fired at:" + Date());
-        dataTwo.puppet();
-        dataOne.puppet();
-        dataThree.puppet();
-
+  console.log("\x1b[46m%s\x1b[0m", "TIMES-LIVES fired at:" + Date());
+  dataTwo.puppet();
+  dataOne.puppet();
+  dataThree.puppet();
 });
 
 //
-Routa.get('/time-live', (req, res) => {
-    res.send({
-        "business": dataOne.data,
-        "news": dataTwo.data,
-        "sport": dataThree.data
-
-
-    });
+Routa.get("/time-live", (req, res) => {
+  res.send({
+    business: dataOne.processes,
+    news: dataTwo.processes,
+    sport: dataThree.processes,
+  });
 });
 module.exports = Routa;

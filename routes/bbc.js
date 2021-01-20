@@ -1,19 +1,19 @@
-const puppet = require('../store/puppetBbc');
-require('dotenv').config();
+const puppet = require("../store/puppetBbc");
+require("dotenv").config();
 const cron = require("node-cron");
 const express = require("express");
 const Routa = express.Router();
 
 //
 let sources = {
-        news: "https://www.bbc.com/news/business",
-        africa: "https://www.bbc.com/news/world/africa",
-        health: "https://www.bbc.com/news/health",
-        real: "https://www.bbc.com/news/reality_check",
-        sport: "https://www.bbc.com/sport",
-        tech: "https://www.bbc.com/news/technology",
-    }
-    //
+  news: "https://www.bbc.com/news/business",
+  africa: "https://www.bbc.com/news/world/africa",
+  health: "https://www.bbc.com/news/health",
+  real: "https://www.bbc.com/news/reality_check",
+  sport: "https://www.bbc.com/sport",
+  tech: "https://www.bbc.com/news/technology",
+};
+//
 const Puppet = puppet.Scrapper;
 //one
 const dataOne = new Puppet(sources.news);
@@ -29,27 +29,24 @@ const dataFive = new Puppet(sources.sport);
 const dataSix = new Puppet(sources.tech);
 
 cron.schedule("0 */6 * * *", () => {
-   
-        console.log('\x1b[46m%s\x1b[0m', "BCC fired at:" + Date());
-        dataOne.puppet();
-        dataTwo.puppet();
-        dataThree.puppet();
-        dataFour.puppet();
-        dataFive.puppet();
-        dataSix.puppet();
-
+  console.log("\x1b[46m%s\x1b[0m", "BCC fired at:" + Date());
+  dataOne.puppet();
+  dataTwo.puppet();
+  dataThree.puppet();
+  dataFour.puppet();
+  dataFive.puppet();
+  dataSix.puppet();
 });
 
 //
-Routa.get('/bbc', (req, res) => {
-    res.send({
-        "africa": dataTwo.data,
-        "news": dataOne.data,
-        "real": dataFour.data,
-        "health": dataThree.data,
-        "sport": dataFive.data,
-        "tech": dataSix.data
-
-    });
+Routa.get("/bbc", (req, res) => {
+  res.send({
+    africa: dataTwo.processes,
+    news: dataOne.processes,
+    real: dataFour.processes,
+    health: dataThree.processes,
+    sport: dataFive.processes,
+    tech: dataSix.processes,
+  });
 });
 module.exports = Routa;
