@@ -151,7 +151,7 @@ async function main(uri) {
       try {
         //
         const timeStamp = await item.$(".boxPlay--duration");
-        const e = await item.$("img");
+        const ea = await item.$("img");
         const f = await item.$(".teaser__title");
         const time = await item.$("time");
         //
@@ -164,7 +164,7 @@ async function main(uri) {
         const date = d !== null ? await d.trim() : null;
 
         const thumbnail =
-          e != null || undefined
+          ea != null || undefined
             ? await item.$eval("img", (img) => img.src)
             : null;
         const vidLen =
@@ -287,7 +287,7 @@ let source = "https://www.africanews.com/";
 cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "Africanews fired at:" + Date());
   main(source);
-});
+}); 
 /////
 Routa.get("/africa", (req, res) => {
   res.send({

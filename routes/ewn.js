@@ -28,7 +28,7 @@ let processes = {
 async function main(uri_trending) {
   try {
     ////src
-    processes.source = uri;
+    processes.source = uri_trending;
     ///
     const browser = await puppeteer.connect({
       browserWSEndpoint: wsChromeEndpointurl,
@@ -49,7 +49,7 @@ async function main(uri_trending) {
       try {
         const url = await item.$eval("a", (a) => a.href);
         const headline = await item.$eval("a", (a) => a.innerText);
-
+        let empty = null;
         let lede = empty;
         let thumbnail = empty;
         //
@@ -193,7 +193,7 @@ Routa.get("/ewn", (req, res) => {
     lifestyle: dataTwo.processes,
     politics: dataThree.processes,
     sport: dataFour.processes,
-    trending: add_trending,
+    processes,
   });
 });
 module.exports = Routa;

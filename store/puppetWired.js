@@ -1,8 +1,6 @@
 const helpers = require("./helpers");
 const puppeteer = require("puppeteer");
 const generateUniqueId = require("generate-unique-id");
-const wsChromeEndpointurl =
-  "ws://127.0.0.1:61959/devtools/browser/2615c84a-4bda-4059-9998-dba89fbde12a";
 const wsChromeEndpointurl = require("../browser");
 
 //
@@ -30,7 +28,7 @@ class Scrapper {
   async puppet() {
     try {
       ////src
-      this.processes.source = uri;
+      this.processes.source = this.uri;
       //
       const browser = await puppeteer.connect({
         browserWSEndpoint: wsChromeEndpointurl,
@@ -38,7 +36,7 @@ class Scrapper {
       });
       const page = await browser.newPage();
       page.setUserAgent(helpers.userAgent);
-      await page.goto(uri, { waitUntil: "networkidle2", timeout: 0 });
+      await page.goto(this.uri, { waitUntil: "networkidle2", timeout: 0 });
       await page.waitForSelector(".card-component ul");
       const items = await page.$$(".card-component ul");
       await page.waitFor(5000);

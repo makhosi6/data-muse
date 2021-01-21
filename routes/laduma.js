@@ -28,7 +28,7 @@ let src_logo =
 async function main(uri_inter, uri_local) {
   try {
     ////src
-    processes.source = uri;
+    processes.source = uri_inter;
     ///
     const browser = await puppeteer.connect({
       browserWSEndpoint: wsChromeEndpointurl,
@@ -287,12 +287,11 @@ let source_local = "https://www.soccerladuma.co.za/news/articles/local/landing";
 cron.schedule("0 3 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "LADUMA fired at:" + Date());
   main(source_inter, source_local);
-});
+}); 
 
 Routa.get("/laduma", (req, res) => {
   res.send({
-    news: add_inter,
-    sport: add_local,
+  processes
   });
 });
 module.exports = Routa;

@@ -24,6 +24,9 @@ let src_name = "W24";
 
 async function main(uri) {
     try {
+      ////src
+    processes.source = uri;
+    ///
           const browser = await puppeteer.connect({
         browserWSEndpoint: wsChromeEndpointurl,
         defaultViewport: null,
@@ -108,7 +111,7 @@ async function main(uri) {
 }
 let source = "https://www.w24.co.za/";
 
-// cron.schedule("0 4 * * SUN", () => {
+cron.schedule("0 4 * * SUN", () => {
 //         console.log('\x1b[46m%s\x1b[0m', "W24 fired at:" + Date());
 //         main(source);
 // });

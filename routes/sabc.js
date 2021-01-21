@@ -29,7 +29,7 @@ let add = [];
 async function main(uri) {
   try {
     ////src
-    processes.source = uri;
+    //processes.source = uri;
     ///
     const browser = await puppeteer.connect({
       browserWSEndpoint: wsChromeEndpointurl,
@@ -196,15 +196,15 @@ const dataFour = new Puppet(sources.sport, "sport");
 //five
 const dataFive = new Puppet(sources.world, "world");
 ///
-// cron.schedule("0 3 * * *", () => {
-console.log("\x1b[46m%s\x1b[0m", "SABC fired at:" + Date());
-main(sources.news);
-dataOne.puppet();
-dataTwo.puppet();
-dataThree.puppet();
-dataFour.puppet();
-dataFive.puppet();
-// });
+cron.schedule("0 3 * * *", () => {
+  console.log("\x1b[46m%s\x1b[0m", "SABC fired at:" + Date());
+  main(sources.news);
+  dataOne.puppet();
+  dataTwo.puppet();
+  dataThree.puppet();
+  dataFour.puppet();
+  dataFive.puppet();
+});
 //
 Routa.get("/sabc", (req, res) => {
   res.send({

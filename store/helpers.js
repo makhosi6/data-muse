@@ -12,7 +12,7 @@ module.exports = {
     return b;
   },
   interfaceAPI: async (data) => {
-    fetch("http://localhost:8000/api/articles/", {
+    fetch(process.env.URL, {
       method: "post",
       body: JSON.stringify(data),
       headers: {

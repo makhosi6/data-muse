@@ -10,12 +10,25 @@ class Scrapper {
   constructor(uri, category) {
     this.uri = uri;
     this.category = category;
-    this.processes = [];
+    this.processes = {
+      main: {
+        latest: {
+          number: 0,
+        },
+        logs: [],
+      },
+      children: {
+        latest: {
+          number: 0,
+        },
+        logs: [],
+      },
+    };
   }
   async puppet() {
     try {
       ////src
-      this.processes.source = uri;
+      this.processes.source = this.uri;
       //
       const browser = await puppeteer.connect({
         browserWSEndpoint: wsChromeEndpointurl,

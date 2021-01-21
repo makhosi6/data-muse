@@ -36,7 +36,7 @@ cron.schedule("0 */6 * * *", () => {
   dataFour.puppet();
   dataFive.puppet();
   dataSix.puppet();
-});
+}); 
 
 //
 Routa.get("/bbc", (req, res) => {

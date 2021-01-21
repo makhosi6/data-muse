@@ -35,7 +35,7 @@ cron.schedule("0 3 * * *", () => {
   // dataFour.puppet();
   dataFive.puppet();
   dataSix.puppet();
-});
+}); 
 
 /////
 module.exports = {};

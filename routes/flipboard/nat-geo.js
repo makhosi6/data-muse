@@ -37,7 +37,7 @@ cron.schedule("0 4 * * SUN", () => {
   dataFour.puppet();
   dataFive.puppet();
   dataSix.puppet();
-});
+}); 
 //
 
 Routa.get("/nat-geo", (req, res) => {

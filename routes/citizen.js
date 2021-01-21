@@ -252,7 +252,7 @@ let source = "https://citizen.co.za/";
 cron.schedule("0 3 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "CITIZEN fired at:" + Date());
   main(source);
-});
+}); 
 ///
 
 //

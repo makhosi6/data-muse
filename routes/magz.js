@@ -28,7 +28,7 @@ let category = "lifestyle";
 async function main(uri_men, uri_women, uri_vogue, uri_you) {
   try {
     ////src
-    processes.source = uri;
+    processes.source = uri_men;
     ///
     const browser = await puppeteer.connect({
       browserWSEndpoint: wsChromeEndpointurl,
@@ -569,15 +569,12 @@ let source_you = "https://www.news24.com/You";
 cron.schedule("0 4 * * SUN", () => {
   console.log("\x1b[46m%s\x1b[0m", "MAGZ fired at:" + Date());
   main(source_men, source_women, source_vogue, source_you);
-});
+}); 
 //
 
 Routa.get("/magz-lifestyle", (req, res) => {
   res.send({
-    "men lifestyle": add_men,
-    "women lifestyle": add_women,
-    vogue: add_vogue,
-    you: add_you,
+    processes
   });
 });
 module.exports = Routa;

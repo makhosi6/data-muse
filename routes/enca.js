@@ -29,7 +29,7 @@ let src_name = "eNCA";
 async function main(uri_sport, uri_video, uri_business) {
   try {
     ////src
-    processes.source = uri;
+    processes.source = uri_business;
     ///
     const browser = await puppeteer.connect({
       browserWSEndpoint: wsChromeEndpointurl,
@@ -596,7 +596,7 @@ let source_business = "https://www.enca.com/business";
 cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "ENCA fired at: " + Date());
   main(source_sport, source_video, source_business);
-});
+}); 
 //
 //
 Routa.get("/enca", (req, res) => {
@@ -604,7 +604,7 @@ Routa.get("/enca", (req, res) => {
     sport: add_sport,
     video: add_video,
     business: add_business,
-    trends: add_trends,
+   processes
   });
 });
 module.exports = Routa;

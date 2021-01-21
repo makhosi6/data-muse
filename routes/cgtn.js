@@ -27,7 +27,7 @@ let src_name = "CGTN";
 async function main(uri_cgtn) {
   try {
     ////src
-    processes.source = uri;
+    processes.source = uri_cgtn;
     ///
     const browser = await puppeteer.connect({
       browserWSEndpoint: wsChromeEndpointurl,
@@ -188,11 +188,11 @@ let source_cgtn = "https://www.cgtn.com/";
 cron.schedule("0 3 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "CGTN fired at:" + Date());
   main(source_cgtn);
-});
+}); 
 /////
 Routa.get("/cgtn", (req, res) => {
   res.send({
-    news,
+  processes
   });
 });
 module.exports = Routa;

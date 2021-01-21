@@ -46,7 +46,7 @@ async function main(uri) {
       try {
         // const left = await item.$('.right > .content > .article-synopsis.d-none.d-md-block');
         const get = await item.$(".td-image-wrap");
-        const e = await item.$(".td-image-wrap > span");
+        const ea = await item.$(".td-image-wrap > span");
         x = await page.evaluate((el) => el.innerHTML, item);
         const f = await item.$("h3 > a");
         const time = await item.$("time");
@@ -55,7 +55,7 @@ async function main(uri) {
         const cat = await item.$(".td-post-category");
         //
         const thumb =
-          (await page.evaluate((a) => a.style.backgroundImage, e)) ||
+          (await page.evaluate((a) => a.style.backgroundImage, ea)) ||
           (await item.$eval(".td-image-wrap > span", (img) => img.dataset.bg));
         let a;
         let b;
@@ -207,7 +207,7 @@ let source = "https://mg.co.za/";
 cron.schedule("0 4 * * SUN", () => {
   console.log("\x1b[46m%s\x1b[0m", "M&G fired at:" + Date());
   main(source);
-});
+}); 
 //
 Routa.get("/mg/news", (req, res) => {
   res.send({

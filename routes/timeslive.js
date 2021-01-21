@@ -24,7 +24,7 @@ cron.schedule("0 */6 * * *", () => {
   dataTwo.puppet();
   dataOne.puppet();
   dataThree.puppet();
-});
+}); 
 
 //
 Routa.get("/time-live", (req, res) => {

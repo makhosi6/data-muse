@@ -23,7 +23,7 @@ cron.schedule("0 4 * * SUN", () => {
   dataOne.puppet();
   dataTwo.puppet();
   dataThree.puppet();
-});
+}); 
 //
 Routa.get("/wired-all", (req, res) => {
   res.send({

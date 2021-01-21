@@ -24,6 +24,9 @@ let processes = {
 
 async function main(uri) {
   try {
+    ////src
+    processes.source = uri;
+    ///
     const browser = await puppeteer.connect({
       browserWSEndpoint: wsChromeEndpointurl,
       defaultViewport: null,
@@ -169,7 +172,7 @@ let source = "https://trends.google.com/trends/trendingsearches/daily?geo=ZA";
 cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", " HOT TRENDS fired at:" + Date());
   main(source);
-});
+}); 
 
 Routa.get("/hot-trends", (req, res) => {
   res.send({

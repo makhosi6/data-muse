@@ -28,7 +28,7 @@ class Scrapper {
   async puppet() {
     try {
       ////src
-      this.processes.source = uri;
+      this.processes.source =  this.uri;
       //
       const browser = await puppeteer.connect({
         browserWSEndpoint: wsChromeEndpointurl,

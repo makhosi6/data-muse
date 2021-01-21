@@ -25,6 +25,9 @@ class Scrapper {
   }
   async puppet() {
     try {
+      ////src
+      this.processes.source = this.uri;
+      //
       const browser = await puppeteer.connect({
         browserWSEndpoint: wsChromeEndpointurl,
         defaultViewport: null,
@@ -35,9 +38,6 @@ class Scrapper {
       await page.waitForSelector(".link");
       const items = await page.$$(".link");
       await page.waitFor(30000);
-      //
-      console.log("0ne");
-    
       //
       for (const item of items) {
         try {

@@ -8,12 +8,25 @@ let src_name = "BBC";
 class Scrapper {
   constructor(uri) {
     this.uri = uri;
-    this.processes = [];
+    this.processes = {
+      main: {
+        latest: {
+          number: 0,
+        },
+        logs: [],
+      },
+      children: {
+        latest: {
+          number: 0,
+        },
+        logs: [],
+      },
+    };
   }
   async puppet() {
     try {
         ////src
-        this.processes.source = uri;
+        this.processes.source = this.uri;
         //
       const browser = await puppeteer.connect({
         browserWSEndpoint: wsChromeEndpointurl,
@@ -49,7 +62,7 @@ class Scrapper {
               : null;
           const value =
             mediaLink != null || undefined
-              ? await item.$eval("img", (img) => img.processesset.src)
+              ? await item.$eval("img", (img) => img.dataset.src)
               : null;
           const images =
             mediaLink != null || undefined

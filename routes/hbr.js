@@ -29,7 +29,7 @@ let src_logo = "https://hbr.org/resources/css/images/HBR_logo_black.svg";
 async function main(url_news, uri_mostPopula, uri_study, uri_video) {
   try {
     ////src
-    processes.source = uri;
+    processes.source = uri_mostPopula;
     ///
     const browser = await puppeteer.connect({
       browserWSEndpoint: wsChromeEndpointurl,
@@ -545,7 +545,7 @@ let source_video = "https://hbr.org/video";
 cron.schedule("0 4 * * SUN", () => {
   console.log("\x1b[46m%s\x1b[0m", "HBR fired at:" + Date());
   main(source_news, source_mostPopula, source_study, source_video);
-});
+}); 
 //
 Routa.get("/hbr", (req, res) => {
   res.send({

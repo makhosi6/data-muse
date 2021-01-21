@@ -28,7 +28,7 @@ cron.schedule("0 */6 * * *", () => {
   dataNews.puppet();
   dataSport.puppet();
   // main(source.docs, source.trending);
-});
+}); 
 
 Routa.get("/alj", (req, res) => {
   res.send({
