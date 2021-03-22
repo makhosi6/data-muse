@@ -90,13 +90,16 @@ setTimeout(() => {
     app.use(bodyParser.json());
     app.use((req, res, next)=>{
         const authHeader = req.headers['authorization']
-        const token = authHeader; // && authHeader.split(' ')[1]
-        console.log('\x1b[45m%s\x1b[0m',JSON.stringify(req.headers));
-        console.log('\x1b[46m%s\x1b[0m',token);
+        const token = authHeader && authHeader.split(' ')[1]
         if (token == null) return res.sendStatus(401)
       
         jwt.verify(token, process.env.SECRET ,(err, user) => {
-          console.log({err, token: process.env.SECRET})
+            console.log(err)
+            //
+            // console.log(`|${token}|`);
+            // console.log(token === process.env.SECRET);
+            // console.log(`|${process.env.SECRET}|`);
+            
           if (err) return res.sendStatus(403)
           req.user = user
           next() 

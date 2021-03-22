@@ -8,11 +8,13 @@ const helpers = require('./store/helpers');
         headless: helpers.bool,
         // executablePath: helpers.exPath
     });
+ 
     console.log({
-        "Browser Info": {
+        "Browser Info =>": {
             wsEndpoint: browser.wsEndpoint(),
             version: await browser.version(),
             userAgent: await browser.userAgent(),
+          
         }
     })
     module.exports = browser.wsEndpoint();
