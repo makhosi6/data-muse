@@ -112,7 +112,7 @@ async function main(uri) {
         let tags = empty;
         let label = empty;
         let type =
-          thumb !== null && thumb !== undefined ? "title-only" : "strip";
+          thumb !== null && thumb !== undefined ? "card" : "strip";
         //
         let subject = empty;
         let format = empty;

@@ -87,7 +87,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         let vidLen = empty;
         //
         let src_name = "men health";
-        let type = "title-only";
+        let type = "card";
         let date = empty;
         let author = empty;
         let authors = empty;
@@ -212,7 +212,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         let date = empty;
         let lede = empty;
         //
-        let type = "title-only";
+        let type = "card";
 
         let vidLen = empty;
         let isVid = false;
@@ -332,7 +332,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         let thumbnail = d == null ? thumb : d;
         //
         let empty = null;
-        let type = "title-only";
+        let type = "card";
 
         let src_logo =
           "https://img.favpng.com/24/11/2/vogue-logo-magazine-fashion-png-favpng-H83cmbUdKYE8XPb1rZtiVg4j8.jpg";
@@ -453,7 +453,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         let src_name = "YOU";
         let tag = empty;
         let tags = empty;
-        let type = "title-only";
+        let type = "card";
         let catLink = uri_you;
         //
         let images = empty;

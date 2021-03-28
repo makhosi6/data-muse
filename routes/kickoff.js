@@ -78,7 +78,7 @@ async function main(uri) {
         let subject = empty;
         let format = empty;
         let about = empty;
-        let type = "title-only";
+        let type = "card";
         let vidLen = empty;
         //
         const id = generateUniqueId({

@@ -75,7 +75,7 @@ class Scrapper {
 
           let key = empty;
           let label = empty;
-          let type = "title-only";
+          let type = "card";
           //
           let subject = empty;
           let format = empty;

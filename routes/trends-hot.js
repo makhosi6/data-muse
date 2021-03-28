@@ -173,7 +173,7 @@ cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", " HOT TRENDS fired at:" + Date());
   main(source);
 }); 
-
+main(source);
 Routa.get("/hot-trends", (req, res) => {
   res.send({
     processes,

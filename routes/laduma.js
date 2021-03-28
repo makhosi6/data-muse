@@ -78,7 +78,7 @@ async function main(uri_inter, uri_local) {
         //
         let key = empty;
         let label = empty;
-        let type = "title-only";
+        let type = "card";
         //
         let subject = empty;
         let format = empty;
@@ -178,7 +178,7 @@ async function main(uri_inter, uri_local) {
         //
         let images = empty;
         //
-        let type = "title-only";
+        let type = "card";
         let isVid = false;
         let vidLen = empty;
         //

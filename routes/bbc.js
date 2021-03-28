@@ -28,6 +28,8 @@ const dataFive = new Puppet(sources.sport);
 //Six
 const dataSix = new Puppet(sources.tech);
 
+  dataOne.puppet();
+  dataTwo.puppet();
 cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "BCC fired at:" + Date());
   dataOne.puppet();

@@ -26,7 +26,7 @@ module.exports = {
       },
     })
       .then((res) => res.json())
-      .then(json => console.log(json))
+      // .then(json => console.log(json))
       .then(() => {
         console.info("\x1b[32m%s\x1b[0m", "interfaceAPI: Success");
       })

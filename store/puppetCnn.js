@@ -90,7 +90,7 @@ class Scrapper {
           let subject = empty;
           let format = empty;
           let about = empty;
-          let type = "title-only";
+          let type = "card";
           let date = empty;
           let author = empty;
           let authors = empty;

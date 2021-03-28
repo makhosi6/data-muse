@@ -81,7 +81,7 @@ async function main(uri) {
         let isVid = false;
         let src_url = await page.evaluate(() => location.origin);
         let images = empty;
-        let type = "title-only";
+        let type = "card";
         const id = generateUniqueId({
           length: 32,
         });

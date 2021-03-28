@@ -171,7 +171,7 @@ async function main(uri) {
         let key = empty;
         let tags = empty;
         let label = empty;
-        let type = "title-only";
+        let type = "card";
         let data = {
           id,
           url,

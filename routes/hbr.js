@@ -334,7 +334,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
         let images = empty;
         let lede = empty;
         let tags = empty;
-        let type = "title-only";
+        let type = "card";
         let tag = empty;
         let author = empty;
         let category = empty;

@@ -173,7 +173,7 @@ async function main(uri) {
             : null;
         const isVid = timeStamp != null || undefined ? true : false;
         //
-        let type = thumbnail === null ? "title-only" : "strip";
+        let type = thumbnail === null ? "card" : "strip";
         let headline = head.trim();
         const iHtml = await page.evaluate((el) => el.innerHTML, item);
         let src_url = await page.evaluate(() => location.origin);

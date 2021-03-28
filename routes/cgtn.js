@@ -91,7 +91,7 @@ async function main(uri_cgtn) {
         let label = empty;
         let type =
           thumbnail !== null || thumbnail !== undefined
-            ? "title-only"
+            ? "card"
             : "strip";
         //
         let subject = empty;
