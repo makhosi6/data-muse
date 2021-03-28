@@ -1,7 +1,9 @@
 const express = require("express");
 const Routa = express.Router();
 const fetch = require('node-fetch');
+const filterAll = require('filter-empty')
 require('dotenv').config();
+
 
 
 module.exports = {
@@ -11,10 +13,12 @@ module.exports = {
     let b = a.replace(" GMT+0200 (South Africa Standard Time)", "");
     return b;
   },
+  sanitize: (data)=> filterAll(data),
   interfaceAPI: async (data) => {
+    
     fetch(process.env.MUSE_API, {
       method: "post",
-      body: JSON.stringify(data),
+      body: JSON.stringify(filterAll(data)),
       headers: {
         Authorization: `${process.env.TOKEN}`,
         "Content-type": "application/json",
@@ -22,12 +26,13 @@ module.exports = {
       },
     })
       .then((res) => res.json())
-      // .then(json => console.log(json))
+      .then(json => console.log(json))
       .then(() => {
         console.info("\x1b[32m%s\x1b[0m", "interfaceAPI: Success");
       })
       .catch((e) => {
-        throw new Error(e);
+        // throw new Error(e);
+        console.log({e});
       });
   },
   argsArr: [

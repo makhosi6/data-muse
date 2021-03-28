@@ -75,7 +75,7 @@ async function main(uri) {
         let about = empty;
 
         //
-        let type = "trend";
+        let type = "hot-trends";
         let tag = empty;
         let tags = empty;
         //
