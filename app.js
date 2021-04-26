@@ -8,7 +8,7 @@ console.log("wsChromeEndpointurl :", wsChromeEndpointurl);
 
 setTimeout(() => {
     // ROUTES
-     const test = require('./testTwo.js');
+     //const test = require('./testTwo.js');
      const cgtnNews = require('./routes/cgtn');
      const enews = require('./routes/flipboard/enews')
      const espn = require('./routes/flipboard/espn');

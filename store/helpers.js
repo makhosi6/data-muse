@@ -28,11 +28,12 @@ module.exports = {
       .then((res) => res.json())
       // .then(json => console.log(json))
       .then(() => {
-        console.info("\x1b[32m%s\x1b[0m", "interfaceAPI: Success");
+        //console.info("\x1b[32m%s\x1b[0m", "interfaceAPI: Success");
       })
       .catch((e) => {
-        // throw new Error(e);
-        console.log({e});
+        console.log(data);
+        throw new Error(e);
+        // console.log({e});
       });
   },
   argsArr: [
