@@ -127,7 +127,7 @@ async function main(uri_trending) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri_trending} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri_trending} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -144,7 +144,7 @@ async function main(uri_trending) {
     console.log("\x1b[43m%s\x1b[0m", `Done: ${uri_trending}`);
     await page_trending.close();
   } catch (error) {
-    console.log("\x1b[41m%s\x1b[0m", `From ${uri_trending} Main: ${error}`);
+    console.log("\x1b[41m%s\x1b[0m", `From ${uri_trending} Main: ${error.message}`);
     ////log
     let e = {
       current: helpers.timestamp(),

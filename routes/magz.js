@@ -143,7 +143,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri_men} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri_men} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -267,7 +267,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri_women} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri_women} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -402,7 +402,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         ////
         //
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri_vogue} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri_vogue} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -515,7 +515,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri_you} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri_you} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -548,7 +548,7 @@ async function main(uri_men, uri_women, uri_vogue, uri_you) {
 
     //
   } catch (error) {
-    console.log("\x1b[41m%s\x1b[0m", `From ${uri_you} Main: ${error}`);
+    console.log("\x1b[41m%s\x1b[0m", `From ${uri_you} Main: ${error.message}`);
     ////log
     let e = {
       current: helpers.timestamp(),

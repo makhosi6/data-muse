@@ -129,7 +129,7 @@ async function main(uri_inter, uri_local) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri_local} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri_local} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -240,7 +240,7 @@ async function main(uri_inter, uri_local) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri_local} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri_local} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -267,7 +267,7 @@ async function main(uri_inter, uri_local) {
     await page_local.close();
     console.log("\x1b[43m%s\x1b[0m", `Done: ${uri_local}`);
   } catch (error) {
-    console.log("\x1b[41m%s\x1b[0m", `From ${uri_local} Main: ${error}`);
+    console.log("\x1b[41m%s\x1b[0m", `From ${uri_local} Main: ${error.message}`);
     ////log
     let e = {
       current: helpers.timestamp(),

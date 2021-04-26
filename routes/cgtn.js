@@ -152,7 +152,7 @@ async function main(uri_cgtn) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri_cgtn} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri_cgtn} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -170,7 +170,7 @@ async function main(uri_cgtn) {
     await page_cgtn.close();
     console.log("\x1b[43m%s\x1b[0m", `Done: ${uri_cgtn}`);
   } catch (error) {
-    console.log("\x1b[41m%s\x1b[0m", `From ${uri_cgtn} Main: ${error}`);
+    console.log("\x1b[41m%s\x1b[0m", `From ${uri_cgtn} Main: ${error.message}`);
     ////log
     let e = {
       current: helpers.timestamp(),

@@ -116,7 +116,7 @@ async function main(uri) {
         };
         await helpers.interfaceAPI(data);
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -216,7 +216,7 @@ async function main(uri) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -234,7 +234,7 @@ async function main(uri) {
     console.log("\x1b[43m%s\x1b[0m", `Done: ${uri}`);
     await page.close();
   } catch (error) {
-    console.log("\x1b[41m%s\x1b[0m", `From ${uri} Main: ${error}`);
+    console.log("\x1b[41m%s\x1b[0m", `From ${uri} Main: ${error.message}`);
     ////log
     let e = {
       current: helpers.timestamp(),

@@ -142,7 +142,7 @@ class Scrapper {
           this.processes.children.logs.push(e);
           ////
         } catch (error) {
-          console.log("\x1b[42m%s\x1b[0m", `From ${this.uri} loop: ${error}`);
+          console.log("\x1b[42m%s\x1b[0m", `From ${this.uri} loop: ${error.message}`);
           let e = {
             current: helpers.timestamp(),
             error: error.message,
@@ -166,7 +166,7 @@ class Scrapper {
       await page.close();
       console.log("\x1b[43m%s\x1b[0m", `Done: ${this.uri}`);
     } catch (error) {
-      console.log("\x1b[41m%s\x1b[0m", `From ${this.uri} Main: ${error}`);
+      console.log("\x1b[41m%s\x1b[0m", `From ${this.uri} Main: ${error.message}`);
       ////log
       let e = {
         current: helpers.timestamp(),

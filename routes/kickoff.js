@@ -131,7 +131,7 @@ async function main(uri) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -239,14 +239,14 @@ async function main(uri) {
           } catch (error) {
             console.log(
               "\x1b[42m%s\x1b[0m",
-              `From ${uri} loopInside: ${error}`
+              `From ${uri} loopInside: ${error.message}`
             );
 
             continue;
           }
         }
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -274,7 +274,7 @@ async function main(uri) {
     //             "headline": headline,
     //         })
     //     } catch (error) {
-    //         console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error}`)
+    //         console.log('\x1b[42m%s\x1b[0m', `From ${uri} loop: ${error.message}`)
 
     //     }
     // }
@@ -326,14 +326,14 @@ async function main(uri) {
           teamName,
         });
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri} loop: ${error.message}`);
         continue;
       }
     }
     await page_list.close();
     console.log("\x1b[43m%s\x1b[0m", `Done: ${uri}`);
   } catch (error) {
-    console.log("\x1b[41m%s\x1b[0m", `From ${uri} Main: ${error}`);
+    console.log("\x1b[41m%s\x1b[0m", `From ${uri} Main: ${error.message}`);
   }
 }
 let source = "https://www.kickoff.com/";

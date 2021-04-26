@@ -121,7 +121,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${url_news} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${url_news} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -257,7 +257,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
       } catch (error) {
         console.log(
           "\x1b[42m%s\x1b[0m",
-          `From ${uri_mostPopula} loop: ${error}`
+          `From ${uri_mostPopula} loop: ${error.message}`
         );
         /////log
         let e = {
@@ -379,7 +379,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri_study} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri_study} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -498,7 +498,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
         processes.children.logs.push(e);
         ////
       } catch (error) {
-        console.log("\x1b[42m%s\x1b[0m", `From ${uri_video} loop: ${error}`);
+        console.log("\x1b[42m%s\x1b[0m", `From ${uri_video} loop: ${error.message}`);
         /////log
         let e = {
           current: helpers.timestamp(),
@@ -524,7 +524,7 @@ async function main(url_news, uri_mostPopula, uri_study, uri_video) {
       ////
     await page_video.close();
   } catch (error) {
-    console.log("\x1b[41m%s\x1b[0m", `From ${uri_video} Main: ${error}`);
+    console.log("\x1b[41m%s\x1b[0m", `From ${uri_video} Main: ${error.message}`);
     ////log
     let e = {
         current: helpers.timestamp(),
