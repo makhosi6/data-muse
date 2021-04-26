@@ -31,7 +31,7 @@ module.exports = {
         //console.info("\x1b[32m%s\x1b[0m", "interfaceAPI: Success");
       })
       .catch((e) => {
-        console.log(data);
+        //console.log(data);
         throw new Error(e);
         // console.log({e});
       });
