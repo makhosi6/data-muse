@@ -1,0 +1,396 @@
+wsChromeEndpointurl : {}
+{
+  'Browser Info =>': {
+    wsEndpoint: 'ws://127.0.0.1:57879/devtools/browser/e5d1488d-d6ae-4557-9a52-96fbfbb68d86',
+    version: 'Chrome/83.0.4103.0',
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.0 Safari/537.36'
+  }
+}
+[45mRunning in development mode on port 9090 (http://{IP}:9090). 22 routes went live on Mon Apr 26 2021 16:38:37 GMT+0200 (South Africa Standard Time)[0m
+(node:16040) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification.
+[43mDone: https://trends.google.com/trends/trendingsearches/daily?geo=ZA[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[43mDone: https://edition.cnn.com/africa[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+[32minterfaceAPI: Success[0m
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+{
+  e: FetchError: invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0
+      at C:\Users\makho\Desktop\projects\data-muse\node_modules\node-fetch\lib\index.js:272:32
+      at runMicrotasks (<anonymous>)
+      at processTicksAndRejections (internal/process/task_queues.js:97:5) {
+    message: 'invalid json response body at https://museapiv1-k5gjw.ondigitalocean.app/api/articles reason: Unexpected token < in JSON at position 0',
+    type: 'invalid-json'
+  }
+}
+ https://www.aljazeera.com/wp-content/uploads/2021/04/GettyImages-652365030.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/GettyImages-652365030.jpg?resize=270%2C180 270w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/GettyImages-652365030.jpg?resize=375%2C250 375w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/GettyImages-652365030.jpg?resize=570%2C380 570w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/000_96D4BV.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/000_96D4BV.jpg?resize=270%2C180 270w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/000_96D4BV.jpg?resize=375%2C250 375w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/000_96D4BV.jpg?resize=570%2C380 570w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/000_93B228.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/000_93B228.jpg?resize=270%2C180 270w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/000_93B228.jpg?resize=375%2C250 375w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/000_93B228.jpg?resize=570%2C380 570w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2021-04-25T133343Z_423410093_RC213N9LL4SF_RTRMADP_3_SOMALIA-VIOLENCE.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-04-25T133343Z_423410093_RC213N9LL4SF_RTRMADP_3_SOMALIA-VIOLENCE.jpg?resize=270%2C180 270w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-04-25T133343Z_423410093_RC213N9LL4SF_RTRMADP_3_SOMALIA-VIOLENCE.jpg?resize=375%2C250 375w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-04-25T133343Z_423410093_RC213N9LL4SF_RTRMADP_3_SOMALIA-VIOLENCE.jpg?resize=570%2C380 570w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2015/11/45f5d9374b194745be8fdda575029550_18.jpeg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2015/11/45f5d9374b194745be8fdda575029550_18.jpeg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2021-04-25T134656Z_724532207_RC213N91WJ0Y_RTRMADP_3_SOMALIA-VIOLENCE.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-04-25T134656Z_724532207_RC213N91WJ0Y_RTRMADP_3_SOMALIA-VIOLENCE.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/ajE.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/ajE.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/000_98N2M6.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/000_98N2M6.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/WEB_MAP_ETHIOPIA_AMHARA_REFRESH.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/WEB_MAP_ETHIOPIA_AMHARA_REFRESH.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2014-02-25T120000Z_1391763790_GM1EA2P0SB001_RTRMADP_3_PAKISTAN-SEX-EDUCATION.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2014-02-25T120000Z_1391763790_GM1EA2P0SB001_RTRMADP_3_PAKISTAN-SEX-EDUCATION.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2021-04-24T114514Z_1123433810_RC2B2N9UA1GC_RTRMADP_3_HEALTH-CORONOVIRUS-FRANCE-VACCINATION-DISNEYLAND.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-04-24T114514Z_1123433810_RC2B2N9UA1GC_RTRMADP_3_HEALTH-CORONOVIRUS-FRANCE-VACCINATION-DISNEYLAND.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/WEB_MAP_TANZANIA_DARESSALAAM.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/WEB_MAP_TANZANIA_DARESSALAAM.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/000_13P4V3.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/000_13P4V3.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/AP_20323240126118.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/AP_20323240126118.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/AP_20323240126118.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/AP_20323240126118.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2020/07/ce74384006524b04ab8a777288a4ca68_18.jpeg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2020/07/ce74384006524b04ab8a777288a4ca68_18.jpeg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/000_98G6HE.jpeg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/000_98G6HE.jpeg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2012/11/20121118192235300734_20.jpeg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2012/11/20121118192235300734_20.jpeg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2021-04-23T113227Z_534569427_RC2N1N9F5EUQ_RTRMADP_3_HEALTH-CORONAVIRUS-INDIA.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-04-23T113227Z_534569427_RC2N1N9F5EUQ_RTRMADP_3_HEALTH-CORONAVIRUS-INDIA.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/Helpio1.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/Helpio1.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2021-04-17T203736Z_1338918742_RC2WXM97HRC9_RTRMADP_3_CHAD-ELECTION-1.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-04-17T203736Z_1338918742_RC2WXM97HRC9_RTRMADP_3_CHAD-ELECTION-1.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/AP_21113511006645.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/AP_21113511006645.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2021-04-23T092134Z_1100686137_RC2L1N9J2JL1_RTRMADP_3_CHAD-DEBY-FUNERAL-MACRON-1.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-04-23T092134Z_1100686137_RC2L1N9J2JL1_RTRMADP_3_CHAD-DEBY-FUNERAL-MACRON-1.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/AP_21096637162183.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/AP_21096637162183.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/AP21103010366420.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/AP21103010366420.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2019-06-24T195020Z_770892506_RC16DFCE86F0_RTRMADP_3_CONGO-VIOLENCE.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2019-06-24T195020Z_770892506_RC16DFCE86F0_RTRMADP_3_CONGO-VIOLENCE.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/000_98D7VH.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/000_98D7VH.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/AP_19316494148594.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/AP_19316494148594.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/01/1000x562_WEB_MAP_ETHIOPIA-BENISHANGUL-GUMUZ-ADDIS-ABABA.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/01/1000x562_WEB_MAP_ETHIOPIA-BENISHANGUL-GUMUZ-ADDIS-ABABA.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2021-04-22T113750Z_1884094232_RC2Z0N9COR57_RTRMADP_3_EARTH-DAY-JAPAN-RALLY.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-04-22T113750Z_1884094232_RC2Z0N9COR57_RTRMADP_3_EARTH-DAY-JAPAN-RALLY.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2021-02-24-09.37.35-1.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-02-24-09.37.35-1.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/clubs.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/clubs.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/image-63.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/image-63.jpg?resize=270%2C180 270w
+[32minterfaceAPI: Success[0m
+ https://www.aljazeera.com/wp-content/uploads/2021/04/2021-04-15T050158Z_13147014_RC25WM9VE2NN_RTRMADP_3_GLOBAL-CLIMATE-SUMMIT.jpg?resize=120%2C80 120w
+ https://www.aljazeera.com /wp-content/uploads/2021/04/2021-04-15T050158Z_13147014_RC25WM9VE2NN_RTRMADP_3_GLOBAL-CLIMATE-SUMMIT.jpg?resize=270%2C180 270w
+[43mDone: https://www.aljazeera.com/topics/regions/africa.html[0m
+[32minterfaceAPI: Success[0m

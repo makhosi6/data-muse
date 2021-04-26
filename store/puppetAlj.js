@@ -66,7 +66,7 @@ class Scrapper {
             let y = await x.split(",");
             for (const z of y) {
               let s = ` ${src_url}${z}`;
-              console.log(s);
+              // console.log(s);
               images += s;
             }
           } else {
