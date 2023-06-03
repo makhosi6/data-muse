@@ -18,7 +18,7 @@ const dataTwo = new Puppet(sources.business, "business");
 //Three
 const dataThree = new Puppet(sources.gear, "lifestyle");
 ///
-cron.schedule("0 4 * * SUN", () => {
+cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "WIRED fired at:" + Date());
   dataOne.puppet();
   dataTwo.puppet();

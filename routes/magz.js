@@ -566,7 +566,7 @@ let source_women = "https://www.womenshealthsa.co.za/";
 let source_vogue = "https://www.vogue.co.uk/";
 let source_you = "https://www.news24.com/You";
 ///
-cron.schedule("0 4 * * SUN", () => {
+cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "MAGZ fired at:" + Date());
   main(source_men, source_women, source_vogue, source_you);
 }); 

@@ -185,7 +185,7 @@ async function main(uri_cgtn) {
 }
 let source_cgtn = "https://www.cgtn.com/";
 
-cron.schedule("0 3 * * *", () => {
+cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "CGTN fired at:" + Date());
   main(source_cgtn);
 }); 

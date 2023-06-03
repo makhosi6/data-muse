@@ -27,7 +27,7 @@ const dataFive = new Puppet(sources.tech, "technology");
 //Six
 const dataSix = new Puppet(sources.sport, "sport");
 
-cron.schedule("0 3 * * *", () => {
+cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "SAan fired at:" + Date());
   dataOne.puppet();
   dataTwo.puppet();

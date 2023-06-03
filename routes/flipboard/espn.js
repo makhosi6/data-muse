@@ -9,7 +9,7 @@ const Puppet = puppet.Scrapper;
 let source = "https://flipboard.com/@espn";
 const dataOne = new Puppet(source, "ESPN");
 
-cron.schedule("0 3 * * *", () => {
+cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "ESPN fired at:" + Date());
   dataOne.puppet();
 }); 

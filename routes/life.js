@@ -111,10 +111,10 @@ async function main(uri) {
 }
 let source = "https://www.w24.co.za/";
 
-cron.schedule("0 4 * * SUN", () => {
-//         console.log('\x1b[46m%s\x1b[0m', "W24 fired at:" + Date());
-//         main(source);
-// });
+cron.schedule("0 */6 * * *", () => {
+        console.log('\x1b[46m%s\x1b[0m', "W24 fired at:" + Date());
+        main(source);
+});
 /////
 Routa.get('/w24', (req, res) => {
     res.send({

@@ -28,7 +28,7 @@ const dataFive = new Puppet(sources.science, "national geographic");
 //six
 const dataSix = new Puppet(sources.travel, "national geographic");
 
-cron.schedule("0 4 * * SUN", () => {
+cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "NAT_GEO fired at:" + Date());
   //
   dataOne.puppet();

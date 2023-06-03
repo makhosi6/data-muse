@@ -5,7 +5,7 @@ const helpers = require('./store/helpers');
     const browser = await puppeteer.launch({
         args: helpers.argsArr,
         defaultViewport: null,
-        headless: helpers.bool,
+        // headless: helpers.bool,
         // executablePath: helpers.exPath
     });
  

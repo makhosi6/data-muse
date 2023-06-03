@@ -284,7 +284,7 @@ let source_inter =
   "https://www.soccerladuma.co.za/news/articles/international/landing";
 let source_local = "https://www.soccerladuma.co.za/news/articles/local/landing";
 
-cron.schedule("0 3 * * *", () => {
+cron.schedule("0 */6 * * *", () => {
   console.log("\x1b[46m%s\x1b[0m", "LADUMA fired at:" + Date());
   main(source_inter, source_local);
 }); 

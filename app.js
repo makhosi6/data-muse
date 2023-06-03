@@ -115,9 +115,9 @@ setTimeout(() => {
     });
     app.use('/api/v1/', Routa);
     const env = process.env.NODE_ENV || "development";
-    const PORT = process.env.PORT || "9090";
+    const PORT = process.env.PORT || "9041";
     // Fiv nat-geo uri
-    app.listen(PORT, console.log('\x1b[45m%s\x1b[0m', `Running in ${env} mode on port ${PORT} (http://{IP}:9090). ${Routa.length} routes went live on ${Date()}`));
+    app.listen(PORT, console.log('\x1b[45m%s\x1b[0m', `NO!!  Running in ${env} mode on port ${PORT} (http://{IP}:9090). ${Routa.length} routes went live on ${Date()}`));
 
 }, 20000);
 /*

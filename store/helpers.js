@@ -4,7 +4,16 @@ const fetch = require('node-fetch');
 const filterAll = require('filter-empty')
 require('dotenv').config();
 
-
+/**
+ *
+ * @param str string
+ * @returns
+ */
+function hashCode(str) {
+  return Array.from(str)
+    .reduce((s, c) => (Math.imul(31, s) + c.charCodeAt(0)) | 0, 0)
+    .toString();
+}
 
 module.exports = {
   Routa,
@@ -16,9 +25,9 @@ module.exports = {
   sanitize: (data)=> filterAll(data),
   interfaceAPI: async (data) => {
     
-    fetch(process.env.MUSE_API, {
-      method: "post",
-      body: JSON.stringify(filterAll(data)),
+    fetch(process.env.MUSE_API +"/articles", {
+      method: "POST",
+      body: JSON.stringify(filterAll({...data, ...{id: hashCode(data.url)}})),
       headers: {
         Authorization: `${process.env.TOKEN}`,
         "Content-type": "application/json",
@@ -26,12 +35,12 @@ module.exports = {
       },
     })
       .then((res) => res.json())
-      // .then(json => console.log(json))
+      .then(json => console.log(json))
       .then(() => {
-        //console.info("\x1b[32m%s\x1b[0m", "interfaceAPI: Success");
+        console.info("\x1b[32m%s\x1b[0m", "interfaceAPI: Success");
       })
       .catch((e) => {
-        //console.log(data);
+        console.log(e);
         throw new Error(e);
         // console.log({e});
       });
